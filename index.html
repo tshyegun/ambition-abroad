@@ -16,6 +16,7 @@
   html { scroll-behavior: smooth; }
   body {
     font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+    font-size: 1rem;
     background: #F8F6F2;
     color: #0C0B0A;
     -webkit-font-smoothing: antialiased;
@@ -94,7 +95,7 @@
   }
   .eyebrow-rule { display: inline-block; width: 18px; height: 1px; background: var(--accent); }
   .hero-h1 {
-    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-size: clamp(2rem, 8vw, 4.2rem);
     font-weight: 500; line-height: 1.06;
     letter-spacing: -0.03em; color: var(--ink);
     margin-bottom: 4px;
@@ -107,7 +108,7 @@
     margin-bottom: 28px; display: block;
   }
   .hero-sub {
-    font-size: 1rem; font-weight: 400;
+    font-size: clamp(1rem, 2.5vw, 1.1rem); font-weight: 400;
     line-height: 1.7; color: #68635C;
     max-width: 480px; margin: 0 auto 36px;
   }
@@ -191,7 +192,7 @@
   }
   .section-tag-rule { display: inline-block; width: 16px; height: 1px; background: var(--accent); }
   .section-h2 {
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-size: clamp(1.75rem, 4vw, 2.4rem);
     font-weight: 500; letter-spacing: -0.03em;
     line-height: 1.12; color: var(--ink);
   }
@@ -223,7 +224,7 @@
     margin-bottom: 8px;
   }
   .benefit-desc {
-    font-size: 0.875rem; color: #68635C; line-height: 1.65;
+    font-size: 1rem; color: #68635C; line-height: 1.65;
   }
 
   /* Blueprints section */
@@ -304,7 +305,7 @@
     margin-bottom: 18px; flex: 1;
   }
   .blueprint-bullets li {
-    font-size: 0.8rem; color: #68635C; line-height: 1.5;
+    font-size: 0.9375rem; color: #68635C; line-height: 1.5;
     display: flex; align-items: flex-start; gap: 8px;
   }
   .blueprint-bullets li::before {
@@ -343,7 +344,7 @@
     padding: 24px;
   }
   .testimonial-quote {
-    font-size: 0.9rem; color: var(--ink-soft);
+    font-size: 1rem; color: var(--ink-soft);
     line-height: 1.7; font-style: italic;
     margin-bottom: 20px;
   }
@@ -387,7 +388,7 @@
     display: flex; align-items: center; gap: 8px; margin-bottom: 18px;
   }
   .about-h2 {
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-size: clamp(1.75rem, 3vw, 2.2rem);
     font-weight: 500; letter-spacing: -0.03em;
     line-height: 1.12; color: var(--ink); margin-bottom: 20px;
   }
@@ -396,7 +397,7 @@
     font-style: italic; color: var(--accent);
   }
   .about-body {
-    font-size: 0.9rem; color: #68635C; line-height: 1.75;
+    font-size: 1rem; color: #68635C; line-height: 1.75;
     margin-bottom: 10px;
   }
 
@@ -485,6 +486,42 @@
   .footer-link:hover { color: rgba(255,255,255,0.7); }
   .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.18); }
 
+  /* Nav links */
+  .nav-links {
+    display: flex; align-items: center; gap: 20px;
+  }
+  .nav-link {
+    font-size: 0.8rem; font-weight: 500; color: var(--ink-soft);
+    text-decoration: none; transition: color 160ms;
+    letter-spacing: 0.01em;
+  }
+  .nav-link:hover { color: var(--accent); }
+  @media (max-width: 600px) { .nav-links { display: none; } }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heroFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-inner {
+    animation: heroFadeIn 450ms var(--ease-out) both;
+  }
+  .anim {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity 360ms var(--ease-out), transform 360ms var(--ease-out);
+  }
+  .anim.visible { opacity: 1; transform: translateY(0); }
+  .anim-d1 { transition-delay: 80ms; }
+  .anim-d2 { transition-delay: 160ms; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-inner { animation: none; }
+    .anim { opacity: 1; transform: none; transition: none; }
+  }
+
   /* Responsive */
   @media (max-width: 860px) {
     .cards-grid, .testimonials-grid { grid-template-columns: 1fr; }
@@ -508,6 +545,11 @@
     <span class="nav-logo-sans">Ambition</span>
     <span class="nav-logo-serif">Abroad</span>
   </a>
+  <div class="nav-links">
+    <a class="nav-link" href="https://www.youtube.com/@takumi.ambition-abroad?sub_confirmation=1" target="_blank" rel="noopener">YouTube</a>
+    <a class="nav-link" href="https://www.instagram.com/takumi.shyegun/" target="_blank" rel="noopener">Instagram</a>
+    <a class="nav-link" href="https://www.linkedin.com/in/takumi-shyegun-/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
   <a href="#hero-form" class="nav-cta">Get the blueprint</a>
 </nav>
 
@@ -520,7 +562,7 @@
       <span class="eyebrow-rule"></span>
     </div>
 
-    <h1 class="hero-h1">The playbook for <span style="white-space:nowrap">building a business <span style="font-family:'ITC Garamond Std',Georgia,serif;font-style:italic;color:var(--accent);">abroad</span></span></h1>
+    <h1 class="hero-h1">The playbook for building a business <span style="font-family:'ITC Garamond Std',Georgia,serif;font-style:italic;color:var(--accent);">abroad</span></h1>
 
     <p class="hero-sub">
       Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.
@@ -528,27 +570,21 @@
 
     <!-- Form -->
     <div id="hero-form">
-      <form class="opt-form" id="heroForm">
-        <input type="email" class="opt-input" id="heroEmail" placeholder="your@email.com" required autocomplete="email" />
-        <button type="submit" class="opt-btn">Subscribe free — get the first blueprint</button>
-        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;">
-          <div style="display:flex;align-items:center;">
-            <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="#D4C4A8"/><circle cx="15" cy="12" r="5" fill="#B8A882"/><ellipse cx="15" cy="25" rx="9" ry="6" fill="#B8A882"/></svg></div>
-            <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="#C2A87A"/><circle cx="15" cy="12" r="5" fill="#A88D60"/><ellipse cx="15" cy="25" rx="9" ry="6" fill="#A88D60"/></svg></div>
-            <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="#BEB09A"/><circle cx="15" cy="12" r="5" fill="#A09278"/><ellipse cx="15" cy="25" rx="9" ry="6" fill="#A09278"/></svg></div>
-            <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="#CAB890"/><circle cx="15" cy="12" r="5" fill="#AC9870"/><ellipse cx="15" cy="25" rx="9" ry="6" fill="#AC9870"/></svg></div>
-            <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="#D8C8A8"/><circle cx="15" cy="12" r="5" fill="#BAA888"/><ellipse cx="15" cy="25" rx="9" ry="6" fill="#BAA888"/></svg></div>
-          </div>
-          <div style="text-align:left;">
-            <div style="color:#C9963A;font-size:0.7rem;margin-bottom:1px;">★★★★★</div>
-            <div style="font-size:0.72rem;color:#7A7774;">Joined by <strong style="color:#0C0B0A;font-weight:600;">1,500+ subscribers</strong></div>
-          </div>
+      <div data-supascribe-embed-id="652297960824" data-supascribe-subscribe></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;">
+        <div style="display:flex;align-items:center;">
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=1" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=2" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=3" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=4" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=5" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
         </div>
-        <p class="opt-note">No spam. Unsubscribe any time.</p>
-      </form>
-      <div class="success-box" id="heroSuccess" style="display:none;">
-        <p>Blueprint on its way. See you next week.</p>
+        <div style="text-align:left;">
+          <div style="color:#C9963A;font-size:0.7rem;margin-bottom:1px;">★★★★★</div>
+          <div style="font-size:0.72rem;color:#7A7774;">Joined by <strong style="color:#0C0B0A;font-weight:600;">1,500+ subscribers</strong></div>
+        </div>
       </div>
+      <p class="opt-note">No spam. Unsubscribe any time.</p>
     </div>
 
     <!-- Stats -->
@@ -572,7 +608,7 @@
 <!-- Benefits -->
 <section class="benefits">
   <div class="section-inner">
-    <div class="section-header">
+    <div class="section-header anim">
       <div class="section-tag">
         <span class="section-tag-rule"></span>
         What you get
@@ -580,17 +616,17 @@
       <h2 class="section-h2">Not only inspiration.<br><em>Execution too.</em></h2>
     </div>
     <div class="cards-grid">
-      <div class="benefit-card">
+      <div class="benefit-card anim">
         <span class="benefit-num">01</span>
         <div class="benefit-title">Episode playbooks</div>
         <p class="benefit-desc">The key lessons and mistakes from each founder, turned into clear steps you can actually apply.</p>
       </div>
-      <div class="benefit-card">
+      <div class="benefit-card anim anim-d1">
         <span class="benefit-num">02</span>
         <div class="benefit-title">Foreign systems, decoded</div>
         <p class="benefit-desc">Visas, banking, taxes, incorporation, explained through what actually happened, not what guides say.</p>
       </div>
-      <div class="benefit-card">
+      <div class="benefit-card anim anim-d2">
         <span class="benefit-num">03</span>
         <div class="benefit-title">Exclusive content &amp; resources</div>
         <p class="benefit-desc">Exclusive interviews, frameworks, lessons and tools that never make it to the YouTube channel.
@@ -603,7 +639,7 @@
 <!-- Recent Blueprints -->
 <section class="blueprints">
   <div class="section-inner">
-    <div class="blueprints-header">
+    <div class="blueprints-header anim">
       <div>
         <div class="section-tag">
           <span class="section-tag-rule"></span>
@@ -616,10 +652,10 @@
     <div class="cards-grid">
 
       <!-- Card 1 -->
-      <div class="blueprint-card">
+      <div class="blueprint-card anim">
         <div class="blueprint-thumb" style="background: #EDE5D8;">
           <span class="blueprint-badge">Blueprint</span>
-          <img src="photo 1.jpg" alt="Sendai, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.92;" />
+          <img src="photo 1.jpg" alt="Sendai, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
         </div>
         <div class="blueprint-body">
           <div class="blueprint-location">
@@ -640,10 +676,10 @@
       </div>
 
       <!-- Card 2 -->
-      <div class="blueprint-card">
+      <div class="blueprint-card anim anim-d1">
         <div class="blueprint-thumb" style="background: #E8DDD0;">
           <span class="blueprint-badge">Blueprint</span>
-          <img src="Photo 2.jpg" alt="Tokyo, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.92;" />
+          <img src="Photo 2.jpg" alt="Tokyo, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
         </div>
         <div class="blueprint-body">
           <div class="blueprint-location">
@@ -664,10 +700,10 @@
       </div>
 
       <!-- Card 3 -->
-      <div class="blueprint-card">
+      <div class="blueprint-card anim anim-d2">
         <div class="blueprint-thumb" style="background: #E4D8C8;">
           <span class="blueprint-badge">Blueprint</span>
-          <img src="Photo 3.jpg" alt="Tokyo, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.92;" />
+          <img src="Photo 3.jpg" alt="Tokyo, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
         </div>
         <div class="blueprint-body">
           <div class="blueprint-location">
@@ -698,35 +734,35 @@
       <span class="section-tag-rule"></span>
       Community
     </div>
-    <h2 class="section-h2">From builders <em>just like you</em></h2>
+    <h2 class="section-h2 anim">From builders <em>just like you</em></h2>
     <div class="testimonials-grid">
-      <div class="testimonial-card">
+      <div class="testimonial-card anim">
         <p class="testimonial-quote">"Finally a show that treats expat entrepreneurship seriously. The blueprint newsletter alone gave me more useful information than 6 months of Googling."</p>
         <div class="testimonial-divider"></div>
         <div style="display:flex;align-items:center;gap:10px;">
-          <div class="testimonial-avatar"></div>
+          <img src="https://i.pravatar.cc/56?img=12" alt="Alex W." class="testimonial-avatar" style="object-fit:cover;" />
           <div>
             <div class="testimonial-name">Alex W.</div>
             <div class="testimonial-loc">Bangkok, Thailand</div>
           </div>
         </div>
       </div>
-      <div class="testimonial-card">
+      <div class="testimonial-card anim anim-d1">
         <p class="testimonial-quote">"I was on the fence about moving to Japan to start my agency. One episode basically made the decision for me. Put in my notice two weeks later."</p>
         <div class="testimonial-divider"></div>
         <div style="display:flex;align-items:center;gap:10px;">
-          <div class="testimonial-avatar"></div>
+          <img src="https://i.pravatar.cc/56?img=20" alt="Maria C." class="testimonial-avatar" style="object-fit:cover;" />
           <div>
             <div class="testimonial-name">Maria C.</div>
             <div class="testimonial-loc">Lisbon, Portugal</div>
           </div>
         </div>
       </div>
-      <div class="testimonial-card">
+      <div class="testimonial-card anim anim-d2">
         <p class="testimonial-quote">"The only newsletter I open every week. Dense, honest, and actionable. The visa and incorporation breakdowns alone are worth subscribing for."</p>
         <div class="testimonial-divider"></div>
         <div style="display:flex;align-items:center;gap:10px;">
-          <div class="testimonial-avatar"></div>
+          <img src="https://i.pravatar.cc/56?img=15" alt="James T." class="testimonial-avatar" style="object-fit:cover;" />
           <div>
             <div class="testimonial-name">James T.</div>
             <div class="testimonial-loc">Toronto, Canada</div>
@@ -740,7 +776,7 @@
 <!-- About -->
 <section class="about">
   <div class="about-inner">
-    <div>
+    <div class="anim">
       <div class="about-label">
         <span style="display:inline-block;width:16px;height:1px;background:var(--accent)"></span>
         The Mission
@@ -752,15 +788,15 @@
       <p class="about-body">Each episode follows a founder who left their home country and built something that actually works. No lifestyle content. No vague inspiration. Just real decisions, real mistakes, and real playbooks.</p>
       <p class="about-body" style="margin-bottom:0;">The newsletter is where it goes deeper. Full breakdowns, real numbers, and the lessons you can actually apply.<br><br>This is the resource I wish I had when I started.</p>
     </div>
-    <div class="about-avatar-wrap">
-      <img src="Photo 4.jpg" alt="Takumi Shyegun" style="width:100%;height:100%;object-fit:cover;object-position:center top;" />
+    <div class="about-avatar-wrap anim anim-d1">
+      <img src="Photo 4.jpg" alt="Takumi Shyegun" style="width:100%;height:100%;object-fit:cover;object-position:center;" />
     </div>
   </div>
 </section>
 
 <!-- Dark CTA -->
 <section class="dark-cta">
-  <div class="dark-cta-inner">
+  <div class="dark-cta-inner anim">
     <div class="dark-eyebrow">
       <span class="dark-eyebrow-rule"></span>
       Join the Community
@@ -772,27 +808,21 @@
       Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.
     </p>
     <div class="dark-form">
-      <form id="darkForm">
-        <input type="email" class="dark-input" id="darkEmail" placeholder="your@email.com" required autocomplete="email" />
-        <button type="submit" class="dark-btn">Get the blueprint — it's free</button>
-        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;">
-          <div style="display:flex;align-items:center;">
-            <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="#4A4038"/><circle cx="15" cy="12" r="5" fill="#3A3028"/><ellipse cx="15" cy="25" rx="9" ry="6" fill="#3A3028"/></svg></div>
-            <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="#5A4A3A"/><circle cx="15" cy="12" r="5" fill="#483A2C"/><ellipse cx="15" cy="25" rx="9" ry="6" fill="#483A2C"/></svg></div>
-            <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="#3E3830"/><circle cx="15" cy="12" r="5" fill="#2E2A24"/><ellipse cx="15" cy="25" rx="9" ry="6" fill="#2E2A24"/></svg></div>
-            <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="#524438"/><circle cx="15" cy="12" r="5" fill="#40342A"/><ellipse cx="15" cy="25" rx="9" ry="6" fill="#40342A"/></svg></div>
-            <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="#463C32"/><circle cx="15" cy="12" r="5" fill="#362E26"/><ellipse cx="15" cy="25" rx="9" ry="6" fill="#362E26"/></svg></div>
-          </div>
-          <div style="text-align:left;">
-            <div style="color:#C9963A;font-size:0.7rem;margin-bottom:1px;">★★★★★</div>
-            <div style="font-size:0.72rem;color:rgba(255,255,255,0.45);">Joined by <strong style="color:#fff;font-weight:600;">1,500+ subscribers</strong></div>
-          </div>
+      <div data-supascribe-embed-id="652297960824" data-supascribe-subscribe></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;">
+        <div style="display:flex;align-items:center;">
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=7" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=8" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=9" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=10" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=11" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
         </div>
-        <p class="dark-note">No spam. Unsubscribe any time.</p>
-      </form>
-      <div id="darkSuccess" style="display:none; background:rgba(201,150,58,0.12); border:1px solid rgba(201,150,58,0.3); border-radius:8px; padding:18px 22px; margin-top:8px;">
-        <p style="font-family:'ITC Garamond Std',Georgia,serif; font-style:italic; font-size:1rem; color:var(--accent);">Blueprint on its way. See you next week.</p>
+        <div style="text-align:left;">
+          <div style="color:#C9963A;font-size:0.7rem;margin-bottom:1px;">★★★★★</div>
+          <div style="font-size:0.72rem;color:rgba(255,255,255,0.55);">Joined by <strong style="color:#fff;font-weight:600;">1,500+ subscribers</strong></div>
+        </div>
       </div>
+      <p class="dark-note">No spam. Unsubscribe any time.</p>
     </div>
   </div>
 </section>
@@ -933,6 +963,20 @@
 
   </div>
 </div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+</script>
+
+<script src="https://js.supascribe.com/v1/loader/ycHsOPdWZpO1d3kPx52nio86bKr2.js" async></script>
 
 </body>
 </html>
