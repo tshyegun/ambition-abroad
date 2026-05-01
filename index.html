@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ambition Abroad — Free Weekly Blueprint</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="shortcut icon" href="favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
 <!-- Open Graph -->
 <meta property="og:title" content="Ambition Abroad" />
@@ -70,16 +74,15 @@
     display: flex; align-items: center; justify-content: space-between;
   }
   .nav-logo {
-    display: flex; align-items: baseline; gap: 4px;
-    text-decoration: none;
+    display: flex; align-items: center;
+    text-decoration: none; flex-shrink: 0;
   }
-  .nav-logo-sans {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 500; font-size: 0.95rem; color: var(--ink);
+  .nav-logo img {
+    height: 40px; width: auto;
+    display: block;
   }
-  .nav-logo-serif {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; font-size: 0.95rem; color: var(--accent);
+  @media (max-width: 400px) {
+    .nav-logo img { height: 32px; }
   }
   .nav-cta {
     font-family: 'Inter Tight', sans-serif;
@@ -561,9 +564,8 @@
 
 <!-- Nav -->
 <nav class="nav">
-  <a href="#" class="nav-logo">
-    <span class="nav-logo-sans">Ambition</span>
-    <span class="nav-logo-serif">Abroad</span>
+  <a href="#top" class="nav-logo">
+    <img src="newsletter-plane.png" alt="Ambition Abroad" />
   </a>
   <div class="nav-links">
     <a class="nav-link" href="https://www.youtube.com/@takumi.ambition-abroad?sub_confirmation=1" target="_blank" rel="noopener">YouTube</a>
