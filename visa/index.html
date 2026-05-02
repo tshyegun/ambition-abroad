@@ -1231,29 +1231,50 @@ const BLOCKED_DOMAINS = new Set([
 ]);
 
 async function validateEmail(email) {
+  console.log('[validateEmail] input:', email);
+
+  // 1. Format — TLD must be letters only, 2+ chars
   if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
+    console.log('[validateEmail] blocked: format');
     return { valid: false, reason: 'Please enter a valid email address (e.g. you@example.com).' };
   }
+
+  // 2. Blocklist
   const domain = email.split('@')[1].toLowerCase();
+  console.log('[validateEmail] domain:', domain, '| blocklisted:', BLOCKED_DOMAINS.has(domain));
   if (BLOCKED_DOMAINS.has(domain)) {
     return { valid: false, reason: 'Please use a real email address.' };
   }
+
+  // 3. Abstract API — disposable check + MX/deliverability
   if (ABSTRACT_API_KEY) {
     try {
       const res = await fetch(
         `https://emailvalidation.abstractapi.com/v1/?api_key=${ABSTRACT_API_KEY}&email=${encodeURIComponent(email)}`
       );
-      if (res.ok) {
+      if (!res.ok) {
+        console.warn('[validateEmail] Abstract API non-ok status:', res.status, '— falling back to local checks');
+      } else {
         const data = await res.json();
-        if (data.is_disposable_email?.value) {
+        console.log('[validateEmail] Abstract API:', {
+          deliverability: data.deliverability,
+          disposable: data.is_disposable_email?.value,
+          mx: data.is_mx_found?.value,
+          smtp: data.is_smtp_valid?.value,
+        });
+        if (data.is_disposable_email?.value === true) {
           return { valid: false, reason: 'Please use a real email address.' };
         }
-        if (data.deliverability === 'UNDELIVERABLE') {
+        if (data.deliverability === 'UNDELIVERABLE' || data.is_mx_found?.value === false) {
           return { valid: false, reason: 'That email address doesn\'t appear to exist.' };
         }
       }
-    } catch { /* API unavailable — allow submission */ }
+    } catch (err) {
+      console.warn('[validateEmail] Abstract API failed (CORS or network):', err.message, '— local checks only');
+    }
   }
+
+  console.log('[validateEmail] passed');
   return { valid: true };
 }
 
@@ -1310,6 +1331,7 @@ async function handleOptIn(e) {
   btn.disabled = true;
 
   const { valid, reason } = await validateEmail(emailVal);
+  console.log('[handleOptIn] result:', { valid, reason });
 
   if (!valid) {
     emailError.textContent = reason;
