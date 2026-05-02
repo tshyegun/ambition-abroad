@@ -3,1003 +3,1722 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ambition Abroad</title>
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="shortcut icon" href="favicon-32x32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-
-<!-- Open Graph -->
-<meta property="og:title" content="Ambition Abroad" />
-<meta property="og:description" content="The playbook for building a business abroad." />
-<meta property="og:image" content="https://ambition-abroad.com/Social_Sharing_Photo.jpg" />
-<meta property="og:url" content="https://ambition-abroad.com" />
-<meta property="og:type" content="website" />
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Ambition Abroad" />
-<meta name="twitter:description" content="The playbook for building a business abroad." />
-<meta name="twitter:image" content="https://ambition-abroad.com/Social_Sharing_Photo.jpg" />
+<title>Japan Visa Evaluator — Ambition Abroad</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   @font-face {
     font-family: 'ITC Garamond Std';
-    src: url('fonts/ITCGaramondStd-BookNarrowItalic.otf') format('opentype');
+    src: url('project/fonts/ITCGaramondStd-BookNarrowItalic.otf') format('opentype');
     font-weight: 400; font-style: italic;
   }
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
-    font-size: 1rem;
-    background: #F8F6F2;
-    color: #0C0B0A;
-    -webkit-font-smoothing: antialiased;
+  @font-face {
+    font-family: 'Inter';
+    src: url('project/fonts/Inter-Variable.ttf') format('truetype');
+    font-weight: 100 900; font-style: normal;
   }
-  * { text-wrap: pretty; }
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: #F8F6F2; }
-  ::-webkit-scrollbar-thumb { background: #C8C4BE; border-radius: 3px; }
 
-  /* Tokens */
   :root {
-    --ink: #0C0B0A;
-    --ink-soft: #3A3835;
-    --ink-faint: #7A7774;
-    --paper: #F8F6F2;
-    --white: #FFFFFF;
-    --accent: #C9963A;
-    --accent-deep: #8B6520;
-    --accent-pale: #F5E6CA;
-    --gray-100: #EDEBE8;
-    --gray-200: #E0DDD8;
-    --gray-300: #C8C4BE;
-    --gray-400: #A8A39C;
-    --gray-800: #2E2B27;
-    --gray-900: #1A1816;
+    --color-ink: #0C0B0A;
+    --color-ink-soft: #3A3835;
+    --color-ink-faint: #7A7774;
+    --color-paper: #F8F6F2;
+    --color-white: #FFFFFF;
+    --color-accent: #C9963A;
+    --color-accent-deep: #8B6520;
+    --color-accent-pale: #F5E6CA;
+    --color-gray-50: #F4F3F1;
+    --color-gray-100: #EDEBE8;
+    --color-gray-200: #E0DDD8;
+    --color-gray-300: #C8C4BE;
+    --color-gray-400: #A8A39C;
+    --color-gray-500: #88837B;
+    --color-gray-700: #4A4641;
+    --color-gray-800: #2E2B27;
+    --color-gray-900: #1A1816;
+    --font-sans: 'Inter Tight', 'Inter', system-ui, sans-serif;
+    --font-serif: 'ITC Garamond Std', Garamond, Georgia, serif;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  /* Nav */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    min-height: 100vh;
+    text-wrap: pretty;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--color-paper); }
+  ::-webkit-scrollbar-thumb { background: var(--color-gray-300); border-radius: 3px; }
+
+  /* ── Page system ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── Nav ── */
   .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(248,246,242,0.88);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--gray-100);
-    padding: 0 32px;
     height: 60px;
     display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px;
+    transition: background 280ms var(--ease-out), border-color 280ms;
   }
-  .nav-logo {
-    display: flex; align-items: center;
-    text-decoration: none; flex-shrink: 0;
+  .nav.dark { background: rgba(12,11,10,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .nav.light { background: rgba(248,246,242,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #EDEBE8; }
+  .nav-logo { display: flex; align-items: baseline; gap: 5px; text-decoration: none; }
+  .nav-logo-main { font-family: var(--font-sans); font-weight: 500; font-size: 1rem; letter-spacing: -0.01em; }
+  .nav-logo-italic { font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--color-accent); }
+  .nav.dark .nav-logo-main { color: #fff; }
+  .nav.light .nav-logo-main { color: var(--color-ink); }
+  .nav.light .nav-step { color: var(--color-gray-400); }
+  .nav-step {
+    font-family: var(--font-sans); font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-gray-400);
   }
-  .nav-logo img {
-    height: 40px; width: auto;
-    display: block;
-  }
-  @media (max-width: 400px) {
-    .nav-logo img { height: 32px; }
-  }
-  .nav-cta {
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 0.78rem; font-weight: 600;
-    background: var(--accent); color: #fff;
-    border: none; border-radius: 4px;
-    padding: 8px 16px; cursor: pointer;
-    transition: background 200ms var(--ease-out);
-    text-decoration: none;
-  }
-  .nav-cta:hover { background: var(--accent-deep); }
+  .nav.dark .nav-step { color: rgba(255,255,255,0.35); }
 
-  /* Hero */
-  .hero {
-    background: var(--white);
-    padding: 130px 32px 80px;
-    text-align: center;
-    border-bottom: 1px solid var(--gray-100);
+  /* ── Buttons ── */
+  .btn-primary {
+    font-family: var(--font-sans); font-size: 0.9rem; font-weight: 600;
+    background: var(--color-accent); color: #fff; border: none;
+    padding: 13px 28px; border-radius: 4px; cursor: pointer;
+    transition: background 200ms, transform 120ms;
+    white-space: nowrap;
   }
-  .hero-inner { max-width: 680px; margin: 0 auto; }
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
-    margin-bottom: 24px;
+  .btn-primary:hover { background: var(--color-accent-deep); }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-secondary {
+    font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500;
+    background: transparent; color: var(--color-ink-soft);
+    border: 1px solid var(--color-gray-300); padding: 11px 22px;
+    border-radius: 4px; cursor: pointer;
+    transition: border-color 200ms, color 200ms;
   }
-  .eyebrow-rule { display: inline-block; width: 18px; height: 1px; background: var(--accent); }
-  .hero-h1 {
-    font-size: clamp(2rem, 8vw, 4.2rem);
-    font-weight: 500; line-height: 1.06;
-    letter-spacing: -0.03em; color: var(--ink);
-    margin-bottom: 4px;
+  .btn-secondary:hover { border-color: var(--color-ink-soft); color: var(--color-ink); }
+  .btn-ghost {
+    font-family: var(--font-sans); font-size: 0.8rem; font-weight: 500;
+    background: transparent; color: rgba(255,255,255,0.45); border: none;
+    cursor: pointer; padding: 0; transition: color 160ms;
   }
-  .hero-h1-serif {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic;
-    font-size: clamp(2.6rem, 6vw, 4.2rem);
-    line-height: 1.06; color: var(--accent);
-    margin-bottom: 28px; display: block;
-  }
-  .hero-sub {
-    font-size: clamp(1rem, 2.5vw, 1.1rem); font-weight: 400;
-    line-height: 1.7; color: #68635C;
-    max-width: 480px; margin: 0 auto 36px;
-  }
+  .btn-ghost:hover { color: rgba(255,255,255,0.75); }
 
-  /* Form */
-  .opt-form {
-    display: flex; flex-direction: column; gap: 10px;
-    max-width: 420px; margin: 0 auto;
+  /* ── Inputs ── */
+  .input {
+    width: 100%; background: #fff; border: 1.5px solid var(--color-gray-300);
+    border-radius: 4px; padding: 13px 16px;
+    font-family: var(--font-sans); font-size: 1rem; color: var(--color-ink);
+    outline: none; transition: border-color 200ms;
   }
-  .opt-input {
-    background: var(--paper);
-    border: 1px solid var(--gray-300);
-    border-radius: 4px;
-    padding: 14px 18px;
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 0.95rem; color: var(--ink);
-    outline: none;
-    transition: border-color 180ms var(--ease-out), background 180ms;
-    text-align: center;
-  }
-  .opt-input::placeholder { color: var(--gray-400); }
-  .opt-input:focus { border-color: var(--accent); background: var(--white); }
-  .opt-btn {
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 0.88rem; font-weight: 700;
-    background: var(--accent); color: #fff;
-    border: none; border-radius: 4px;
-    padding: 14px 24px; cursor: pointer;
-    transition: background 220ms var(--ease-out), transform 120ms;
-  }
-  .opt-btn:hover { background: var(--accent-deep); }
-  .opt-btn:active { transform: scale(0.98); }
-  .opt-note {
-    font-size: 0.72rem; color: var(--gray-400);
-    margin-top: 6px; letter-spacing: 0.02em;
-  }
+  .input:focus { border-color: var(--color-accent); }
+  .input::placeholder { color: var(--color-gray-400); }
 
-  /* Success state */
-  .success-box {
-    background: var(--accent-pale);
-    border: 1px solid #E8CFA0;
-    border-radius: 8px;
-    padding: 20px 24px;
-    max-width: 420px; margin: 0 auto;
-  }
-  .success-box p {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; font-size: 1.1rem; color: var(--accent-deep);
-  }
-
-  /* Stats */
-  .stats {
-    display: flex; justify-content: center;
-    gap: clamp(28px, 6vw, 72px);
-    margin-top: 56px;
-    padding-top: 32px;
-    border-top: 1px solid var(--gray-100);
-  }
-  .stat-num {
-    font-size: 1.6rem; font-weight: 600;
-    letter-spacing: -0.03em; color: var(--ink);
-  }
-  .stat-lbl {
-    font-size: 0.72rem; font-weight: 500;
-    color: var(--gray-400); letter-spacing: 0.06em;
-    text-transform: uppercase; margin-top: 3px;
-  }
-
-  /* Benefits section */
-  .benefits {
-    background: var(--paper);
-    padding: 88px 32px;
-  }
-  .section-inner { max-width: 1060px; margin: 0 auto; }
-  .section-header { margin-bottom: 48px; }
-  .section-tag {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
-    margin-bottom: 14px;
-  }
-  .section-tag-rule { display: inline-block; width: 16px; height: 1px; background: var(--accent); }
-  .section-h2 {
-    font-size: clamp(1.75rem, 4vw, 2.4rem);
-    font-weight: 500; letter-spacing: -0.03em;
-    line-height: 1.12; color: var(--ink);
-  }
-  .section-h2 em {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; color: var(--accent);
-  }
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-  }
-  .benefit-card {
-    background: var(--white);
-    border: 1px solid var(--gray-100);
-    border-radius: 8px;
-    padding: 28px 24px;
-    transition: box-shadow 220ms var(--ease-out);
-  }
-  .benefit-card:hover { box-shadow: 0 4px 16px rgba(12,11,10,0.08); }
-  .benefit-num {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; font-size: 2rem;
-    color: var(--accent-pale); line-height: 1;
-    margin-bottom: 14px; display: block;
-  }
-  .benefit-title {
-    font-size: 0.95rem; font-weight: 600; color: var(--ink);
-    margin-bottom: 8px;
-  }
-  .benefit-desc {
-    font-size: 1rem; color: #68635C; line-height: 1.65;
-  }
-
-  /* Blueprints section */
-  .blueprints {
-    background: var(--white);
-    padding: 88px 32px;
-    border-top: 1px solid var(--gray-100);
-  }
-  .blueprints-header {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    margin-bottom: 40px; flex-wrap: wrap; gap: 16px;
-  }
-  .blueprints-all {
-    font-size: 0.75rem; font-weight: 600;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--accent); text-decoration: none;
-    display: flex; align-items: center; gap: 6px;
-    transition: color 180ms var(--ease-out);
-    white-space: nowrap; padding-bottom: 4px;
-  }
-  .blueprints-all:hover { color: var(--accent-deep); }
-  .blueprint-card {
-    background: var(--paper);
-    border: 1px solid var(--gray-100);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: box-shadow 220ms var(--ease-out), transform 220ms var(--ease-out);
-    display: flex; flex-direction: column;
-  }
-  .blueprint-card:hover {
-    box-shadow: 0 6px 24px rgba(12,11,10,0.10);
-    transform: translateY(-2px);
-  }
-  .blueprint-thumb {
+  /* ── PAGE 1: OPT-IN ── */
+  #page-optin {
+    min-height: 100vh;
+    background: var(--color-white);
     position: relative;
-    height: 170px;
-    display: flex; align-items: center; justify-content: center;
     overflow: hidden;
   }
-  .blueprint-thumb-text {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic;
-    font-size: 0.72rem;
-    color: rgba(12,11,10,0.18);
-    text-align: center;
-    line-height: 1.8;
-    user-select: none;
+  .optin-bg-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(201,150,58,0.06) 60px, rgba(201,150,58,0.06) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(201,150,58,0.06) 60px, rgba(201,150,58,0.06) 61px);
     pointer-events: none;
   }
-  .blueprint-badge {
-    position: absolute; top: 12px; left: 12px;
-    font-size: 0.58rem; font-weight: 700;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    background: var(--accent); color: #fff;
-    padding: 4px 8px; border-radius: 3px;
+  .optin-accent-glow {
+    position: absolute; top: -200px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,150,58,0.08) 0%, transparent 70%);
+    pointer-events: none;
   }
-  .blueprint-body {
-    padding: 20px 22px 22px;
-    display: flex; flex-direction: column; flex: 1;
-  }
-  .blueprint-location {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 0.65rem; font-weight: 700;
-    letter-spacing: 0.13em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 10px;
-  }
-  .blueprint-location-dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: var(--accent); flex-shrink: 0;
-  }
-  .blueprint-title {
-    font-size: 1rem; font-weight: 600;
-    letter-spacing: -0.02em; line-height: 1.3;
-    color: var(--ink); margin-bottom: 14px;
-  }
-  .blueprint-bullets {
-    list-style: none; display: flex; flex-direction: column; gap: 5px;
-    margin-bottom: 18px; flex: 1;
-  }
-  .blueprint-bullets li {
-    font-size: 0.9375rem; color: #68635C; line-height: 1.5;
-    display: flex; align-items: flex-start; gap: 8px;
-  }
-  .blueprint-bullets li::before {
-    content: '→'; color: var(--accent);
-    font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;
-  }
-  .blueprint-footer {
-    padding-top: 14px;
-    border-top: 1px solid var(--gray-100);
-    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  }
-  .blueprint-footer-name {
-    font-size: 0.78rem; font-weight: 600; color: var(--ink);
-  }
-  .blueprint-footer-cat {
-    font-size: 0.75rem; color: var(--gray-400);
-  }
-
-  /* Testimonials */
-  .testimonials {
-    background: var(--white);
-    padding: 88px 32px;
-    border-top: 1px solid var(--gray-100);
-    border-bottom: 1px solid var(--gray-100);
-  }
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-top: 48px;
-  }
-  .testimonial-card {
-    background: var(--paper);
-    border: 1px solid var(--gray-100);
-    border-radius: 8px;
-    padding: 24px;
-  }
-  .testimonial-quote {
-    font-size: 1rem; color: var(--ink-soft);
-    line-height: 1.7; font-style: italic;
-    margin-bottom: 20px;
-  }
-  .testimonial-divider {
-    height: 1px; background: var(--gray-100); margin-bottom: 14px;
-  }
-  .testimonial-avatar {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--gray-200); flex-shrink: 0;
-  }
-  .testimonial-name {
-    font-size: 0.82rem; font-weight: 600; color: var(--ink);
-  }
-  .testimonial-loc {
-    font-size: 0.72rem; color: var(--gray-400); margin-top: 2px;
-  }
-
-  /* About */
-  .about {
-    background: var(--paper);
-    padding: 88px 32px;
-  }
-  .about-inner {
-    max-width: 1060px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: center;
-  }
-  .about-avatar-wrap {
-    background: var(--gray-100);
-    border-radius: 8px; overflow: hidden;
-    height: 500px; display: flex; align-items: center; justify-content: center;
-  }
-  .about-avatar-placeholder {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; font-size: 5rem;
-    color: rgba(12,11,10,0.1); line-height: 1;
-    user-select: none;
-  }
-  .about-label {
-    font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
-    display: flex; align-items: center; gap: 8px; margin-bottom: 18px;
-  }
-  .about-h2 {
-    font-size: clamp(1.75rem, 3vw, 2.2rem);
-    font-weight: 500; letter-spacing: -0.03em;
-    line-height: 1.12; color: var(--ink); margin-bottom: 20px;
-  }
-  .about-h2 em {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; color: var(--accent);
-  }
-  .about-body {
-    font-size: 1rem; color: #68635C; line-height: 1.75;
-    margin-bottom: 10px;
-  }
-
-  /* Dark CTA */
-  .dark-cta {
-    background: var(--ink);
-    padding: 100px 32px;
+  .optin-inner {
+    position: relative; z-index: 2;
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 100px 32px 80px;
+    max-width: 640px; margin: 0 auto;
     text-align: center;
   }
-  .dark-cta-inner { max-width: 560px; margin: 0 auto; }
-  .dark-eyebrow {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+  .optin-eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--color-accent);
+    margin-bottom: 28px;
+  }
+  .optin-eyebrow-line { display: inline-block; width: 20px; height: 1px; background: var(--color-accent); }
+  .optin-headline {
+    font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 600;
+    letter-spacing: -0.03em; line-height: 1.05;
+    color: var(--color-ink); margin-bottom: 12px;
+  }
+  .optin-headline em {
+    font-family: var(--font-serif); font-style: italic;
+    font-weight: 400; color: var(--color-accent);
+  }
+  .optin-subheadline {
+    font-size: 1.05rem; color: var(--color-ink-faint);
+    line-height: 1.65; margin-bottom: 40px; max-width: 480px;
+  }
+  .optin-form { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+  .optin-form .input {
+    background: var(--color-white); border-color: var(--color-gray-300);
+    color: var(--color-ink); text-align: center;
+  }
+  .optin-form .input:focus { border-color: var(--color-accent); background: var(--color-white); }
+  .optin-form .input::placeholder { color: var(--color-gray-400); }
+  .optin-disclaimer {
+    font-size: 0.72rem; color: var(--color-gray-400);
+    margin-top: 14px; line-height: 1.5;
+  }
+  .optin-proof {
+    display: flex; align-items: center; justify-content: center; gap: 24px;
+    margin-top: 48px; padding-top: 32px;
+    border-top: 1px solid var(--color-gray-200);
+    width: 100%;
+  }
+  .proof-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .proof-num {
+    font-size: 1.5rem; font-weight: 600; letter-spacing: -0.03em; color: var(--color-accent);
+  }
+  .proof-label { font-size: 0.72rem; color: var(--color-gray-400); letter-spacing: 0.06em; text-transform: uppercase; }
+  .proof-divider { width: 1px; height: 36px; background: var(--color-gray-200); }
+
+  /* ── PAGE 2: QUESTIONNAIRE ── */
+  #page-quiz { min-height: 100vh; background: var(--color-paper); }
+  .quiz-header {
+    position: sticky; top: 60px; z-index: 50;
+    background: rgba(248,246,242,0.97); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-gray-100);
+    padding: 16px 32px;
+  }
+  .quiz-progress-bar-wrap {
+    max-width: 740px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .quiz-progress-meta {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .quiz-progress-section {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--color-accent);
+  }
+  .quiz-progress-count {
+    font-size: 0.72rem; color: var(--color-gray-400); font-weight: 500;
+  }
+  .progress-track {
+    height: 3px; background: var(--color-gray-200); border-radius: 2px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--color-accent);
+    border-radius: 2px; transition: width 400ms var(--ease-out);
+  }
+  .quiz-body { max-width: 740px; margin: 0 auto; padding: 48px 32px 80px; }
+  .question-card {
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out);
+  }
+  .question-card.visible { opacity: 1; transform: translateY(0); }
+  .question-card.exiting { opacity: 0; transform: translateY(-12px); }
+  .q-number {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 0.82rem; color: var(--color-accent); margin-bottom: 10px;
+  }
+  .q-text {
+    font-size: clamp(1.25rem, 3vw, 1.6rem); font-weight: 600;
+    letter-spacing: -0.02em; line-height: 1.25;
+    color: var(--color-ink); margin-bottom: 8px;
+  }
+  .q-hint {
+    font-size: 0.85rem; color: var(--color-ink-faint);
+    line-height: 1.5; margin-bottom: 28px;
+  }
+  .options-grid {
+    display: grid; gap: 10px;
+  }
+  .options-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .options-grid.cols-1 { grid-template-columns: 1fr; }
+  .option-btn {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: #fff; border: 1.5px solid var(--color-gray-200);
+    border-radius: 8px; padding: 16px 18px; cursor: pointer;
+    transition: border-color 180ms, background 180ms, transform 120ms;
+    text-align: left;
+  }
+  .option-btn:hover { border-color: var(--color-accent); background: var(--color-accent-pale); }
+  .option-btn.selected {
+    border-color: var(--color-accent); background: var(--color-accent-pale);
+    box-shadow: 0 0 0 2px rgba(201,150,58,0.2);
+  }
+  .option-btn:active { transform: scale(0.99); }
+  .option-indicator {
+    width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+    border: 1.5px solid var(--color-gray-300);
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 180ms, background 180ms;
+    margin-top: 1px;
+  }
+  .option-btn.selected .option-indicator {
+    background: var(--color-accent); border-color: var(--color-accent);
+  }
+  .option-indicator-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #fff;
+    opacity: 0; transition: opacity 180ms;
+  }
+  .option-btn.selected .option-indicator-dot { opacity: 1; }
+  .option-label { font-size: 0.95rem; font-weight: 500; color: var(--color-ink); line-height: 1.35; }
+  .option-sublabel { font-size: 0.78rem; color: var(--color-ink-faint); margin-top: 3px; line-height: 1.4; }
+  .quiz-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--color-gray-100);
+  }
+  .quiz-nav-left { display: flex; align-items: center; gap: 10px; }
+  .btn-back {
+    font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500;
+    background: transparent; color: var(--color-gray-400); border: none;
+    cursor: pointer; padding: 8px 0; display: flex; align-items: center; gap: 6px;
+    transition: color 160ms;
+  }
+  .btn-back:hover { color: var(--color-ink-soft); }
+  .skip-link {
+    font-family: var(--font-sans); font-size: 0.78rem; color: var(--color-gray-400);
+    background: none; border: none; cursor: pointer; padding: 0;
+    text-decoration: underline; text-underline-offset: 2px;
+    transition: color 160ms;
+  }
+  .skip-link:hover { color: var(--color-ink-faint); }
+
+  /* Section intro card */
+  .section-intro {
+    background: var(--color-ink); border-radius: 12px;
+    padding: 36px 32px; margin-bottom: 36px;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out);
+  }
+  .section-intro.visible { opacity: 1; transform: translateY(0); }
+  .section-intro-eyebrow {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--color-accent);
+    margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-intro h2 {
+    font-size: 1.4rem; font-weight: 600; letter-spacing: -0.02em;
+    color: #fff; margin-bottom: 6px;
+  }
+  .section-intro p { font-size: 0.88rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+  /* ── PAGE 3: RESULTS ── */
+  #page-results { min-height: 100vh; background: var(--color-paper); }
+  .results-hero {
+    background: var(--color-ink);
+    padding: 100px 32px 64px;
+    position: relative; overflow: hidden;
+  }
+  .results-hero-bg {
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(201,150,58,0.03) 60px, rgba(201,150,58,0.03) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(201,150,58,0.03) 60px, rgba(201,150,58,0.03) 61px);
+    pointer-events: none;
+  }
+  .results-hero-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
+  .results-eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--color-accent);
     margin-bottom: 24px;
   }
-  .dark-eyebrow-rule { display: inline-block; width: 16px; height: 1px; background: var(--accent); }
-  .dark-h2 {
-    font-size: clamp(2rem, 4.5vw, 3.2rem);
-    font-weight: 500; letter-spacing: -0.03em;
-    line-height: 1.06; color: #fff; margin-bottom: 4px;
+  .results-name-display {
+    font-size: 0.88rem; color: rgba(255,255,255,0.4);
+    margin-bottom: 8px; letter-spacing: 0;
   }
-  .dark-h2-serif {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic;
-    font-size: clamp(2rem, 4.5vw, 3.2rem);
-    color: var(--accent); line-height: 1.06;
-    margin-bottom: 24px; display: block;
+  .results-headline {
+    font-size: clamp(1.6rem, 4vw, 2.8rem); font-weight: 600;
+    letter-spacing: -0.03em; line-height: 1.1; color: #fff;
+    margin-bottom: 6px;
   }
-  .dark-sub {
-    font-size: 0.88rem; color: rgba(255,255,255,0.42);
-    line-height: 1.7; margin-bottom: 36px;
-    max-width: 380px; margin-left: auto; margin-right: auto;
-  }
-  .dark-form { max-width: 400px; margin: 0 auto 36px; }
-  .dark-input {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 4px;
-    padding: 14px 18px;
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 0.95rem; color: #fff;
-    outline: none; width: 100%; margin-bottom: 10px;
-    transition: border-color 180ms var(--ease-out), background 180ms;
-    text-align: center;
-  }
-  .dark-input::placeholder { color: rgba(255,255,255,0.28); }
-  .dark-input:focus { border-color: var(--accent); background: rgba(255,255,255,0.10); }
-  .dark-btn {
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 0.88rem; font-weight: 700;
-    background: var(--accent); color: #fff;
-    border: none; border-radius: 4px;
-    padding: 14px 24px; cursor: pointer; width: 100%;
-    transition: background 220ms var(--ease-out), transform 120ms;
-  }
-  .dark-btn:hover { background: var(--accent-deep); }
-  .dark-btn:active { transform: scale(0.98); }
-  .dark-note {
-    font-size: 0.72rem; color: rgba(255,255,255,0.22);
-    letter-spacing: 0.02em; margin-top: 10px;
+  .results-headline em {
+    font-family: var(--font-serif); font-style: italic;
+    font-weight: 400; color: var(--color-accent);
   }
 
-  /* Footer */
-  footer {
-    background: var(--ink);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 22px 32px;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 12px;
+  /* Winner card */
+  .winner-card {
+    margin-top: 36px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 28px 32px;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 24px; align-items: start;
   }
-  .footer-logo { display: flex; align-items: baseline; gap: 4px; }
-  .footer-logo-sans {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 500; font-size: 0.88rem; color: #fff;
+  .winner-visa-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--color-accent); color: #fff;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 2px; margin-bottom: 10px;
   }
-  .footer-logo-serif {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; font-size: 0.88rem; color: var(--accent);
+  .winner-visa-name {
+    font-size: clamp(1.3rem, 3vw, 1.9rem); font-weight: 600;
+    letter-spacing: -0.02em; color: #fff; line-height: 1.15; margin-bottom: 6px;
   }
-  .footer-links { display: flex; gap: 20px; }
-  .footer-link {
-    font-size: 0.75rem; color: rgba(255,255,255,0.3);
-    cursor: pointer; transition: color 160ms; text-decoration: none;
+  .winner-visa-jp {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 1rem; color: var(--color-accent); margin-bottom: 14px;
   }
-  .footer-link:hover { color: rgba(255,255,255,0.7); }
-  .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.18); }
+  .winner-visa-desc { font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.65; max-width: 480px; }
+  .score-ring {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 4px; flex-shrink: 0;
+  }
+  .score-circle {
+    width: 80px; height: 80px; border-radius: 50%;
+    border: 3px solid var(--color-accent);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .score-num { font-size: 1.5rem; font-weight: 700; color: var(--color-accent); line-height: 1; }
+  .score-pct { font-size: 0.6rem; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; text-transform: uppercase; }
+  .score-label { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
 
-  /* Nav links */
-  .nav-links {
-    display: flex; align-items: center; gap: 20px;
-  }
-  .nav-link {
-    font-size: 0.8rem; font-weight: 500; color: var(--ink-soft);
-    text-decoration: none; transition: color 160ms;
-    letter-spacing: 0.01em;
-  }
-  .nav-link:hover { color: var(--accent); }
-  @media (max-width: 600px) { .nav-links { display: none; } }
+  /* Results body */
+  .results-body { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
 
-  /* Animations */
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(22px); }
+  /* Key factors */
+  .factors-section { margin-bottom: 48px; }
+  .section-title {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--color-accent);
+    margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--color-gray-200); }
+  .factors-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .factor-card {
+    background: #fff; border: 1px solid var(--color-gray-100);
+    border-radius: 8px; padding: 18px;
+    transition: box-shadow 200ms;
+  }
+  .factor-card:hover { box-shadow: 0 4px 16px rgba(12,11,10,0.08); }
+  .factor-icon { font-size: 1.2rem; margin-bottom: 8px; }
+  .factor-label {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--color-gray-400); margin-bottom: 4px;
+  }
+  .factor-value { font-size: 0.95rem; font-weight: 600; color: var(--color-ink); }
+
+  /* Requirements */
+  .requirements-section { margin-bottom: 48px; }
+  .req-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .req-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: #fff; border: 1px solid var(--color-gray-100);
+    border-radius: 8px; padding: 16px;
+  }
+  .req-icon {
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+  }
+  .req-icon.met { background: rgba(45,122,95,0.1); color: #2D7A5F; }
+  .req-icon.gap { background: rgba(201,150,58,0.15); color: var(--color-accent); }
+  .req-icon.unmet { background: rgba(192,57,43,0.1); color: #C0392B; }
+  .req-text { flex: 1; }
+  .req-title { font-size: 0.88rem; font-weight: 600; color: var(--color-ink); margin-bottom: 2px; }
+  .req-note { font-size: 0.78rem; color: var(--color-ink-faint); line-height: 1.45; }
+
+  /* Checklist */
+  .checklist-section { margin-bottom: 48px; }
+  .checklist-phase { margin-bottom: 28px; }
+  .phase-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+  }
+  .phase-num {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 1.3rem; color: var(--color-accent); line-height: 1; width: 28px;
+  }
+  .phase-title { font-size: 1rem; font-weight: 600; color: var(--color-ink); }
+  .phase-subtitle { font-size: 0.8rem; color: var(--color-ink-faint); margin-left: 40px; margin-bottom: 12px; }
+  .checklist-items { display: flex; flex-direction: column; gap: 8px; padding-left: 40px; }
+  .checklist-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: #fff; border: 1px solid var(--color-gray-100);
+    border-radius: 6px; padding: 14px 16px; cursor: pointer;
+    transition: border-color 160ms;
+  }
+  .checklist-item:hover { border-color: var(--color-gray-300); }
+  .checklist-item.checked { background: var(--color-gray-50); }
+  .check-box {
+    width: 20px; height: 20px; border-radius: 4px; flex-shrink: 0;
+    border: 1.5px solid var(--color-gray-300);
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 160ms, background 160ms;
+    margin-top: 1px;
+  }
+  .checklist-item.checked .check-box { background: #2D7A5F; border-color: #2D7A5F; }
+  .check-mark { color: #fff; font-size: 0.65rem; opacity: 0; transition: opacity 160ms; }
+  .checklist-item.checked .check-mark { opacity: 1; }
+  .check-content { flex: 1; }
+  .check-title { font-size: 0.9rem; font-weight: 500; color: var(--color-ink); line-height: 1.3; }
+  .checklist-item.checked .check-title { text-decoration: line-through; color: var(--color-ink-faint); }
+  .check-note { font-size: 0.78rem; color: var(--color-ink-faint); margin-top: 3px; line-height: 1.4; }
+  .check-badge {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 2px; flex-shrink: 0; margin-top: 2px;
+  }
+  .check-badge.urgent { background: rgba(201,150,58,0.15); color: var(--color-accent-deep); }
+  .check-badge.critical { background: rgba(192,57,43,0.1); color: #C0392B; }
+  .check-badge.optional { background: var(--color-gray-100); color: var(--color-gray-500); }
+  .checklist-progress {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 24px;
+    padding: 12px 16px; background: #fff;
+    border: 1px solid var(--color-gray-100); border-radius: 6px;
+  }
+  .cl-prog-track { flex: 1; height: 4px; background: var(--color-gray-200); border-radius: 2px; }
+  .cl-prog-fill { height: 100%; background: #2D7A5F; border-radius: 2px; transition: width 300ms var(--ease-out); }
+  .cl-prog-label { font-size: 0.78rem; font-weight: 600; color: var(--color-ink-soft); white-space: nowrap; }
+
+  /* Alternatives */
+  .alt-section { margin-bottom: 48px; }
+  .alt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .alt-card {
+    background: #fff; border: 1px solid var(--color-gray-100);
+    border-radius: 8px; padding: 20px; cursor: pointer;
+    transition: border-color 180ms, box-shadow 180ms;
+  }
+  .alt-card:hover { border-color: var(--color-accent); box-shadow: 0 4px 16px rgba(12,11,10,0.08); }
+  .alt-score { font-size: 0.72rem; font-weight: 700; color: var(--color-accent); margin-bottom: 4px; }
+  .alt-name { font-size: 0.95rem; font-weight: 600; color: var(--color-ink); margin-bottom: 4px; }
+  .alt-why { font-size: 0.8rem; color: var(--color-ink-faint); line-height: 1.5; }
+
+  /* CTA section */
+  .results-cta {
+    background: var(--color-ink); border-radius: 12px;
+    padding: 40px 36px; text-align: center; margin-top: 48px;
+  }
+  .cta-eyebrow {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--color-accent);
+    margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .cta-headline {
+    font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 600;
+    letter-spacing: -0.02em; color: #fff; margin-bottom: 6px;
+  }
+  .cta-headline em {
+    font-family: var(--font-serif); font-style: italic; color: var(--color-accent);
+  }
+  .cta-sub { font-size: 0.9rem; color: rgba(255,255,255,0.4); line-height: 1.65; margin-bottom: 28px; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .cta-form { display: flex; gap: 8px; max-width: 400px; margin: 0 auto; }
+  .cta-form .input {
+    background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.12); color: #fff;
+  }
+  .cta-form .input::placeholder { color: rgba(255,255,255,0.3); }
+  .cta-form .input:focus { border-color: var(--color-accent); }
+  .cta-note { font-size: 0.68rem; color: rgba(255,255,255,0.2); margin-top: 12px; }
+  .cta-success {
+    background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.3);
+    border-radius: 6px; padding: 14px 20px; max-width: 400px; margin: 0 auto;
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 1rem; color: var(--color-accent);
+    display: none;
+  }
+
+  /* Restart */
+  .restart-bar {
+    text-align: center; padding: 24px;
+    border-top: 1px solid var(--color-gray-200); margin-top: 16px;
+  }
+
+  /* Fade-in animation */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  @keyframes heroFadeIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .hero-inner {
-    animation: heroFadeIn 450ms var(--ease-out) both;
-  }
-  .anim {
-    opacity: 0; transform: translateY(22px);
-    transition: opacity 360ms var(--ease-out), transform 360ms var(--ease-out);
-  }
-  .anim.visible { opacity: 1; transform: translateY(0); }
-  .anim-d1 { transition-delay: 80ms; }
-  .anim-d2 { transition-delay: 160ms; }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-inner { animation: none; }
-    .anim { opacity: 1; transform: none; transition: none; }
-  }
+  .fade-up { animation: fadeUp 400ms var(--ease-out) both; }
+  .fade-up-delay-1 { animation-delay: 80ms; }
+  .fade-up-delay-2 { animation-delay: 160ms; }
+  .fade-up-delay-3 { animation-delay: 240ms; }
+  .fade-up-delay-4 { animation-delay: 320ms; }
+  .fade-up-delay-5 { animation-delay: 400ms; }
 
-  /* Responsive */
-  @media (max-width: 860px) {
-    .cards-grid, .testimonials-grid { grid-template-columns: 1fr; }
-    .about-inner { grid-template-columns: 1fr; }
-    .about-avatar-wrap { height: 340px; order: -1; }
-  }
-  /* Mobile photo swap */
-  .about-photo-desktop { display: block; }
-  .about-photo-mobile  { display: none; }
-  @media (max-width: 768px) {
-    .about-photo-desktop { display: none; }
-    .about-photo-mobile  { display: block; }
-  }
-  @media (max-width: 540px) {
-    .hero { padding: 110px 20px 64px; }
-    .benefits, .testimonials, .about, .dark-cta { padding: 64px 20px; }
-    .stats { gap: 24px; }
-    footer { padding: 20px; flex-direction: column; align-items: flex-start; gap: 14px; }
-    .footer-links { flex-wrap: wrap; }
+  @media (max-width: 640px) {
+    .options-grid.cols-2 { grid-template-columns: 1fr; }
+    .factors-grid { grid-template-columns: 1fr 1fr; }
+    .req-grid { grid-template-columns: 1fr; }
+    .alt-grid { grid-template-columns: 1fr; }
+    .winner-card { grid-template-columns: 1fr; }
+    .cta-form { flex-direction: column; }
   }
 </style>
 </head>
 <body>
 
-<!-- Nav -->
-<nav class="nav">
-  <a href="#top" class="nav-logo">
-    <img src="newsletter-plane.png" alt="Ambition Abroad" />
+<!-- NAV -->
+<nav class="nav light" id="main-nav">
+  <a class="nav-logo" href="#" onclick="return false;">
+    <span class="nav-logo-main">Ambition</span>
+    <span class="nav-logo-italic">Abroad</span>
   </a>
-  <div class="nav-links">
-    <a class="nav-link" href="https://www.youtube.com/@takumi.ambition-abroad?sub_confirmation=1" target="_blank" rel="noopener">YouTube</a>
-    <a class="nav-link" href="https://www.instagram.com/takumi.shyegun/" target="_blank" rel="noopener">Instagram</a>
-    <a class="nav-link" href="https://www.linkedin.com/in/takumi-shyegun-/" target="_blank" rel="noopener">LinkedIn</a>
-  </div>
-  <a href="#hero-form" class="nav-cta" onclick="event.preventDefault();document.getElementById('hero-form').scrollIntoView({behavior:'smooth',block:'center'});">Join the community</a>
+  <span class="nav-step" id="nav-step-label">Japan Visa Evaluator</span>
 </nav>
 
-<!-- Hero -->
-<section class="hero" id="top">
-  <div class="hero-inner">
-    <div class="eyebrow">
-      <span class="eyebrow-rule"></span>
-      Join the Community
-      <span class="eyebrow-rule"></span>
-    </div>
-
-    <h1 class="hero-h1">The playbook for building a business <span style="font-family:'ITC Garamond Std',Georgia,serif;font-style:italic;color:var(--accent);">abroad</span></h1>
-
-    <p class="hero-sub">
-      Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.
+<!-- PAGE 1: OPT-IN -->
+<div class="page active" id="page-optin">
+  <div class="optin-bg-pattern"></div>
+  <div class="optin-accent-glow"></div>
+  <div class="optin-inner">
+    <div class="optin-eyebrow fade-up">VISA EVALUATOR</div>
+    <h1 class="optin-headline fade-up fade-up-delay-1">
+      Find your path to<br><em>living in Japan</em>
+    </h1>
+    <p class="optin-subheadline fade-up fade-up-delay-2">
+      Get your best-fit Japanese visa option, a full eligibility breakdown, and a step-by-step action plan — in under 3 minutes.
     </p>
-
-    <!-- Form -->
-    <div id="hero-form">
-      <div data-supascribe-embed-id="652297960824" data-supascribe-subscribe></div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;">
-        <div style="display:flex;align-items:center;">
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=1" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=2" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=3" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=4" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=5" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-        </div>
-        <div style="text-align:left;">
-          <div style="color:#C9963A;font-size:0.7rem;margin-bottom:1px;">★★★★★</div>
-          <div style="font-size:0.72rem;color:#7A7774;">Joined by <strong style="color:#0C0B0A;font-weight:600;">1,500+ subscribers</strong></div>
-        </div>
+    <form class="optin-form fade-up fade-up-delay-3" id="optin-form" onsubmit="handleOptIn(event)">
+      <input type="text" class="input" id="optin-name" placeholder="Your first name" required autocomplete="given-name">
+      <input type="email" class="input" id="optin-email" placeholder="your@email.com" required autocomplete="email">
+      <button type="submit" class="btn-primary" style="width:100%; font-size: 0.95rem; padding: 15px 28px;">
+        Get my visa recommendation →
+      </button>
+    </form>
+    <p class="optin-disclaimer fade-up fade-up-delay-4">No spam. Your results will be sent to your inbox.</p>
+    <div class="optin-proof fade-up fade-up-delay-5">
+      <div class="proof-item">
+        <span class="proof-num">9</span>
+        <span class="proof-label">Visa types</span>
       </div>
-      <p class="opt-note">No spam. Unsubscribe any time.</p>
-    </div>
-
-    <!-- Stats -->
-    <div class="stats">
-      <div style="text-align:center;">
-        <div class="stat-num">100K+</div>
-        <div class="stat-lbl">Views</div>
+      <div class="proof-divider"></div>
+      <div class="proof-item">
+        <span class="proof-num">15</span>
+        <span class="proof-label">Questions</span>
       </div>
-      <div style="text-align:center;">
-        <div class="stat-num">1,500+</div>
-        <div class="stat-lbl">Subscribers</div>
-      </div>
-      <div style="text-align:center;">
-        <div class="stat-num">Weekly</div>
-        <div class="stat-lbl">New blueprints</div>
+      <div class="proof-divider"></div>
+      <div class="proof-item">
+        <span class="proof-num">&lt;3min</span>
+        <span class="proof-label">To complete</span>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- Benefits -->
-<section class="benefits">
-  <div class="section-inner">
-    <div class="section-header anim">
-      <div class="section-tag">
-        <span class="section-tag-rule"></span>
-        What you get
+<!-- PAGE 2: QUESTIONNAIRE -->
+<div class="page" id="page-quiz">
+  <div class="quiz-header">
+    <div class="quiz-progress-bar-wrap">
+      <div class="quiz-progress-meta">
+        <span class="quiz-progress-section" id="section-label">Section 1 of 3 — Your Background</span>
+        <span class="quiz-progress-count" id="progress-count">Question 1 of 15</span>
       </div>
-      <h2 class="section-h2">Not only inspiration.<br><em>Execution too.</em></h2>
-    </div>
-    <div class="cards-grid">
-      <div class="benefit-card anim">
-        <span class="benefit-num">01</span>
-        <div class="benefit-title">Episode playbooks</div>
-        <p class="benefit-desc">The key lessons and mistakes from each founder, turned into clear steps you can actually apply.</p>
-      </div>
-      <div class="benefit-card anim anim-d1">
-        <span class="benefit-num">02</span>
-        <div class="benefit-title">Foreign systems, decoded</div>
-        <p class="benefit-desc">Visas, banking, taxes, incorporation, explained through what actually happened, not what guides say.</p>
-      </div>
-      <div class="benefit-card anim anim-d2">
-        <span class="benefit-num">03</span>
-        <div class="benefit-title">Exclusive content &amp; resources</div>
-        <p class="benefit-desc">Exclusive interviews, frameworks, lessons and tools that never make it to the YouTube channel.
-</p>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width: 6.67%"></div>
       </div>
     </div>
   </div>
-</section>
+  <div class="quiz-body" id="quiz-body">
+    <!-- Questions injected by JS -->
+  </div>
+</div>
 
-<!-- Recent Blueprints -->
-<section class="blueprints">
-  <div class="section-inner">
-    <div class="blueprints-header anim">
-      <div>
-        <div class="section-tag">
-          <span class="section-tag-rule"></span>
-          Recent Blueprints
-        </div>
-        <h2 class="section-h2">Stories from builders <em>around the world</em></h2>
+<!-- PAGE 3: RESULTS -->
+<div class="page" id="page-results">
+  <div class="results-hero">
+    <div class="results-hero-bg"></div>
+    <div class="results-hero-inner">
+      <div class="results-eyebrow fade-up">
+        <span style="display:inline-block;width:16px;height:1px;background:var(--color-accent)"></span>
+        Your Visa Match
+        <span style="display:inline-block;width:16px;height:1px;background:var(--color-accent)"></span>
       </div>
-      <a href="#" class="blueprints-all">All episodes →</a>
-    </div>
-    <div class="cards-grid">
-
-      <!-- Card 1 -->
-      <div class="blueprint-card anim">
-        <div class="blueprint-thumb" style="background: #EDE5D8;">
-          <span class="blueprint-badge">Blueprint</span>
-          <img src="photo 1.jpg" alt="Sendai, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
-        </div>
-        <div class="blueprint-body">
-          <div class="blueprint-location">
-            <span class="blueprint-location-dot"></span>
-            Sendai, Japan
-          </div>
-          <div class="blueprint-title">How a Canadian Founder Built One of Japan's Biggest Supplement Brands</div>
-          <ul class="blueprint-bullets">
-            <li>Navigating Japanese incorporation &amp; distribution</li>
-            <li>Working with Japan top athletes and entertainers</li>
-            <li>Scaling a physical product brand from zero</li>
-          </ul>
-          <div class="blueprint-footer">
-            <span class="blueprint-footer-name">BodyPlus International</span>
-            <span class="blueprint-footer-cat">· Physical Product</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="blueprint-card anim anim-d1">
-        <div class="blueprint-thumb" style="background: #E8DDD0;">
-          <span class="blueprint-badge">Blueprint</span>
-          <img src="Photo 2.jpg" alt="Tokyo, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
-        </div>
-        <div class="blueprint-body">
-          <div class="blueprint-location">
-            <span class="blueprint-location-dot"></span>
-            Tokyo, Japan
-          </div>
-          <div class="blueprint-title">The Turkish Entrepreneur Who Built Japan's Leading Interpretation App</div>
-          <ul class="blueprint-bullets">
-            <li>Running a fully remote team from Tokyo</li>
-            <li>Acquire investment from Japanese investors</li>
-            <li>How to solve the new marketplace problem</li>
-          </ul>
-          <div class="blueprint-footer">
-            <span class="blueprint-footer-name">Oyraa</span>
-            <span class="blueprint-footer-cat">· Tech Business</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="blueprint-card anim anim-d2">
-        <div class="blueprint-thumb" style="background: #E4D8C8;">
-          <span class="blueprint-badge">Blueprint</span>
-          <img src="Photo 3.jpg" alt="Tokyo, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
-        </div>
-        <div class="blueprint-body">
-          <div class="blueprint-location">
-            <span class="blueprint-location-dot"></span>
-            Tokyo, Japan
-          </div>
-          <div class="blueprint-title">How This New Zealand Couple Built a Coffee Empire in Japan</div>
-          <ul class="blueprint-bullets">
-            <li>What to look for when choosing a cafe location</li>
-            <li>Hiring local staff without the language on day one</li>
-            <li>How to turn visitors into loyal repeat customers</li>
-          </ul>
-          <div class="blueprint-footer">
-            <span class="blueprint-footer-name">iki Roastery</span>
-            <span class="blueprint-footer-cat">· Hospitality / F&amp;B</span>
-          </div>
-        </div>
-      </div>
-
+      <p class="results-name-display fade-up fade-up-delay-1" id="results-name-display"></p>
+      <h1 class="results-headline fade-up fade-up-delay-2" id="results-headline"></h1>
+      <div class="winner-card fade-up fade-up-delay-3" id="winner-card"></div>
     </div>
   </div>
-</section>
-
-<!-- Testimonials -->
-<section class="testimonials">
-  <div class="section-inner">
-    <div class="section-tag">
-      <span class="section-tag-rule"></span>
-      Community
+  <div class="results-body">
+    <div class="factors-section">
+      <div class="section-title">Your Profile</div>
+      <div class="factors-grid" id="factors-grid"></div>
     </div>
-    <h2 class="section-h2 anim">From builders <em>just like you</em></h2>
-    <div class="testimonials-grid">
-      <div class="testimonial-card anim">
-        <p class="testimonial-quote">"Finally a show that treats expat entrepreneurship seriously. The blueprint newsletter alone gave me more useful information than 6 months of Googling."</p>
-        <div class="testimonial-divider"></div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <img src="https://i.pravatar.cc/56?img=12" alt="Alex W." class="testimonial-avatar" style="object-fit:cover;" />
-          <div>
-            <div class="testimonial-name">Alex W.</div>
-            <div class="testimonial-loc">Bangkok, Thailand</div>
-          </div>
-        </div>
+    <div class="requirements-section">
+      <div class="section-title">Key Requirements</div>
+      <div class="req-grid" id="req-grid"></div>
+    </div>
+    <div class="checklist-section">
+      <div class="section-title">Your Action Plan</div>
+      <div class="checklist-progress">
+        <div class="cl-prog-track"><div class="cl-prog-fill" id="cl-prog-fill" style="width:0%"></div></div>
+        <span class="cl-prog-label" id="cl-prog-label">0 / 0 completed</span>
       </div>
-      <div class="testimonial-card anim anim-d1">
-        <p class="testimonial-quote">"I was on the fence about moving to Japan to start my agency. One episode basically made the decision for me. Put in my notice two weeks later."</p>
-        <div class="testimonial-divider"></div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <img src="https://i.pravatar.cc/56?img=20" alt="Maria C." class="testimonial-avatar" style="object-fit:cover;" />
-          <div>
-            <div class="testimonial-name">Maria C.</div>
-            <div class="testimonial-loc">Lisbon, Portugal</div>
-          </div>
-        </div>
+      <div id="checklist-container"></div>
+    </div>
+    <div class="alt-section">
+      <div class="section-title">Other Paths to Consider</div>
+      <div class="alt-grid" id="alt-grid"></div>
+    </div>
+    <div class="results-cta">
+      <div class="cta-eyebrow">
+        <span style="display:inline-block;width:16px;height:1px;background:var(--color-accent)"></span>
+        Ambition Abroad Newsletter
+        <span style="display:inline-block;width:16px;height:1px;background:var(--color-accent)"></span>
       </div>
-      <div class="testimonial-card anim anim-d2">
-        <p class="testimonial-quote">"The only newsletter I open every week. Dense, honest, and actionable. The visa and incorporation breakdowns alone are worth subscribing for."</p>
-        <div class="testimonial-divider"></div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <img src="https://i.pravatar.cc/56?img=15" alt="James T." class="testimonial-avatar" style="object-fit:cover;" />
-          <div>
-            <div class="testimonial-name">James T.</div>
-            <div class="testimonial-loc">Toronto, Canada</div>
-          </div>
-        </div>
-      </div>
+      <h2 class="cta-headline">Get the full <em style="font-weight:400"> Japan blueprint</em></h2>
+      <p class="cta-sub">Every week, get the real strategies, lessons, and unfiltered decisions from foreigners actually building businesses in Japan.</p>
+      <form class="cta-form" id="cta-form" onsubmit="handleCTASubscribe(event)">
+        <input type="email" class="input" id="cta-email" placeholder="your@email.com" required>
+        <button type="submit" class="btn-primary" style="white-space:nowrap;">Subscribe free</button>
+      </form>
+      <div class="cta-success" id="cta-success">Blueprint on its way. See you next week.</div>
+      <p class="cta-note">No spam. Unsubscribe any time.</p>
     </div>
-  </div>
-</section>
-
-<!-- About -->
-<section class="about">
-  <div class="about-inner">
-    <div class="anim">
-      <div class="about-label">
-        <span style="display:inline-block;width:16px;height:1px;background:var(--accent)"></span>
-        The Mission
-      </div>
-      <h2 class="about-h2">Built for people serious about <em>building abroad</em></h2>
-      <p class="about-body">Ambition Abroad started with a simple frustration.</p>
-      <p class="about-body">When I moved to Japan from Sydney at 21, I had no idea what I was doing, and I couldn't find anything about how to actually build a business abroad.<br><br>Everything was about travel, lifestyle, or surface-level advice. Nothing about real people doing real business.</p>
-      <p class="about-body">So I built what I wish existed.</p>
-      <p class="about-body">Each episode follows a founder who left their home country and built something that actually works. No lifestyle content. No vague inspiration. Just real decisions, real mistakes, and real playbooks.</p>
-      <p class="about-body" style="margin-bottom:0;">The newsletter is where it goes deeper. Full breakdowns, real numbers, and the lessons you can actually apply.<br><br>This is the resource I wish I had when I started.</p>
+    <div class="restart-bar">
+      <button class="btn-secondary" onclick="restartEvaluator()">← Retake the evaluator</button>
     </div>
-    <div class="about-avatar-wrap anim anim-d1">
-      <img src="Photo 4.jpg" alt="Takumi Shyegun" class="about-photo-desktop" style="width:100%;height:100%;object-fit:cover;object-position:center;" />
-      <img src="Photo 5.jpg" alt="Takumi Shyegun" class="about-photo-mobile" style="width:100%;height:100%;object-fit:cover;object-position:center top;" />
-    </div>
-  </div>
-</section>
-
-<!-- Dark CTA -->
-<section class="dark-cta">
-  <div class="dark-cta-inner anim">
-    <div class="dark-eyebrow">
-      <span class="dark-eyebrow-rule"></span>
-      Join the Community
-      <span class="dark-eyebrow-rule"></span>
-    </div>
-    <h2 class="dark-h2">Stop overthinking.</h2>
-    <span class="dark-h2-serif">Start building.</span>
-    <p class="dark-sub" style="margin-bottom:32px;">
-      Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.
-    </p>
-    <div class="dark-form">
-      <div data-supascribe-embed-id="652297960824" data-supascribe-subscribe></div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;">
-        <div style="display:flex;align-items:center;">
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=7" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=8" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=9" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=10" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=11" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-        </div>
-        <div style="text-align:left;">
-          <div style="color:#C9963A;font-size:0.7rem;margin-bottom:1px;">★★★★★</div>
-          <div style="font-size:0.72rem;color:rgba(255,255,255,0.55);">Joined by <strong style="color:#fff;font-weight:600;">1,500+ subscribers</strong></div>
-        </div>
-      </div>
-      <p class="dark-note">No spam. Unsubscribe any time.</p>
-    </div>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer>
-  <div class="footer-logo">
-    <span class="footer-logo-sans">Ambition</span>
-    <span class="footer-logo-serif">Abroad</span>
-  </div>
-  <div class="footer-links">
-    <a class="footer-link" href="https://www.youtube.com/@takumi.ambition-abroad?sub_confirmation=1" target="_blank" rel="noopener">YouTube</a>
-    <a class="footer-link" href="https://www.instagram.com/takumi.shyegun/" target="_blank" rel="noopener">Instagram</a>
-    <a class="footer-link" href="https://www.linkedin.com/in/takumi-shyegun-/" target="_blank" rel="noopener">LinkedIn</a>
-  </div>
-  <div class="footer-copy">© 2026 Ambition Abroad</div>
-</footer>
-
-<script>
-  // ── Substack URL — update this to your actual Substack publication URL
-  const SUBSTACK_URL = 'https://ambitionabroad.substack.com';
-
-  function handleSubscribe(email, formEl, successEl) {
-    // Redirect to Substack subscribe with email pre-filled
-    const dest = `${SUBSTACK_URL}?email=${encodeURIComponent(email)}`;
-    window.open(dest, '_blank');
-    formEl.style.display = 'none';
-    successEl.style.display = 'block';
-  }
-
-  document.getElementById('heroForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('heroEmail').value;
-    handleSubscribe(email, this, document.getElementById('heroSuccess'));
-  });
-
-  document.getElementById('darkForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('darkEmail').value;
-    handleSubscribe(email, this, document.getElementById('darkSuccess'));
-  });
-
-  // Tweaks protocol
-  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-    "accentColor": "#C9963A",
-    "heroHeadline": "The playbook for building a business abroad",
-    "heroSubhead": "Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.",
-    "substackUrl": "https:\/\/ambitionabroad.substack.com",
-    "showAboutSection": true
-  }/*EDITMODE-END*/;
-
-  let tweaks = {...TWEAK_DEFAULTS};
-
-  function applyTweaks(t) {
-    document.documentElement.style.setProperty('--accent', t.accentColor);
-    document.documentElement.style.setProperty('--accent-deep', shadeColor(t.accentColor, -25));
-    document.documentElement.style.setProperty('--accent-pale', shadeColor(t.accentColor, 55));
-    const h1 = document.querySelector('.hero-h1');
-    if (t.heroHeadline.endsWith(' abroad')) {
-      const base = t.heroHeadline.slice(0, t.heroHeadline.lastIndexOf('building'));
-      const last = t.heroHeadline.slice(t.heroHeadline.lastIndexOf('building'), -7);
-      h1.innerHTML = base + '<span style="white-space:nowrap">' + last + ' <span style="font-family:\'ITC Garamond Std\',Georgia,serif;font-style:italic;color:var(--accent);">abroad</span></span>';
-    } else {
-      h1.textContent = t.heroHeadline;
-    }
-    document.querySelector('.hero-sub').textContent = t.heroSubhead;
-    document.querySelector('section.about').style.display = t.showAboutSection ? '' : 'none';
-    window.SUBSTACK_URL_LIVE = t.substackUrl;
-  }
-
-  function shadeColor(hex, pct) {
-    const num = parseInt(hex.replace('#',''), 16);
-    const r = Math.min(255, Math.max(0, (num >> 16) + pct));
-    const g = Math.min(255, Math.max(0, ((num >> 8) & 0xff) + pct));
-    const b = Math.min(255, Math.max(0, (num & 0xff) + pct));
-    return '#' + ((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1);
-  }
-
-  applyTweaks(tweaks);
-
-  window.addEventListener('message', e => {
-    if (e.data?.type === '__activate_edit_mode') showTweaks();
-    if (e.data?.type === '__deactivate_edit_mode') hideTweaks();
-  });
-  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
-
-  function showTweaks() { document.getElementById('tweaksPanel').style.display = 'flex'; }
-  function hideTweaks() { document.getElementById('tweaksPanel').style.display = 'none'; }
-
-  function setTweak(key, val) {
-    tweaks[key] = val;
-    applyTweaks(tweaks);
-    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
-  }
-</script>
-
-<!-- Tweaks Panel -->
-<div id="tweaksPanel" style="display:none; position:fixed; bottom:24px; right:24px; z-index:9999;
-  background:#fff; border:1px solid #E0DDD8; border-radius:8px; box-shadow:0 8px 32px rgba(12,11,10,0.13);
-  width:268px; flex-direction:column; font-family:'Inter Tight',sans-serif; overflow:hidden;">
-  <div style="padding:14px 16px 12px; border-bottom:1px solid #EDEBE8; display:flex; align-items:center; justify-content:space-between;">
-    <span style="font-size:0.78rem; font-weight:600; color:#0C0B0A; letter-spacing:0.02em;">Tweaks</span>
-    <button onclick="hideTweaks(); window.parent.postMessage({type:'__edit_mode_dismissed'},'*')"
-      style="background:none;border:none;cursor:pointer;color:#A8A39C;font-size:1rem;line-height:1;padding:0;">✕</button>
-  </div>
-  <div style="padding:14px 16px; display:flex; flex-direction:column; gap:16px; overflow-y:auto; max-height:420px;">
-
-    <div>
-      <label style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#A8A39C;display:block;margin-bottom:6px;">Accent color</label>
-      <input type="color" value="#C9963A" oninput="setTweak('accentColor', this.value)"
-        style="width:100%;height:32px;border:1px solid #E0DDD8;border-radius:4px;cursor:pointer;padding:2px 4px;" />
-    </div>
-
-    <div>
-      <label style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#A8A39C;display:block;margin-bottom:6px;">Hero headline</label>
-      <input type="text" value="The playbook for building a business"
-        oninput="setTweak('heroHeadline', this.value)"
-        style="width:100%;padding:8px 10px;border:1px solid #E0DDD8;border-radius:4px;font-family:'Inter Tight',sans-serif;font-size:0.82rem;color:#0C0B0A;outline:none;" />
-    </div>
-
-    <div>
-      <label style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#A8A39C;display:block;margin-bottom:6px;">Substack URL</label>
-      <input type="text" value="https://ambitionabroad.substack.com"
-        oninput="setTweak('substackUrl', this.value)"
-        style="width:100%;padding:8px 10px;border:1px solid #E0DDD8;border-radius:4px;font-family:'Inter Tight',sans-serif;font-size:0.75rem;color:#0C0B0A;outline:none;" />
-    </div>
-
-    <div style="display:flex;align-items:center;justify-content:space-between;">
-      <label style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#A8A39C;">Show About section</label>
-      <button id="aboutToggle" onclick="
-        const cur = tweaks.showAboutSection;
-        setTweak('showAboutSection', !cur);
-        this.textContent = !cur ? 'On' : 'Off';
-        this.style.background = !cur ? '#C9963A' : '#E0DDD8';
-        this.style.color = !cur ? '#fff' : '#68635C';
-      " style="font-family:'Inter Tight',sans-serif;font-size:0.72rem;font-weight:600;border:none;border-radius:4px;padding:5px 12px;cursor:pointer;background:#C9963A;color:#fff;">On</button>
-    </div>
-
   </div>
 </div>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+// ─────────────────────────────────────────────────────────────
+// DATA: VISA DEFINITIONS
+// ─────────────────────────────────────────────────────────────
+const VISAS = {
+  businessManager: {
+    name: 'Business Manager Visa',
+    jp: 'Keiei/Kanri — 経営管理',
+    desc: 'For foreign nationals who want to start and run a business in Japan. Requires a registered company, a physical office, and either ¥5M capital or hiring 2+ full-time Japanese staff.',
+    score: 0,
+    tags: ['Entrepreneur', 'Founder', 'Business owner'],
+    requirements: [
+      { title: 'Registered company in Japan', status: 'gap', note: 'Must incorporate a KK or GK before applying' },
+      { title: '¥5M capital OR 2 full-time employees', status: 'gap', note: 'Most founders use the capital route' },
+      { title: 'Physical office address', status: 'gap', note: 'Virtual offices generally not accepted' },
+      { title: 'Business plan (detailed)', status: 'gap', note: 'Immigration reviews viability of the business' },
+      { title: 'No criminal record', status: 'met', note: 'Standard immigration requirement' },
+      { title: 'Valid passport', status: 'met', note: 'Home country passport required' },
+    ],
+    checklist: [
+      { phase: 'Phase 1', phaseTitle: 'Foundation', phaseSub: 'Legal & structural setup — 1–3 months', items: [
+        { text: 'Decide on business structure: KK (Kabushiki Kaisha) or GK (Godo Kaisha)', note: 'KK is more credible for immigration; GK is cheaper to set up', badge: 'critical' },
+        { text: 'Hire a bilingual incorporation agent or judicial scrivener', note: 'Cost: ¥50,000–¥150,000. Saves weeks of navigation', badge: 'urgent' },
+        { text: 'Open a Japanese bank account for initial capital deposit', note: 'SBI Shinsei or MUFG recommended; prepare for KYC requirements', badge: 'critical' },
+        { text: 'Register ¥5M capital (or plan to hire 2 full-time Japanese employees)', note: 'Capital is deposited, then transferred to company account post-registration', badge: 'critical' },
+        { text: 'Secure a physical office address (not a virtual office)', note: 'Some shared offices qualify — confirm with a visa specialist first', badge: 'critical' },
+      ]},
+      { phase: 'Phase 2', phaseTitle: 'Documentation', phaseSub: 'Build your application package — 2–4 weeks', items: [
+        { text: 'Prepare a 5-year business plan in Japanese and English', note: 'Include market research, revenue projections, and operational plan', badge: 'critical' },
+        { text: 'Obtain company registration certificate (Touki Jikoh Shoumei)', note: 'Available from the Legal Affairs Bureau after incorporation', badge: null },
+        { text: 'Collect past 3 years of personal tax returns or proof of funds', note: 'Demonstrates financial stability for immigration officer', badge: 'urgent' },
+        { text: 'Get professional passport photos (Japanese standard spec)', note: '4.5cm × 3.5cm, white background, taken within 6 months', badge: null },
+        { text: 'Prepare personal statement of purpose in Japanese', note: 'Have it reviewed by a native speaker or immigration lawyer', badge: 'urgent' },
+      ]},
+      { phase: 'Phase 3', phaseTitle: 'Application', phaseSub: 'Submit & await — 1–3 months processing', items: [
+        { text: 'Engage a certified immigration lawyer (gyoseishoshi) to review application', note: 'Highly recommended — errors cause rejections and delays', badge: 'urgent' },
+        { text: 'Submit Certificate of Eligibility (COE) application to regional Immigration Bureau', note: 'If applying from abroad; if in Japan on another status, apply for change', badge: 'critical' },
+        { text: 'Respond promptly to any additional document requests from immigration', note: 'Delays in responding extend processing time significantly', badge: null },
+        { text: 'Once COE arrives, apply for visa at Japanese embassy in home country', note: 'Standard processing 5–10 business days at embassy', badge: null },
+        { text: 'Enter Japan and register address at local ward office (within 14 days)', note: 'Required for your Residence Card to be issued', badge: 'urgent' },
+      ]},
+    ],
+    alternatives: ['highlySkilled', 'digitalNomad'],
+  },
+  highlySkilled: {
+    name: 'Highly Skilled Professional (HSP)',
+    jp: 'Koudo Senmonshoku — 高度専門職',
+    desc: 'Point-based visa for professionals with strong academic credentials, work experience, and salary. 70+ points qualify. Fast-track to permanent residency (1–3 years). Includes J-Skip for top earners.',
+    score: 0,
+    tags: ['Professional', 'High earner', 'Fast PR track'],
+    requirements: [
+      { title: '70+ points on the HSP point system', status: 'gap', note: 'Points from education, experience, salary, age, and other factors' },
+      { title: 'Job offer from a Japanese company', status: 'gap', note: 'Or eligible research/academic activity' },
+      { title: 'Annual salary ¥3M+ (higher for faster PR)', status: 'gap', note: 'J-Skip requires ¥20M+/year' },
+      { title: 'Relevant academic or professional background', status: 'met', note: 'University degree or equivalent experience required' },
+      { title: 'No criminal record', status: 'met', note: 'Standard immigration requirement' },
+    ],
+    checklist: [
+      { phase: 'Phase 1', phaseTitle: 'Score Assessment', phaseSub: 'Calculate and optimize your HSP points', items: [
+        { text: 'Use the official METI/MOJ HSP point calculator to assess your current score', note: 'Available on the Immigration Services Agency website', badge: 'critical' },
+        { text: 'Obtain certified translations of your university degree(s)', note: 'NAATI-certified or equivalent; budget ¥15,000–¥30,000 per document', badge: 'urgent' },
+        { text: 'Compile proof of work experience (employment letters, contracts)', note: 'Each relevant year of experience adds points to your total', badge: 'urgent' },
+        { text: 'Identify salary-boosting factors (innovations, patents, publications)', note: 'These add bonus points to your total score', badge: null },
+      ]},
+      { phase: 'Phase 2', phaseTitle: 'Secure a Job Offer', phaseSub: 'Target companies that sponsor HSP visas', items: [
+        { text: 'Identify target companies on the Ministry of Economy certified list', note: 'Certified companies expedite HSP processing significantly', badge: 'urgent' },
+        { text: 'Prepare Japanese and English resume (rirekisho format)', note: 'Use standard Japanese rirekisho format for traditional companies', badge: 'critical' },
+        { text: 'Negotiate salary that supports your point total and PR timeline goals', note: 'Higher salary = higher points = faster permanent residency', badge: null },
+        { text: 'Obtain official employment contract/job offer letter', note: 'Must specify job title, salary, and start date', badge: 'critical' },
+      ]},
+      { phase: 'Phase 3', phaseTitle: 'Application & Arrival', phaseSub: 'Submit COE and relocate', items: [
+        { text: 'Submit COE application with all supporting documentation', note: 'HSP applications are reviewed by specialists — prepare meticulously', badge: 'critical' },
+        { text: 'Apply for national health insurance and pension enrollment', note: 'Required within 14 days of registering address', badge: 'urgent' },
+        { text: 'Register address at ward office and receive Residence Card', note: 'Required within 14 days of arrival in Japan', badge: 'critical' },
+        { text: 'Track points accumulation — apply for PR at 1 year (80+ pts) or 3 years (70+ pts)', note: 'Keep detailed records of achievements for PR application', badge: null },
+      ]},
+    ],
+    alternatives: ['engineerHumanities', 'businessManager'],
+  },
+  engineerHumanities: {
+    name: 'Engineer / Specialist in Humanities',
+    jp: 'Gijin/Kokusaigyomu — 技人国',
+    desc: 'The most common work visa for foreign professionals employed by Japanese companies. Covers engineers, IT professionals, marketers, translators, and business specialists with a relevant degree and job offer.',
+    score: 0,
+    tags: ['Employee', 'IT / tech', 'Most common'],
+    requirements: [
+      { title: 'Job offer from a Japanese employer', status: 'gap', note: 'Employer acts as sponsor and submits COE' },
+      { title: 'University degree in a relevant field', status: 'gap', note: 'Or 10+ years of equivalent work experience' },
+      { title: 'Job matches degree or experience field', status: 'gap', note: 'Immigration checks field relevance strictly' },
+      { title: 'Employer is a registered, financially stable company', status: 'gap', note: 'Immigration reviews company financial health' },
+    ],
+    checklist: [
+      { phase: 'Phase 1', phaseTitle: 'Job Search', phaseSub: 'Find a sponsoring employer in Japan', items: [
+        { text: 'Register on GaijinPot, Daijob, LinkedIn Japan, and TokyoDev (for tech)', note: 'Specify you require visa sponsorship in your profile', badge: 'critical' },
+        { text: 'Prepare Japanese-style resume (rirekisho) and standard CV', note: 'Many companies require both formats', badge: 'urgent' },
+        { text: 'Target companies with established foreign hire processes', note: 'Startups and SMEs may not have experience sponsoring visas', badge: null },
+        { text: 'Get job offer in writing — confirm employer will sponsor COE', note: 'Do not resign from current role until COE is confirmed', badge: 'critical' },
+      ]},
+      { phase: 'Phase 2', phaseTitle: 'COE & Documentation', phaseSub: 'Employer-led application process', items: [
+        { text: "Work with employer's HR to complete COE application forms", note: 'Your employer submits most documents; you provide personal paperwork', badge: 'urgent' },
+        { text: 'Obtain certified translation of university degree', note: 'Must match the field of work being applied for', badge: 'critical' },
+        { text: 'Provide employment history documentation', note: '10+ years experience can substitute for a degree in some cases', badge: null },
+        { text: 'Apply for visa at Japanese embassy with COE once received', note: 'Processing: 5–10 business days at most embassies', badge: 'urgent' },
+      ]},
+      { phase: 'Phase 3', phaseTitle: 'Arrival & Setup', phaseSub: 'First 30 days in Japan', items: [
+        { text: 'Register your address at the local ward office (within 14 days)', note: 'Brings your Residence Card into effect', badge: 'critical' },
+        { text: 'Set up a Japanese bank account (Japan Post Bank easiest for new arrivals)', note: 'Required for salary deposit', badge: 'urgent' },
+        { text: 'Enroll in National Health Insurance or company plan', note: 'Company employees are usually enrolled automatically', badge: null },
+        { text: 'Apply for My Number card (individual identification number)', note: 'Needed for taxes, banking, and government services', badge: null },
+      ]},
+    ],
+    alternatives: ['highlySkilled', 'specifiedSkilled'],
+  },
+  specifiedSkilled: {
+    name: 'Specified Skilled Worker (SSW)',
+    jp: 'Tokutei Ginou — 特定技能',
+    desc: 'For workers in 12 designated industries facing labor shortages: manufacturing, food service, hospitality, construction, agriculture, and more. Requires passing a Japanese skills test and JLPT N4 minimum.',
+    score: 0,
+    tags: ['Skilled trade', 'Labor shortage', 'Service industries'],
+    requirements: [
+      { title: 'Pass skills exam in one of 12 designated sectors', status: 'gap', note: 'Each industry has its own certification exam' },
+      { title: 'JLPT N4 Japanese language proficiency (or higher)', status: 'gap', note: 'SSW Type 2 (advanced) allows family sponsorship' },
+      { title: 'Job offer in a designated industry', status: 'gap', note: 'Employer must be registered with the relevant supervisory body' },
+      { title: 'Age 18+', status: 'met', note: 'Standard requirement' },
+    ],
+    checklist: [
+      { phase: 'Phase 1', phaseTitle: 'Language & Skills', phaseSub: 'Pass required exams', items: [
+        { text: 'Enroll in JLPT N4 preparation course (minimum requirement)', note: 'N4 covers ~1,500 words and basic grammar — 3–6 months of study', badge: 'critical' },
+        { text: 'Identify the specific industry skills exam for your target sector', note: 'Exams vary by field; some offered overseas, some only in Japan', badge: 'critical' },
+        { text: 'Register and sit for both JLPT and industry skills exams', note: 'Allow 3–6 months lead time for exam registration', badge: 'urgent' },
+      ]},
+      { phase: 'Phase 2', phaseTitle: 'Job Search', phaseSub: 'Find registered employer', items: [
+        { text: 'Search for jobs through government-approved intermediary organizations', note: 'Unregistered agencies cannot legally place SSW workers', badge: 'urgent' },
+        { text: 'Confirm employer is registered with the relevant supervisory union', note: 'Check the Ministry of Justice registered employer database', badge: 'critical' },
+        { text: 'Sign employment contract specifying salary equal to Japanese workers in same role', note: 'Immigration requires proof of equal pay', badge: 'critical' },
+      ]},
+      { phase: 'Phase 3', phaseTitle: 'Application', phaseSub: 'Visa application and arrival', items: [
+        { text: 'Submit COE application with exam certificates and job offer', note: 'Employer typically assists with the COE submission', badge: 'urgent' },
+        { text: 'Attend any required pre-departure orientation programs', note: 'Some industries require this before entry', badge: null },
+        { text: 'Register address and enroll in social insurance within 14 days of arrival', note: 'Same requirements as other work visas', badge: 'urgent' },
+      ]},
+    ],
+    alternatives: ['engineerHumanities', 'businessManager'],
+  },
+  digitalNomad: {
+    name: 'Digital Nomad Visa',
+    jp: 'Dejitaru Nomado — デジタルノマド',
+    desc: 'Japan\'s new (2024) 6-month visa for remote workers employed by foreign companies. Requires ¥10M+ annual income, private health insurance, and no work for Japanese clients.',
+    score: 0,
+    tags: ['Remote worker', 'Short-term', '2024 visa'],
+    requirements: [
+      { title: 'Annual income ¥10M+ (approx $65,000 USD)', status: 'gap', note: 'Must be from employment by a foreign company' },
+      { title: 'Employed by a foreign company (not Japanese clients)', status: 'gap', note: 'Freelancers working for non-Japanese clients also qualify' },
+      { title: 'Private health insurance covering Japan', status: 'gap', note: 'Must cover entire 6-month stay; Japanese NHI does not qualify' },
+      { title: 'Citizens of 49 eligible countries', status: 'gap', note: 'Includes US, UK, Australia, EU, and most developed nations' },
+    ],
+    checklist: [
+      { phase: 'Phase 1', phaseTitle: 'Eligibility Check', phaseSub: 'Confirm you qualify', items: [
+        { text: 'Confirm your country is on the list of 49 eligible nationalities', note: 'Check the Ministry of Foreign Affairs Japan website for current list', badge: 'critical' },
+        { text: 'Verify annual income meets ¥10M threshold with income documentation', note: 'Bank statements, pay slips, or tax returns from last 12 months', badge: 'critical' },
+        { text: 'Confirm your employer is a registered foreign company', note: 'Freelancers: ensure all clients are non-Japanese entities', badge: 'urgent' },
+      ]},
+      { phase: 'Phase 2', phaseTitle: 'Insurance & Docs', phaseSub: 'Secure coverage and paperwork', items: [
+        { text: 'Purchase Japan-compliant international health insurance policy', note: 'Cigna Global, AXA, and SafetyWing are popular options', badge: 'critical' },
+        { text: 'Obtain income verification letter from employer on company letterhead', note: 'Japanese embassy may require official translation', badge: 'urgent' },
+        { text: 'Gather proof of address in home country (utility bill, bank statement)', note: 'Confirms you have ties to your home country', badge: null },
+      ]},
+      { phase: 'Phase 3', phaseTitle: 'Application', phaseSub: 'Apply at Japanese embassy', items: [
+        { text: 'Submit digital nomad visa application at Japanese embassy in home country', note: 'Processing typically 5–10 business days', badge: 'critical' },
+        { text: 'Book accommodation for initial arrival (30 days minimum)', note: 'Embassy may ask for accommodation proof', badge: null },
+        { text: 'Note: visa is non-renewable — plan your Japan stay within 6 months', note: 'Cannot apply for another DN visa immediately after — requires gap period', badge: 'urgent' },
+      ]},
+    ],
+    alternatives: ['businessManager', 'highlySkilled'],
+  },
+  startup: {
+    name: 'Startup Visa',
+    jp: 'Sutaatoappu — スタートアップ',
+    desc: 'Prefecture-specific incubation program offering a 6-month preparation period to launch a business in Japan before converting to a Business Manager Visa. Available in Tokyo, Fukuoka, Osaka, and others.',
+    score: 0,
+    tags: ['Startup', 'Incubator', 'Early stage'],
+    requirements: [
+      { title: 'Accepted into a designated municipal incubation program', status: 'gap', note: 'Tokyo, Fukuoka, Osaka, and Kobe all run programs' },
+      { title: 'Novel, scalable business concept', status: 'gap', note: 'Programs prioritize tech, innovation, and global businesses' },
+      { title: 'Prepare to convert to Business Manager Visa after 6 months', status: 'gap', note: 'Must show progress and registered company by end of period' },
+      { title: 'Business plan submitted to incubator', status: 'gap', note: 'Competitive selection process; English plans accepted in most programs' },
+    ],
+    checklist: [
+      { phase: 'Phase 1', phaseTitle: 'Program Selection', phaseSub: 'Research and apply to incubators', items: [
+        { text: 'Research active startup visa programs: Fukuoka City, Tokyo Metropolitan, Osaka', note: 'Each has different focus areas, support levels, and acceptance criteria', badge: 'critical' },
+        { text: 'Prepare a compelling business plan tailored to each program\'s focus', note: 'Fukuoka is known for being more accessible for international founders', badge: 'critical' },
+        { text: 'Apply to multiple programs simultaneously to maximize chances', note: 'Acceptance rates are competitive — apply broadly', badge: 'urgent' },
+      ]},
+      { phase: 'Phase 2', phaseTitle: 'Visa & Arrival', phaseSub: 'Get your 6-month preparation visa', items: [
+        { text: 'Receive acceptance letter from incubation program', note: 'This is your core supporting document for the visa application', badge: 'critical' },
+        { text: 'Apply for startup visa at Japanese embassy with acceptance letter', note: 'Straightforward once acceptance is confirmed', badge: 'urgent' },
+        { text: 'Arrive in Japan and begin working with your incubator', note: 'Use the 6 months intensively — build relationships and incorporate', badge: null },
+      ]},
+      { phase: 'Phase 3', phaseTitle: 'Convert to Business Manager', phaseSub: 'Transition before 6 months expire', items: [
+        { text: 'Incorporate your company (KK or GK) within the 6-month period', note: 'The startup visa buys you time to do this without the usual capital hurdle', badge: 'critical' },
+        { text: 'Demonstrate business activity to support Business Manager application', note: 'Contracts, clients, or investment evidence strengthens your case', badge: 'urgent' },
+        { text: 'File Business Manager Visa application before startup visa expires', note: 'Work with immigration lawyer to time this correctly', badge: 'critical' },
+      ]},
+    ],
+    alternatives: ['businessManager', 'highlySkilled'],
+  },
+  investor: {
+    name: 'Investor / Business Manager Visa',
+    jp: 'Toushi — 投資',
+    desc: 'For high-net-worth individuals investing ¥5M+ into a Japanese company (which they may or may not run). Often the path for passive investors or those funding an existing Japanese business.',
+    score: 0,
+    tags: ['Investor', 'High capital', 'Passive income'],
+    requirements: [
+      { title: '¥5M+ investment in a Japanese company', status: 'gap', note: 'Must be genuine business investment, not just a holding' },
+      { title: 'Registered company or investment entity in Japan', status: 'gap', note: 'The invested entity must be actively operating' },
+      { title: 'Business plan or investment rationale', status: 'gap', note: 'Immigration assesses genuine economic contribution' },
+      { title: 'Proof of origin of investment funds', status: 'gap', note: 'Anti-money laundering compliance requirement' },
+    ],
+    checklist: [
+      { phase: 'Phase 1', phaseTitle: 'Legal Structure', phaseSub: 'Set up investment vehicle', items: [
+        { text: 'Consult a Japanese corporate lawyer about investment structures', note: 'KK is most common; consider tax implications of investment structure', badge: 'critical' },
+        { text: 'Prepare documentation proving legitimate source of investment funds', note: 'Bank statements, tax returns, asset sale records going back 2–3 years', badge: 'critical' },
+        { text: 'Decide whether you will actively manage or be a passive investor', note: 'Active management = Business Manager track; passive needs different structure', badge: 'urgent' },
+      ]},
+      { phase: 'Phase 2', phaseTitle: 'Incorporation & Investment', phaseSub: 'Deploy capital and register', items: [
+        { text: 'Open Japanese corporate bank account for investment deposit', note: 'Anti-money laundering compliance will be thorough — prepare documentation', badge: 'critical' },
+        { text: 'Complete company registration with invested capital', note: 'Notarized articles of incorporation required for KK', badge: 'urgent' },
+        { text: 'Hire local employees or demonstrate business activity (if using 2-employee route)', note: 'Immigration needs to see genuine business substance', badge: 'urgent' },
+      ]},
+      { phase: 'Phase 3', phaseTitle: 'Visa Application', phaseSub: 'Apply for Business Manager status', items: [
+        { text: 'Submit COE application with investment and company documentation', note: 'Immigration scrutinizes investor applications more carefully — be thorough', badge: 'critical' },
+        { text: 'Prepare detailed business plan including return on investment projections', note: 'Show how the investment creates economic value in Japan', badge: 'urgent' },
+        { text: 'Enter Japan and maintain active business involvement', note: 'Purely passive arrangements risk visa non-renewal', badge: null },
+      ]},
+    ],
+    alternatives: ['businessManager', 'startup'],
+  },
+  spouse: {
+    name: 'Spouse / Dependent Visa',
+    jp: 'Haiguusha — 配偶者',
+    desc: 'For spouses and dependents of Japanese nationals, permanent residents, or individuals on long-term visas. Allows part-time work (up to 28 hours/week) without restrictions on work type.',
+    score: 0,
+    tags: ['Family', 'Marriage', 'Dependent'],
+    requirements: [
+      { title: 'Legally married to a Japanese national or PR holder', status: 'gap', note: 'Marriage must be registered in both countries' },
+      { title: 'Genuine marriage (not for immigration purposes)', status: 'gap', note: 'Immigration conducts in-person interviews and home visits' },
+      { title: 'Sponsor\'s proof of stable income', status: 'gap', note: 'Sponsor must demonstrate ability to financially support dependent' },
+      { title: 'Marriage certificate (official translation)', status: 'gap', note: 'Both countries\' official records needed' },
+    ],
+    checklist: [
+      { phase: 'Phase 1', phaseTitle: 'Documentation', phaseSub: 'Marriage and identity documents', items: [
+        { text: 'Register marriage in Japan (Kon-in Todoke at local ward office)', note: 'Both parties must be present; bring passports and registered seal', badge: 'critical' },
+        { text: 'Register marriage in your home country and obtain official certificate', note: 'Required along with certified Japanese translation', badge: 'critical' },
+        { text: 'Compile evidence of genuine relationship (photos, communication, travel records)', note: 'Immigration may review this evidence during interview', badge: 'urgent' },
+        { text: 'Obtain spouse\'s proof of income and tax payment certificates', note: 'Shows sponsor can financially support the household', badge: 'urgent' },
+      ]},
+      { phase: 'Phase 2', phaseTitle: 'Application', phaseSub: 'Submit COE or status change', items: [
+        { text: 'Prepare personal statement describing how you met and your life plans in Japan', note: 'Be detailed and specific — generic answers raise immigration flags', badge: 'critical' },
+        { text: 'Submit COE application (if applying from abroad) or status change (if in Japan)', note: 'Spouse visa processing can take 1–3 months', badge: 'urgent' },
+        { text: 'Be prepared for in-person interview at immigration office', note: 'Both spouses may be interviewed separately', badge: null },
+      ]},
+      { phase: 'Phase 3', phaseTitle: 'Life in Japan', phaseSub: 'Rights and next steps', items: [
+        { text: 'Register address at ward office within 14 days of arrival', note: 'Residence Card will be issued at the airport on arrival', badge: 'critical' },
+        { text: 'Apply for work permission if you plan to work more than 28 hours/week', note: 'Application at immigration office; allows full-time work in any field', badge: null },
+        { text: 'Track path to permanent residency (eligible after 1 year with Japanese citizen spouse)', note: 'Keep records of continuous residence for PR application', badge: null },
+      ]},
+    ],
+    alternatives: ['engineerHumanities', 'highlySkilled'],
+  },
+  student: {
+    name: 'Student Visa',
+    jp: 'Ryuugaku — 留学',
+    desc: 'For individuals enrolled in Japanese language schools, universities, or vocational colleges. Allows up to 28 hours of part-time work per week. A common stepping stone to a long-term work visa.',
+    score: 0,
+    tags: ['Student', 'Language school', 'Pathway visa'],
+    requirements: [
+      { title: 'Acceptance letter from a designated school or university in Japan', status: 'gap', note: 'School must be MEXT-designated (most accredited institutions are)' },
+      { title: 'Proof of sufficient funds for tuition and living expenses', status: 'gap', note: 'Generally ¥1.5–2M per year for living costs alone' },
+      { title: 'Academic transcripts and qualification certificates', status: 'gap', note: 'Prior academic performance is reviewed' },
+      { title: 'Genuine study intent', status: 'gap', note: 'Immigration checks that the program matches study goals' },
+    ],
+    checklist: [
+      { phase: 'Phase 1', phaseTitle: 'School Enrollment', phaseSub: 'Apply to Japanese institutions', items: [
+        { text: 'Research and apply to MEXT-designated Japanese language schools or universities', note: 'EJU test required for university; language schools are more accessible', badge: 'critical' },
+        { text: 'Obtain official enrollment acceptance letter from institution', note: 'This is the primary document for your visa application', badge: 'critical' },
+        { text: 'Prepare proof of funding (bank statements showing sufficient funds)', note: 'Show ¥2M+ per year for living + tuition costs', badge: 'urgent' },
+      ]},
+      { phase: 'Phase 2', phaseTitle: 'Visa Application', phaseSub: 'Apply at Japanese embassy', items: [
+        { text: 'Submit student visa application with enrollment letter and financial proof', note: 'Processing 5–10 business days at most embassies', badge: 'critical' },
+        { text: 'Apply for part-time work permission (up to 28 hours/week)', note: 'Apply simultaneously with visa application or upon arrival', badge: 'urgent' },
+        { text: 'Arrange accommodation in Japan (school dormitory or private)', note: 'Some schools require accommodation confirmation before issuing enrollment letter', badge: null },
+      ]},
+      { phase: 'Phase 3', phaseTitle: 'Transition Planning', phaseSub: 'Plan your path to a work visa', items: [
+        { text: 'Enroll in JLPT preparation courses — aim for N2 or higher for job market', note: 'N2 is the de facto minimum for most Japanese employers', badge: 'urgent' },
+        { text: 'Seek internships or part-time work aligned with target career field', note: 'Japanese companies value candidates with Japan work experience', badge: null },
+        { text: 'Begin job hunting in penultimate semester to change to work visa upon graduation', note: 'New Graduate Visa (April intake) is competitive — start early', badge: 'urgent' },
+      ]},
+    ],
+    alternatives: ['engineerHumanities', 'specifiedSkilled'],
+  },
+};
+
+// ─────────────────────────────────────────────────────────────
+// QUESTIONS (15 total, 3 sections)
+// ─────────────────────────────────────────────────────────────
+const QUESTIONS = [
+  // SECTION 1 — Background (Q1–5)
+  {
+    id: 'q1', section: 0, text: 'What best describes your current situation?',
+    hint: 'This helps us understand your starting point.',
+    layout: 'cols-1',
+    options: [
+      { label: 'I have a job offer from a Japanese company', sub: 'Employed / transferring', value: 'job_offer' },
+      { label: 'I run or want to run my own business', sub: 'Entrepreneur / founder', value: 'business_owner' },
+      { label: 'I work remotely for a foreign employer', sub: 'Remote worker / freelancer', value: 'remote_worker' },
+      { label: 'I want to study Japanese language or attend university', sub: 'Student', value: 'student' },
+      { label: 'I\'m married to or partnered with a Japanese national or PR holder', sub: 'Family connection', value: 'family' },
+      { label: 'I have significant capital I want to invest in Japan', sub: 'Investor', value: 'investor' },
+    ]
+  },
+  {
+    id: 'q2', section: 0, text: 'What is your highest completed level of education?',
+    hint: 'Academic credentials affect point scores and job applications.',
+    layout: 'cols-2',
+    options: [
+      { label: 'PhD / Doctorate', value: 'phd' },
+      { label: 'Master\'s degree', value: 'masters' },
+      { label: 'Bachelor\'s degree', value: 'bachelors' },
+      { label: 'Associate degree / diploma', value: 'associate' },
+      { label: 'Vocational / trade qualification', value: 'vocational' },
+      { label: 'High school only', value: 'highschool' },
+    ]
+  },
+  {
+    id: 'q3', section: 0, text: 'How many years of full-time professional work experience do you have?',
+    hint: 'All professional experience counts, not just Japan-related.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Less than 1 year', value: 'exp_0' },
+      { label: '1–3 years', value: 'exp_1_3' },
+      { label: '3–5 years', value: 'exp_3_5' },
+      { label: '5–10 years', value: 'exp_5_10' },
+      { label: '10+ years', value: 'exp_10' },
+    ]
+  },
+  {
+    id: 'q4', section: 0, text: 'What is your current annual income (or expected salary in Japan)?',
+    hint: 'Salary thresholds unlock different visa tiers and point totals.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Under $30,000 / ¥4.5M', value: 'income_low' },
+      { label: '$30,000–$50,000 / ¥4.5–7.5M', value: 'income_mid' },
+      { label: '$50,000–$75,000 / ¥7.5–11M', value: 'income_upper' },
+      { label: '$75,000–$130,000 / ¥11–20M', value: 'income_high' },
+      { label: '$130,000+ / ¥20M+', value: 'income_premium' },
+    ]
+  },
+  {
+    id: 'q5', section: 0, text: 'What is your current Japanese language ability?',
+    hint: 'Required for some visas; bonus points for others.',
+    layout: 'cols-2',
+    options: [
+      { label: 'None / beginner', sub: 'Little to no Japanese', value: 'jp_none' },
+      { label: 'Basic', sub: 'Survival phrases, ~JLPT N5', value: 'jp_basic' },
+      { label: 'Intermediate', sub: 'Daily conversation, ~JLPT N3–N4', value: 'jp_mid' },
+      { label: 'Advanced', sub: 'Business-level, JLPT N2', value: 'jp_advanced' },
+      { label: 'Fluent / Native', sub: 'JLPT N1 or native speaker', value: 'jp_fluent' },
+    ]
+  },
+
+  // SECTION 2 — Intent (Q6–10)
+  {
+    id: 'q6', section: 1, text: 'How long do you plan to stay in Japan?',
+    hint: 'This dramatically affects which visa makes the most sense.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Up to 6 months', sub: 'Short stay or trial', value: 'stay_short' },
+      { label: '1–2 years', sub: 'Medium-term', value: 'stay_medium' },
+      { label: '3–5 years', sub: 'Long-term', value: 'stay_long' },
+      { label: '5+ years / Permanent', sub: 'Aiming for PR', value: 'stay_permanent' },
+    ]
+  },
+  {
+    id: 'q7', section: 1, text: 'What is your primary goal for moving to Japan?',
+    hint: 'Be honest — there\'s no wrong answer.',
+    layout: 'cols-1',
+    options: [
+      { label: 'Build and run a business', sub: 'Launch or grow a company in Japan', value: 'goal_business' },
+      { label: 'Work for a Japanese company', sub: 'Employed in a Japanese organization', value: 'goal_employment' },
+      { label: 'Continue working remotely', sub: 'Keep current foreign employment while living in Japan', value: 'goal_remote' },
+      { label: 'Study or learn Japanese', sub: 'Language school or university', value: 'goal_study' },
+      { label: 'Join family or partner', sub: 'Spouse, children, or dependents', value: 'goal_family' },
+      { label: 'Invest and build wealth', sub: 'Business investment or real estate', value: 'goal_invest' },
+    ]
+  },
+  {
+    id: 'q8', section: 1, text: 'Do you have access to investment capital or startup funds?',
+    hint: 'Some visas require minimum capital. ¥5M ≈ $33,000 USD.',
+    layout: 'cols-2',
+    options: [
+      { label: 'No capital available', value: 'capital_none' },
+      { label: 'Up to ¥3M', sub: '~$20,000 USD', value: 'capital_low' },
+      { label: '¥3M–¥5M', sub: '~$20,000–$33,000 USD', value: 'capital_mid' },
+      { label: '¥5M–¥20M', sub: '~$33,000–$130,000 USD', value: 'capital_high' },
+      { label: '¥20M+', sub: '$130,000+ USD', value: 'capital_premium' },
+    ]
+  },
+  {
+    id: 'q9', section: 1, text: 'Do you have an existing business or business idea for Japan?',
+    hint: 'For business-related visas, the stage of your idea matters.',
+    layout: 'cols-1',
+    options: [
+      { label: 'Yes — established business (generating revenue)', value: 'biz_established' },
+      { label: 'Yes — early-stage startup (pre-revenue)', value: 'biz_early' },
+      { label: 'Yes — clear business concept, not started yet', value: 'biz_idea' },
+      { label: 'No specific business — would like to explore options', value: 'biz_none' },
+      { label: 'Not interested in running a business', value: 'biz_no' },
+    ]
+  },
+  {
+    id: 'q10', section: 1, text: 'What industry does your work or business fall into?',
+    hint: 'Certain industries have dedicated visa pathways in Japan.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Technology / IT / Engineering', value: 'ind_tech' },
+      { label: 'Business / Finance / Marketing', value: 'ind_biz' },
+      { label: 'Creative / Media / Design', value: 'ind_creative' },
+      { label: 'Hospitality / Food & Beverage', value: 'ind_hospitality' },
+      { label: 'Construction / Agriculture / Manufacturing', value: 'ind_trade' },
+      { label: 'Education / Research / Academia', value: 'ind_education' },
+      { label: 'Healthcare / Social care', value: 'ind_healthcare' },
+      { label: 'Other', value: 'ind_other' },
+    ]
+  },
+
+  // SECTION 3 — Practical (Q11–15)
+  {
+    id: 'q11', section: 2, text: 'What is your marital or family status?',
+    hint: 'Family ties to Japan can open important visa pathways.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Single, no Japan ties', value: 'family_none' },
+      { label: 'Married to a Japanese national', value: 'family_jp_spouse' },
+      { label: 'Married to a Japan PR holder', value: 'family_pr_spouse' },
+      { label: 'Partner or family member in Japan', value: 'family_partner' },
+      { label: 'Married, partner is foreign national', value: 'family_foreign' },
+    ]
+  },
+  {
+    id: 'q12', section: 2, text: 'Which region of Japan are you most interested in?',
+    hint: 'Some programs (startup visa, regional promotion) are location-specific.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Tokyo / Greater Tokyo', value: 'region_tokyo' },
+      { label: 'Osaka / Kansai', value: 'region_osaka' },
+      { label: 'Fukuoka / Kyushu', sub: 'Active startup visa hub', value: 'region_fukuoka' },
+      { label: 'Nagoya / Chubu', value: 'region_nagoya' },
+      { label: 'Rural / anywhere', sub: 'Open to regional relocation', value: 'region_rural' },
+      { label: 'Undecided', value: 'region_undecided' },
+    ]
+  },
+  {
+    id: 'q13', section: 2, text: 'How soon are you looking to move to Japan?',
+    hint: 'Timeline affects which visa to prioritize and what steps to start now.',
+    layout: 'cols-2',
+    options: [
+      { label: 'As soon as possible', sub: 'Within 3 months', value: 'timeline_asap' },
+      { label: 'In 3–6 months', value: 'timeline_6mo' },
+      { label: 'In 6–12 months', value: 'timeline_1yr' },
+      { label: 'In 1–2 years', value: 'timeline_2yr' },
+      { label: 'Just exploring', sub: 'No firm timeline', value: 'timeline_exploring' },
+    ]
+  },
+  {
+    id: 'q14', section: 2, text: 'Have you lived abroad before?',
+    hint: 'Prior international experience affects readiness for certain visa processes.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Yes — lived in multiple countries', value: 'abroad_multi' },
+      { label: 'Yes — lived in one other country', value: 'abroad_one' },
+      { label: 'Extended travel, not lived abroad', value: 'abroad_travel' },
+      { label: 'No — this would be my first time', value: 'abroad_none' },
+    ]
+  },
+  {
+    id: 'q15', section: 2, text: 'What would be your biggest concern about the visa process?',
+    hint: 'Knowing your concern helps us prioritize your action plan.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Meeting the financial requirements', value: 'concern_capital' },
+      { label: 'Finding a job or employer sponsor', value: 'concern_job' },
+      { label: 'Language barrier', value: 'concern_language' },
+      { label: 'Complex paperwork and bureaucracy', value: 'concern_paperwork' },
+      { label: 'Understanding which visa is right', value: 'concern_clarity' },
+      { label: 'Timeline — I need to move fast', value: 'concern_timeline' },
+    ]
+  },
+];
+
+const SECTION_LABELS = [
+  { label: 'Section 1 of 3', title: 'Your Background', desc: 'Education, experience, and where you\'re starting from.' },
+  { label: 'Section 2 of 3', title: 'Your Intent', desc: 'What you want to do and build in Japan.' },
+  { label: 'Section 3 of 3', title: 'Practical Details', desc: 'Timeline, location, and situation-specific factors.' },
+];
+
+// ─────────────────────────────────────────────────────────────
+// BEEHIIV CONFIG
+// ─────────────────────────────────────────────────────────────
+const BEEHIIV_API_KEY = '94lDk03aYfzwAEAWIfPN18ufaQv9CyIOMJTUpPxJv86e004BAvH01okwusvos3kR';
+const BEEHIIV_PUBLICATION_ID = 'pub_a54dfa97-ef39-420a-846e-d45ba67f54f4';
+
+async function subscribeToBeehiiv(email, firstName = '') {
+  const body = { email, send_welcome_email: true, utm_source: 'visa-evaluator', utm_medium: 'tool' };
+  if (firstName) body.first_name = firstName;
+  try {
+    const res = await fetch(
+      `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${BEEHIIV_API_KEY}` },
+        body: JSON.stringify(body),
       }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+    );
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────────────────
+let userName = '';
+let userEmail = '';
+let currentQ = 0;
+let answers = {};
+let showingSection = -1;
+let totalChecked = 0;
+let totalItems = 0;
+
+// ─────────────────────────────────────────────────────────────
+// PAGE NAVIGATION
+// ─────────────────────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0 });
+
+  const nav = document.getElementById('main-nav');
+  if (id === 'page-optin') {
+    nav.className = 'nav light';
+    document.getElementById('nav-step-label').textContent = 'Japan Visa Evaluator';
+  } else if (id === 'page-quiz') {
+    nav.className = 'nav light';
+    updateNavStep();
+  } else if (id === 'page-results') {
+    nav.className = 'nav dark';
+    document.getElementById('nav-step-label').textContent = 'Your Results';
+  }
+}
+
+function updateNavStep() {
+  const q = QUESTIONS[currentQ];
+  const sec = SECTION_LABELS[q.section];
+  document.getElementById('nav-step-label').textContent = sec.label + ' — ' + sec.title;
+}
+
+// ─────────────────────────────────────────────────────────────
+// OPT-IN
+// ─────────────────────────────────────────────────────────────
+async function handleOptIn(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('[type="submit"]');
+  const originalText = btn.textContent;
+  btn.textContent = 'One moment…';
+  btn.disabled = true;
+
+  userName = document.getElementById('optin-name').value.trim().split(' ')[0];
+  userEmail = document.getElementById('optin-email').value.trim();
+
+  subscribeToBeehiiv(userEmail, userName); // fire-and-forget — don't block UX
+
+  btn.textContent = originalText;
+  btn.disabled = false;
+  showPage('page-quiz');
+  currentQ = 0;
+  showingSection = -1;
+  renderQuestion();
+}
+
+// ─────────────────────────────────────────────────────────────
+// QUIZ
+// ─────────────────────────────────────────────────────────────
+function renderQuestion() {
+  updateNavStep();
+  const q = QUESTIONS[currentQ];
+  const body = document.getElementById('quiz-body');
+
+  // Update progress
+  const pct = ((currentQ) / QUESTIONS.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-count').textContent = 'Question ' + (currentQ + 1) + ' of ' + QUESTIONS.length;
+  document.getElementById('section-label').textContent = SECTION_LABELS[q.section].label + ' — ' + SECTION_LABELS[q.section].title;
+
+  // Section intro?
+  const newSection = q.section !== showingSection;
+
+  let html = '';
+
+  if (newSection) {
+    const sec = SECTION_LABELS[q.section];
+    html += `
+      <div class="section-intro" id="section-intro-card">
+        <div class="section-intro-eyebrow">
+          <span style="display:inline-block;width:14px;height:1px;background:var(--color-accent)"></span>
+          ${sec.label}
+        </div>
+        <h2>${sec.title}</h2>
+        <p>${sec.desc}</p>
+      </div>
+    `;
+    showingSection = q.section;
+  }
+
+  // Options
+  const optionsHtml = q.options.map((opt, i) => `
+    <button class="option-btn ${answers[q.id] === opt.value ? 'selected' : ''}"
+      onclick="selectAnswer('${q.id}', '${opt.value}', this)"
+      type="button">
+      <span class="option-indicator">
+        <span class="option-indicator-dot"></span>
+      </span>
+      <span>
+        <span class="option-label">${opt.label}</span>
+        ${opt.sub ? `<div class="option-sublabel">${opt.sub}</div>` : ''}
+      </span>
+    </button>
+  `).join('');
+
+  html += `
+    <div class="question-card" id="question-card">
+      <div class="q-number">${String(currentQ + 1).padStart(2, '0')} / ${QUESTIONS.length}</div>
+      <div class="q-text">${q.text}</div>
+      ${q.hint ? `<div class="q-hint">${q.hint}</div>` : ''}
+      <div class="options-grid ${q.layout}">
+        ${optionsHtml}
+      </div>
+      <div class="quiz-nav">
+        <div class="quiz-nav-left">
+          ${currentQ > 0 ? `<button class="btn-back" onclick="goBack()">← Back</button>` : '<div></div>'}
+          ${answers[q.id] ? '' : `<button class="skip-link" onclick="skipQuestion()">Skip</button>`}
+        </div>
+        <button class="btn-primary" onclick="goNext()" ${answers[q.id] ? '' : 'disabled'}
+          style="${answers[q.id] ? '' : 'opacity:0.4;cursor:not-allowed;'}">
+          ${currentQ === QUESTIONS.length - 1 ? 'See my results →' : 'Next →'}
+        </button>
+      </div>
+    </div>
+  `;
+
+  body.innerHTML = html;
+
+  // Animate in
+  requestAnimationFrame(() => {
+    if (newSection) {
+      const intro = document.getElementById('section-intro-card');
+      if (intro) setTimeout(() => intro.classList.add('visible'), 50);
+    }
+    const card = document.getElementById('question-card');
+    if (card) setTimeout(() => card.classList.add('visible'), newSection ? 200 : 50);
+  });
+}
+
+function selectAnswer(qId, value, btn) {
+  answers[qId] = value;
+  // Update UI
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  // Enable next button
+  const nextBtn = document.querySelector('.quiz-nav .btn-primary');
+  if (nextBtn) {
+    nextBtn.removeAttribute('disabled');
+    nextBtn.style.opacity = '1';
+    nextBtn.style.cursor = 'pointer';
+  }
+  // Remove skip link
+  const skipLink = document.querySelector('.skip-link');
+  if (skipLink) skipLink.remove();
+  // Auto-advance after brief delay
+  setTimeout(() => goNext(), 350);
+}
+
+function goNext() {
+  if (!answers[QUESTIONS[currentQ].id]) return;
+  if (currentQ < QUESTIONS.length - 1) {
+    currentQ++;
+    const body = document.getElementById('quiz-body');
+    const card = document.getElementById('question-card');
+    if (card) {
+      card.classList.add('exiting');
+      setTimeout(() => renderQuestion(), 200);
+    } else {
+      renderQuestion();
+    }
+  } else {
+    calculateResults();
+  }
+}
+
+function goBack() {
+  if (currentQ > 0) {
+    currentQ--;
+    renderQuestion();
+  }
+}
+
+function skipQuestion() {
+  if (currentQ < QUESTIONS.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    calculateResults();
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// SCORING ENGINE
+// ─────────────────────────────────────────────────────────────
+function calculateResults() {
+  // Reset scores
+  Object.keys(VISAS).forEach(k => VISAS[k].score = 0);
+
+  const a = answers;
+
+  // ── Q1: Current situation ──
+  if (a.q1 === 'job_offer') {
+    VISAS.engineerHumanities.score += 40;
+    VISAS.highlySkilled.score += 20;
+  }
+  if (a.q1 === 'business_owner') {
+    VISAS.businessManager.score += 40;
+    VISAS.startup.score += 25;
+    VISAS.investor.score += 15;
+  }
+  if (a.q1 === 'remote_worker') {
+    VISAS.digitalNomad.score += 50;
+    VISAS.businessManager.score += 10;
+  }
+  if (a.q1 === 'student') {
+    VISAS.student.score += 60;
+  }
+  if (a.q1 === 'family') {
+    VISAS.spouse.score += 70;
+  }
+  if (a.q1 === 'investor') {
+    VISAS.investor.score += 45;
+    VISAS.businessManager.score += 20;
+  }
+
+  // ── Q2: Education ──
+  if (a.q2 === 'phd') {
+    VISAS.highlySkilled.score += 25;
+    VISAS.engineerHumanities.score += 15;
+  }
+  if (a.q2 === 'masters') {
+    VISAS.highlySkilled.score += 20;
+    VISAS.engineerHumanities.score += 12;
+  }
+  if (a.q2 === 'bachelors') {
+    VISAS.highlySkilled.score += 10;
+    VISAS.engineerHumanities.score += 15;
+    VISAS.businessManager.score += 8;
+  }
+  if (a.q2 === 'vocational' || a.q2 === 'associate') {
+    VISAS.specifiedSkilled.score += 20;
+    VISAS.engineerHumanities.score += 5;
+  }
+  if (a.q2 === 'highschool') {
+    VISAS.specifiedSkilled.score += 25;
+    VISAS.student.score += 15;
+  }
+
+  // ── Q3: Work experience ──
+  if (a.q3 === 'exp_10') { VISAS.highlySkilled.score += 20; VISAS.businessManager.score += 15; }
+  if (a.q3 === 'exp_5_10') { VISAS.highlySkilled.score += 15; VISAS.engineerHumanities.score += 10; }
+  if (a.q3 === 'exp_3_5') { VISAS.engineerHumanities.score += 12; VISAS.highlySkilled.score += 8; }
+  if (a.q3 === 'exp_1_3') { VISAS.engineerHumanities.score += 6; VISAS.student.score += 8; }
+  if (a.q3 === 'exp_0') { VISAS.student.score += 15; VISAS.specifiedSkilled.score += 8; }
+
+  // ── Q4: Income ──
+  if (a.q4 === 'income_premium') { VISAS.highlySkilled.score += 30; VISAS.digitalNomad.score += 20; VISAS.investor.score += 15; }
+  if (a.q4 === 'income_high') { VISAS.highlySkilled.score += 20; VISAS.digitalNomad.score += 15; }
+  if (a.q4 === 'income_upper') { VISAS.engineerHumanities.score += 15; VISAS.digitalNomad.score += 10; }
+  if (a.q4 === 'income_mid') { VISAS.engineerHumanities.score += 8; VISAS.specifiedSkilled.score += 8; }
+  if (a.q4 === 'income_low') { VISAS.student.score += 10; VISAS.specifiedSkilled.score += 10; }
+
+  // ── Q5: Japanese ──
+  if (a.q5 === 'jp_fluent' || a.q5 === 'jp_advanced') {
+    VISAS.highlySkilled.score += 15; VISAS.specifiedSkilled.score += 10; VISAS.engineerHumanities.score += 5;
+  }
+  if (a.q5 === 'jp_mid') { VISAS.specifiedSkilled.score += 15; VISAS.highlySkilled.score += 8; }
+  if (a.q5 === 'jp_basic' || a.q5 === 'jp_none') {
+    VISAS.businessManager.score += 5; VISAS.digitalNomad.score += 5; VISAS.investor.score += 5;
+  }
+
+  // ── Q6: Stay length ──
+  if (a.q6 === 'stay_short') { VISAS.digitalNomad.score += 30; VISAS.student.score += 10; }
+  if (a.q6 === 'stay_medium') { VISAS.engineerHumanities.score += 10; VISAS.startup.score += 10; VISAS.student.score += 15; }
+  if (a.q6 === 'stay_long') { VISAS.businessManager.score += 15; VISAS.engineerHumanities.score += 12; }
+  if (a.q6 === 'stay_permanent') { VISAS.highlySkilled.score += 20; VISAS.businessManager.score += 15; VISAS.spouse.score += 15; }
+
+  // ── Q7: Primary goal ──
+  if (a.q7 === 'goal_business') { VISAS.businessManager.score += 30; VISAS.startup.score += 20; }
+  if (a.q7 === 'goal_employment') { VISAS.engineerHumanities.score += 30; VISAS.highlySkilled.score += 15; }
+  if (a.q7 === 'goal_remote') { VISAS.digitalNomad.score += 35; }
+  if (a.q7 === 'goal_study') { VISAS.student.score += 40; }
+  if (a.q7 === 'goal_family') { VISAS.spouse.score += 40; }
+  if (a.q7 === 'goal_invest') { VISAS.investor.score += 35; VISAS.businessManager.score += 15; }
+
+  // ── Q8: Capital ──
+  if (a.q8 === 'capital_premium') { VISAS.investor.score += 30; VISAS.highlySkilled.score += 10; VISAS.businessManager.score += 25; }
+  if (a.q8 === 'capital_high') { VISAS.businessManager.score += 25; VISAS.startup.score += 10; }
+  if (a.q8 === 'capital_mid') { VISAS.startup.score += 20; VISAS.businessManager.score += 5; }
+  if (a.q8 === 'capital_low') { VISAS.startup.score += 10; }
+  if (a.q8 === 'capital_none') { VISAS.engineerHumanities.score += 8; VISAS.student.score += 8; }
+
+  // ── Q9: Business status ──
+  if (a.q9 === 'biz_established') { VISAS.businessManager.score += 25; VISAS.investor.score += 10; }
+  if (a.q9 === 'biz_early') { VISAS.startup.score += 25; VISAS.businessManager.score += 15; }
+  if (a.q9 === 'biz_idea') { VISAS.startup.score += 20; VISAS.businessManager.score += 10; }
+  if (a.q9 === 'biz_none') { VISAS.startup.score += 5; VISAS.engineerHumanities.score += 5; }
+  if (a.q9 === 'biz_no') { VISAS.engineerHumanities.score += 10; VISAS.highlySkilled.score += 5; }
+
+  // ── Q10: Industry ──
+  if (a.q10 === 'ind_tech') { VISAS.engineerHumanities.score += 20; VISAS.highlySkilled.score += 15; }
+  if (a.q10 === 'ind_biz') { VISAS.engineerHumanities.score += 15; VISAS.businessManager.score += 10; VISAS.highlySkilled.score += 10; }
+  if (a.q10 === 'ind_creative') { VISAS.engineerHumanities.score += 10; VISAS.businessManager.score += 8; }
+  if (a.q10 === 'ind_hospitality') { VISAS.specifiedSkilled.score += 25; VISAS.businessManager.score += 8; }
+  if (a.q10 === 'ind_trade') { VISAS.specifiedSkilled.score += 30; }
+  if (a.q10 === 'ind_education') { VISAS.engineerHumanities.score += 15; VISAS.highlySkilled.score += 10; }
+  if (a.q10 === 'ind_healthcare') { VISAS.engineerHumanities.score += 15; VISAS.specifiedSkilled.score += 10; }
+
+  // ── Q11: Family status ──
+  if (a.q11 === 'family_jp_spouse') { VISAS.spouse.score += 50; }
+  if (a.q11 === 'family_pr_spouse') { VISAS.spouse.score += 40; }
+  if (a.q11 === 'family_partner') { VISAS.spouse.score += 10; }
+  if (a.q11 === 'family_none' || a.q11 === 'family_foreign') {
+    VISAS.businessManager.score += 3; VISAS.engineerHumanities.score += 3;
+  }
+
+  // ── Q12: Region ──
+  if (a.q12 === 'region_fukuoka') { VISAS.startup.score += 15; }
+  if (a.q12 === 'region_tokyo' || a.q12 === 'region_osaka') { VISAS.startup.score += 8; VISAS.businessManager.score += 5; }
+  if (a.q12 === 'region_rural') { VISAS.specifiedSkilled.score += 10; }
+
+  // ── Q13: Timeline ──
+  if (a.q13 === 'timeline_asap') { VISAS.digitalNomad.score += 10; VISAS.spouse.score += 5; }
+  if (a.q13 === 'timeline_6mo') { VISAS.engineerHumanities.score += 5; VISAS.student.score += 5; }
+  if (a.q13 === 'timeline_1yr') { VISAS.businessManager.score += 5; VISAS.highlySkilled.score += 5; }
+
+  // ── Q15: Concern ──
+  if (a.q15 === 'concern_capital') { VISAS.startup.score += 5; VISAS.digitalNomad.score += 5; }
+  if (a.q15 === 'concern_job') { VISAS.startup.score += 5; VISAS.businessManager.score += 5; }
+  if (a.q15 === 'concern_language') { VISAS.digitalNomad.score += 5; VISAS.businessManager.score += 3; }
+
+  // Normalize scores to percentages (max possible ~200)
+  const maxScore = Math.max(...Object.values(VISAS).map(v => v.score));
+  const scoreMap = {};
+  Object.keys(VISAS).forEach(k => {
+    scoreMap[k] = Math.round((VISAS[k].score / Math.max(maxScore, 1)) * 100);
+  });
+
+  const sorted = Object.keys(scoreMap).sort((a, b) => scoreMap[b] - scoreMap[a]);
+  renderResults(sorted[0], sorted.slice(1, 3), scoreMap);
+}
+
+// ─────────────────────────────────────────────────────────────
+// RESULTS RENDERER
+// ─────────────────────────────────────────────────────────────
+function renderResults(winnerId, altIds, scoreMap) {
+  const winner = VISAS[winnerId];
+  const score = scoreMap[winnerId];
+
+  // Hero
+  document.getElementById('results-name-display').textContent =
+    userName ? `Based on your answers, ${userName}:` : 'Based on your answers:';
+  document.getElementById('results-headline').innerHTML =
+    `Your best-fit visa is <em>${winner.name.split(' ').slice(0,2).join(' ')}</em>`;
+
+  // Winner card
+  const tagsHtml = winner.tags.map(t =>
+    `<span style="font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-right:14px;">${t}</span>`
+  ).join('');
+
+  document.getElementById('winner-card').innerHTML = `
+    <div>
+      <div class="winner-visa-tag">Best match</div>
+      <div class="winner-visa-name">${winner.name}</div>
+      <div class="winner-visa-jp">${winner.jp}</div>
+      <div style="display:flex;flex-wrap:wrap;margin-bottom:12px;">${tagsHtml}</div>
+      <div class="winner-visa-desc">${winner.desc}</div>
+    </div>
+    <div class="score-ring">
+      <div class="score-circle">
+        <span class="score-num">${score}</span>
+        <span class="score-pct">/ 100</span>
+      </div>
+      <span class="score-label">Match score</span>
+    </div>
+  `;
+
+  // Profile factors
+  const factorData = buildFactors();
+  document.getElementById('factors-grid').innerHTML = factorData.map(f => `
+    <div class="factor-card fade-up fade-up-delay-${f.delay}">
+      <div class="factor-label">${f.label}</div>
+      <div class="factor-value">${f.value}</div>
+    </div>
+  `).join('');
+
+  // Requirements
+  document.getElementById('req-grid').innerHTML = winner.requirements.map(r => `
+    <div class="req-item">
+      <span class="req-icon ${r.status}">
+        ${r.status === 'met' ? '✓' : r.status === 'gap' ? '→' : '✗'}
+      </span>
+      <div class="req-text">
+        <div class="req-title">${r.title}</div>
+        <div class="req-note">${r.note}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Checklist
+  let checklistHtml = '';
+  let itemIndex = 0;
+  winner.checklist.forEach((phase, pi) => {
+    const phaseItems = phase.items.map((item, ii) => {
+      const idx = itemIndex++;
+      return `
+        <div class="checklist-item" id="cl-item-${idx}" onclick="toggleCheck(${idx})">
+          <span class="check-box"><span class="check-mark">✓</span></span>
+          <div class="check-content">
+            <div class="check-title">${item.text}</div>
+            ${item.note ? `<div class="check-note">${item.note}</div>` : ''}
+          </div>
+          ${item.badge ? `<span class="check-badge ${item.badge}">${item.badge}</span>` : ''}
+        </div>
+      `;
+    }).join('');
+
+    checklistHtml += `
+      <div class="checklist-phase">
+        <div class="phase-header">
+          <span class="phase-num">${pi + 1}.</span>
+          <span class="phase-title">${phase.phaseTitle}</span>
+        </div>
+        <div class="phase-subtitle">${phase.phaseSub}</div>
+        <div class="checklist-items">${phaseItems}</div>
+      </div>
+    `;
+  });
+
+  totalItems = itemIndex;
+  totalChecked = 0;
+  document.getElementById('checklist-container').innerHTML = checklistHtml;
+  updateChecklistProgress();
+
+  // Pre-fill CTA email
+  if (userEmail) document.getElementById('cta-email').value = userEmail;
+
+  // Alternatives
+  document.getElementById('alt-grid').innerHTML = altIds.map(id => {
+    const v = VISAS[id];
+    const s = scoreMap[id];
+    return `
+      <div class="alt-card">
+        <div class="alt-score">${s}% match</div>
+        <div class="alt-name">${v.name}</div>
+        <div style="font-family:var(--font-serif);font-style:italic;font-size:0.82rem;color:var(--color-accent);margin-bottom:8px;">${v.jp}</div>
+        <div class="alt-why">${v.desc.substring(0, 120)}…</div>
+      </div>
+    `;
+  }).join('');
+
+  showPage('page-results');
+}
+
+function buildFactors() {
+  const a = answers;
+  const educationMap = { phd: 'PhD / Doctorate', masters: "Master's degree", bachelors: "Bachelor's degree", associate: 'Associate / Diploma', vocational: 'Vocational', highschool: 'High school' };
+  const expMap = { exp_0: 'Under 1 year', exp_1_3: '1–3 years', exp_3_5: '3–5 years', exp_5_10: '5–10 years', exp_10: '10+ years' };
+  const incomeMap = { income_low: 'Under ¥4.5M', income_mid: '¥4.5–7.5M', income_upper: '¥7.5–11M', income_high: '¥11–20M', income_premium: '¥20M+' };
+  const jpMap = { jp_none: 'None', jp_basic: 'Basic (N5)', jp_mid: 'Intermediate (N3-4)', jp_advanced: 'Advanced (N2)', jp_fluent: 'Fluent (N1)' };
+  const stayMap = { stay_short: 'Up to 6 months', stay_medium: '1–2 years', stay_long: '3–5 years', stay_permanent: '5+ / Permanent' };
+  const timelineMap = { timeline_asap: 'ASAP (< 3 months)', timeline_6mo: '3–6 months', timeline_1yr: '6–12 months', timeline_2yr: '1–2 years', timeline_exploring: 'Just exploring' };
+  return [
+    { label: 'Education', value: educationMap[a.q2] || '—', delay: 1 },
+    { label: 'Experience', value: expMap[a.q3] || '—', delay: 2 },
+    { label: 'Annual income', value: incomeMap[a.q4] || '—', delay: 3 },
+    { label: 'Japanese level', value: jpMap[a.q5] || '—', delay: 4 },
+    { label: 'Intended stay', value: stayMap[a.q6] || '—', delay: 5 },
+    { label: 'Move timeline', value: timelineMap[a.q13] || '—', delay: 1 },
+  ];
+}
+
+function toggleCheck(idx) {
+  const item = document.getElementById('cl-item-' + idx);
+  const wasChecked = item.classList.contains('checked');
+  item.classList.toggle('checked');
+  totalChecked += wasChecked ? -1 : 1;
+  updateChecklistProgress();
+}
+
+function updateChecklistProgress() {
+  const pct = totalItems > 0 ? (totalChecked / totalItems) * 100 : 0;
+  document.getElementById('cl-prog-fill').style.width = pct + '%';
+  document.getElementById('cl-prog-label').textContent = totalChecked + ' / ' + totalItems + ' completed';
+}
+
+async function handleCTASubscribe(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('[type="submit"]');
+  const originalText = btn.textContent;
+  btn.textContent = 'Subscribing…';
+  btn.disabled = true;
+
+  const email = document.getElementById('cta-email').value.trim();
+  await subscribeToBeehiiv(email);
+
+  document.getElementById('cta-form').style.display = 'none';
+  document.getElementById('cta-success').style.display = 'block';
+}
+
+function restartEvaluator() {
+  answers = {};
+  currentQ = 0;
+  showingSection = -1;
+  document.getElementById('optin-name').value = '';
+  document.getElementById('optin-email').value = '';
+  showPage('page-optin');
+}
 </script>
-
-<script src="https://js.supascribe.com/v1/loader/ycHsOPdWZpO1d3kPx52nio86bKr2.js" async></script>
-
 </body>
 </html>
