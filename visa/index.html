@@ -1189,34 +1189,25 @@ const SECTION_LABELS = [
 ];
 
 // ─────────────────────────────────────────────────────────────
-// BEEHIIV CONFIG
+// BEEHIIV PROXY
 // ─────────────────────────────────────────────────────────────
-const BEEHIIV_API_KEY = '94lDk03aYfzwAEAWIfPN18ufaQv9CyIOMJTUpPxJv86e004BAvH01okwusvos3kR';
-const BEEHIIV_PUBLICATION_ID = 'pub_a54dfa97-ef39-420a-846e-d45ba67f54f4';
+const WORKER_URL = 'https://beehiiv-proxy.YOUR-SUBDOMAIN.workers.dev'; // Replace after deploying worker.js
 
 async function subscribeToBeehiiv(email, firstName = '') {
-  const body = { email, send_welcome_email: true, utm_source: 'visa-evaluator', utm_medium: 'tool' };
-  if (firstName) body.first_name = firstName;
   try {
-    const res = await fetch(
-      `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${BEEHIIV_API_KEY}` },
-        body: JSON.stringify(body),
-      }
-    );
-    return res.ok;
+    await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, firstName }),
+    });
   } catch {
-    return false;
+    // silent — subscription failure never blocks the user flow
   }
 }
 
 // ─────────────────────────────────────────────────────────────
 // EMAIL VALIDATION
 // ─────────────────────────────────────────────────────────────
-const ABSTRACT_API_KEY = '27d68de95b764876b2fa9faf54557775';
-
 const BLOCKED_DOMAINS = new Set([
   'fake.com','mailinator.com','guerrillamail.com','guerrillamail.net','guerrillamail.org',
   'guerrillamail.biz','guerrillamail.de','guerrillamail.info','sharklasers.com','grr.la',
@@ -1230,48 +1221,18 @@ const BLOCKED_DOMAINS = new Set([
   'mailbucket.org','nobody.com','nowmymail.com','kurzepost.de','objectmail.com',
 ]);
 
-async function validateEmail(email) {
+function validateEmail(email) {
   console.log('[validateEmail] input:', email);
 
-  // 1. Format — TLD must be letters only, 2+ chars
   if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
     console.log('[validateEmail] blocked: format');
     return { valid: false, reason: 'Please enter a valid email address (e.g. you@example.com).' };
   }
 
-  // 2. Blocklist
   const domain = email.split('@')[1].toLowerCase();
   console.log('[validateEmail] domain:', domain, '| blocklisted:', BLOCKED_DOMAINS.has(domain));
   if (BLOCKED_DOMAINS.has(domain)) {
     return { valid: false, reason: 'Please use a real email address.' };
-  }
-
-  // 3. Abstract API — disposable check + MX/deliverability
-  if (ABSTRACT_API_KEY) {
-    try {
-      const res = await fetch(
-        `https://emailvalidation.abstractapi.com/v1/?api_key=${ABSTRACT_API_KEY}&email=${encodeURIComponent(email)}`
-      );
-      if (!res.ok) {
-        console.warn('[validateEmail] Abstract API non-ok status:', res.status, '— falling back to local checks');
-      } else {
-        const data = await res.json();
-        console.log('[validateEmail] Abstract API:', {
-          deliverability: data.deliverability,
-          disposable: data.is_disposable_email?.value,
-          mx: data.is_mx_found?.value,
-          smtp: data.is_smtp_valid?.value,
-        });
-        if (data.is_disposable_email?.value === true) {
-          return { valid: false, reason: 'Please use a real email address.' };
-        }
-        if (data.deliverability === 'UNDELIVERABLE' || data.is_mx_found?.value === false) {
-          return { valid: false, reason: 'That email address doesn\'t appear to exist.' };
-        }
-      }
-    } catch (err) {
-      console.warn('[validateEmail] Abstract API failed (CORS or network):', err.message, '— local checks only');
-    }
   }
 
   console.log('[validateEmail] passed');
