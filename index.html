@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ambition Abroad</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="shortcut icon" href="favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Ambition Abroad" />
+<meta property="og:description" content="The playbook for building a business abroad." />
+<meta property="og:image" content="https://ambition-abroad.com/Social_Sharing_Photo.jpg" />
+<meta property="og:url" content="https://ambition-abroad.com" />
+<meta property="og:type" content="website" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Ambition Abroad" />
+<meta name="twitter:description" content="The playbook for building a business abroad." />
+<meta name="twitter:image" content="https://ambition-abroad.com/Social_Sharing_Photo.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('fonts/ITCGaramondStd-BookNarrowItalic.otf') format('opentype');
+    font-weight: 400; font-style: italic;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+    font-size: 1rem;
+    background: #F8F6F2;
+    color: #0C0B0A;
+    -webkit-font-smoothing: antialiased;
+  }
+  * { text-wrap: pretty; }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #F8F6F2; }
+  ::-webkit-scrollbar-thumb { background: #C8C4BE; border-radius: 3px; }
+
+  /* Tokens */
+  :root {
+    --ink: #0C0B0A;
+    --ink-soft: #3A3835;
+    --ink-faint: #7A7774;
+    --paper: #F8F6F2;
+    --white: #FFFFFF;
+    --accent: #C9963A;
+    --accent-deep: #8B6520;
+    --accent-pale: #F5E6CA;
+    --gray-100: #EDEBE8;
+    --gray-200: #E0DDD8;
+    --gray-300: #C8C4BE;
+    --gray-400: #A8A39C;
+    --gray-800: #2E2B27;
+    --gray-900: #1A1816;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Nav */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(248,246,242,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-100);
+    padding: 0 32px;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex; align-items: center;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .nav-logo img {
+    height: 40px; width: auto;
+    display: block;
+  }
+  @media (max-width: 400px) {
+    .nav-logo img { height: 32px; }
+  }
+  .nav-cta {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 0.78rem; font-weight: 600;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 4px;
+    padding: 8px 16px; cursor: pointer;
+    transition: background 200ms var(--ease-out);
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--accent-deep); }
+
+  /* Hero */
+  .hero {
+    background: var(--white);
+    padding: 130px 32px 80px;
+    text-align: center;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .hero-inner { max-width: 680px; margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .eyebrow-rule { display: inline-block; width: 18px; height: 1px; background: var(--accent); }
+  .hero-h1 {
+    font-size: clamp(2rem, 8vw, 4.2rem);
+    font-weight: 500; line-height: 1.06;
+    letter-spacing: -0.03em; color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .hero-h1-serif {
+    font-family: 'ITC Garamond Std', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    line-height: 1.06; color: var(--accent);
+    margin-bottom: 28px; display: block;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.1rem); font-weight: 400;
+    line-height: 1.7; color: #68635C;
+    max-width: 480px; margin: 0 auto 36px;
+  }
+
+  /* Form */
+  .opt-form {
+    display: flex; flex-direction: column; gap: 10px;
+    max-width: 420px; margin: 0 auto;
+  }
+  .opt-input {
+    background: var(--paper);
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 0.95rem; color: var(--ink);
+    outline: none;
+    transition: border-color 180ms var(--ease-out), background 180ms;
+    text-align: center;
+  }
+  .opt-input::placeholder { color: var(--gray-400); }
+  .opt-input:focus { border-color: var(--accent); background: var(--white); }
+  .opt-btn {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 0.88rem; font-weight: 700;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 4px;
+    padding: 14px 24px; cursor: pointer;
+    transition: background 220ms var(--ease-out), transform 120ms;
+  }
+  .opt-btn:hover { background: var(--accent-deep); }
+  .opt-btn:active { transform: scale(0.98); }
+  .opt-note {
+    font-size: 0.72rem; color: var(--gray-400);
+    margin-top: 6px; letter-spacing: 0.02em;
+  }
+
+  /* Success state */
+  .success-box {
+    background: var(--accent-pale);
+    border: 1px solid #E8CFA0;
+    border-radius: 8px;
+    padding: 20px 24px;
+    max-width: 420px; margin: 0 auto;
+  }
+  .success-box p {
+    font-family: 'ITC Garamond Std', Georgia, serif;
+    font-style: italic; font-size: 1.1rem; color: var(--accent-deep);
+  }
+
+  /* Stats */
+  .stats {
+    display: flex; justify-content: center;
+    gap: clamp(28px, 6vw, 72px);
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid var(--gray-100);
+  }
+  .stat-num {
+    font-size: 1.6rem; font-weight: 600;
+    letter-spacing: -0.03em; color: var(--ink);
+  }
+  .stat-lbl {
+    font-size: 0.72rem; font-weight: 500;
+    color: var(--gray-400); letter-spacing: 0.06em;
+    text-transform: uppercase; margin-top: 3px;
+  }
+
+  /* Benefits section */
+  .benefits {
+    background: var(--paper);
+    padding: 88px 32px;
+  }
+  .section-inner { max-width: 1060px; margin: 0 auto; }
+  .section-header { margin-bottom: 48px; }
+  .section-tag {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .section-tag-rule { display: inline-block; width: 16px; height: 1px; background: var(--accent); }
+  .section-h2 {
+    font-size: clamp(1.75rem, 4vw, 2.4rem);
+    font-weight: 500; letter-spacing: -0.03em;
+    line-height: 1.12; color: var(--ink);
+  }
+  .section-h2 em {
+    font-family: 'ITC Garamond Std', Georgia, serif;
+    font-style: italic; color: var(--accent);
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .benefit-card {
+    background: var(--white);
+    border: 1px solid var(--gray-100);
+    border-radius: 8px;
+    padding: 28px 24px;
+    transition: box-shadow 220ms var(--ease-out);
+  }
+  .benefit-card:hover { box-shadow: 0 4px 16px rgba(12,11,10,0.08); }
+  .benefit-num {
+    font-family: 'ITC Garamond Std', Georgia, serif;
+    font-style: italic; font-size: 2rem;
+    color: var(--accent-pale); line-height: 1;
+    margin-bottom: 14px; display: block;
+  }
+  .benefit-title {
+    font-size: 0.95rem; font-weight: 600; color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .benefit-desc {
+    font-size: 1rem; color: #68635C; line-height: 1.65;
+  }
+
+  /* Blueprints section */
+  .blueprints {
+    background: var(--white);
+    padding: 88px 32px;
+    border-top: 1px solid var(--gray-100);
+  }
+  .blueprints-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 40px; flex-wrap: wrap; gap: 16px;
+  }
+  .blueprints-all {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--accent); text-decoration: none;
+    display: flex; align-items: center; gap: 6px;
+    transition: color 180ms var(--ease-out);
+    white-space: nowrap; padding-bottom: 4px;
+  }
+  .blueprints-all:hover { color: var(--accent-deep); }
+  .blueprint-card {
+    background: var(--paper);
+    border: 1px solid var(--gray-100);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 220ms var(--ease-out), transform 220ms var(--ease-out);
+    display: flex; flex-direction: column;
+  }
+  .blueprint-card:hover {
+    box-shadow: 0 6px 24px rgba(12,11,10,0.10);
+    transform: translateY(-2px);
+  }
+  .blueprint-thumb {
+    position: relative;
+    height: 170px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .blueprint-thumb-text {
+    font-family: 'ITC Garamond Std', Georgia, serif;
+    font-style: italic;
+    font-size: 0.72rem;
+    color: rgba(12,11,10,0.18);
+    text-align: center;
+    line-height: 1.8;
+    user-select: none;
+    pointer-events: none;
+  }
+  .blueprint-badge {
+    position: absolute; top: 12px; left: 12px;
+    font-size: 0.58rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    background: var(--accent); color: #fff;
+    padding: 4px 8px; border-radius: 3px;
+  }
+  .blueprint-body {
+    padding: 20px 22px 22px;
+    display: flex; flex-direction: column; flex: 1;
+  }
+  .blueprint-location {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.13em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 10px;
+  }
+  .blueprint-location-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+  }
+  .blueprint-title {
+    font-size: 1rem; font-weight: 600;
+    letter-spacing: -0.02em; line-height: 1.3;
+    color: var(--ink); margin-bottom: 14px;
+  }
+  .blueprint-bullets {
+    list-style: none; display: flex; flex-direction: column; gap: 5px;
+    margin-bottom: 18px; flex: 1;
+  }
+  .blueprint-bullets li {
+    font-size: 0.9375rem; color: #68635C; line-height: 1.5;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .blueprint-bullets li::before {
+    content: '→'; color: var(--accent);
+    font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;
+  }
+  .blueprint-footer {
+    padding-top: 14px;
+    border-top: 1px solid var(--gray-100);
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .blueprint-footer-name {
+    font-size: 0.78rem; font-weight: 600; color: var(--ink);
+  }
+  .blueprint-footer-cat {
+    font-size: 0.75rem; color: var(--gray-400);
+  }
+
+  /* Testimonials */
+  .testimonials {
+    background: var(--white);
+    padding: 88px 32px;
+    border-top: 1px solid var(--gray-100);
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 48px;
+  }
+  .testimonial-card {
+    background: var(--paper);
+    border: 1px solid var(--gray-100);
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .testimonial-quote {
+    font-size: 1rem; color: var(--ink-soft);
+    line-height: 1.7; font-style: italic;
+    margin-bottom: 20px;
+  }
+  .testimonial-divider {
+    height: 1px; background: var(--gray-100); margin-bottom: 14px;
+  }
+  .testimonial-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--gray-200); flex-shrink: 0;
+  }
+  .testimonial-name {
+    font-size: 0.82rem; font-weight: 600; color: var(--ink);
+  }
+  .testimonial-loc {
+    font-size: 0.72rem; color: var(--gray-400); margin-top: 2px;
+  }
+
+  /* About */
+  .about {
+    background: var(--paper);
+    padding: 88px 32px;
+  }
+  .about-inner {
+    max-width: 1060px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: center;
+  }
+  .about-avatar-wrap {
+    background: var(--gray-100);
+    border-radius: 8px; overflow: hidden;
+    height: 500px; display: flex; align-items: center; justify-content: center;
+  }
+  .about-avatar-placeholder {
+    font-family: 'ITC Garamond Std', Georgia, serif;
+    font-style: italic; font-size: 5rem;
+    color: rgba(12,11,10,0.1); line-height: 1;
+    user-select: none;
+  }
+  .about-label {
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 18px;
+  }
+  .about-h2 {
+    font-size: clamp(1.75rem, 3vw, 2.2rem);
+    font-weight: 500; letter-spacing: -0.03em;
+    line-height: 1.12; color: var(--ink); margin-bottom: 20px;
+  }
+  .about-h2 em {
+    font-family: 'ITC Garamond Std', Georgia, serif;
+    font-style: italic; color: var(--accent);
+  }
+  .about-body {
+    font-size: 1rem; color: #68635C; line-height: 1.75;
+    margin-bottom: 10px;
+  }
+
+  /* Dark CTA */
+  .dark-cta {
+    background: var(--ink);
+    padding: 100px 32px;
+    text-align: center;
+  }
+  .dark-cta-inner { max-width: 560px; margin: 0 auto; }
+  .dark-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .dark-eyebrow-rule { display: inline-block; width: 16px; height: 1px; background: var(--accent); }
+  .dark-h2 {
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 500; letter-spacing: -0.03em;
+    line-height: 1.06; color: #fff; margin-bottom: 4px;
+  }
+  .dark-h2-serif {
+    font-family: 'ITC Garamond Std', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    color: var(--accent); line-height: 1.06;
+    margin-bottom: 24px; display: block;
+  }
+  .dark-sub {
+    font-size: 0.88rem; color: rgba(255,255,255,0.42);
+    line-height: 1.7; margin-bottom: 36px;
+    max-width: 380px; margin-left: auto; margin-right: auto;
+  }
+  .dark-form { max-width: 400px; margin: 0 auto 36px; }
+  .dark-input {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 0.95rem; color: #fff;
+    outline: none; width: 100%; margin-bottom: 10px;
+    transition: border-color 180ms var(--ease-out), background 180ms;
+    text-align: center;
+  }
+  .dark-input::placeholder { color: rgba(255,255,255,0.28); }
+  .dark-input:focus { border-color: var(--accent); background: rgba(255,255,255,0.10); }
+  .dark-btn {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 0.88rem; font-weight: 700;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 4px;
+    padding: 14px 24px; cursor: pointer; width: 100%;
+    transition: background 220ms var(--ease-out), transform 120ms;
+  }
+  .dark-btn:hover { background: var(--accent-deep); }
+  .dark-btn:active { transform: scale(0.98); }
+  .dark-note {
+    font-size: 0.72rem; color: rgba(255,255,255,0.22);
+    letter-spacing: 0.02em; margin-top: 10px;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 22px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-logo { display: flex; align-items: baseline; gap: 4px; }
+  .footer-logo-sans {
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 500; font-size: 0.88rem; color: #fff;
+  }
+  .footer-logo-serif {
+    font-family: 'ITC Garamond Std', Georgia, serif;
+    font-style: italic; font-size: 0.88rem; color: var(--accent);
+  }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-link {
+    font-size: 0.75rem; color: rgba(255,255,255,0.3);
+    cursor: pointer; transition: color 160ms; text-decoration: none;
+  }
+  .footer-link:hover { color: rgba(255,255,255,0.7); }
+  .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.18); }
+
+  /* Nav links */
+  .nav-links {
+    display: flex; align-items: center; gap: 20px;
+  }
+  .nav-link {
+    font-size: 0.8rem; font-weight: 500; color: var(--ink-soft);
+    text-decoration: none; transition: color 160ms;
+    letter-spacing: 0.01em;
+  }
+  .nav-link:hover { color: var(--accent); }
+  @media (max-width: 600px) { .nav-links { display: none; } }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heroFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-inner {
+    animation: heroFadeIn 450ms var(--ease-out) both;
+  }
+  .anim {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity 360ms var(--ease-out), transform 360ms var(--ease-out);
+  }
+  .anim.visible { opacity: 1; transform: translateY(0); }
+  .anim-d1 { transition-delay: 80ms; }
+  .anim-d2 { transition-delay: 160ms; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-inner { animation: none; }
+    .anim { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* Responsive */
+  @media (max-width: 860px) {
+    .cards-grid, .testimonials-grid { grid-template-columns: 1fr; }
+    .about-inner { grid-template-columns: 1fr; }
+    .about-avatar-wrap { height: 340px; order: -1; }
+  }
+  /* Mobile photo swap */
+  .about-photo-desktop { display: block; }
+  .about-photo-mobile  { display: none; }
+  @media (max-width: 768px) {
+    .about-photo-desktop { display: none; }
+    .about-photo-mobile  { display: block; }
+  }
+  @media (max-width: 540px) {
+    .hero { padding: 110px 20px 64px; }
+    .benefits, .testimonials, .about, .dark-cta { padding: 64px 20px; }
+    .stats { gap: 24px; }
+    footer { padding: 20px; flex-direction: column; align-items: flex-start; gap: 14px; }
+    .footer-links { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="#top" class="nav-logo">
+    <img src="newsletter-plane.png" alt="Ambition Abroad" />
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="https://www.youtube.com/@takumi.ambition-abroad?sub_confirmation=1" target="_blank" rel="noopener">YouTube</a>
+    <a class="nav-link" href="https://www.instagram.com/takumi.shyegun/" target="_blank" rel="noopener">Instagram</a>
+    <a class="nav-link" href="https://www.linkedin.com/in/takumi-shyegun-/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+  <a href="#hero-form" class="nav-cta" onclick="event.preventDefault();document.getElementById('hero-form').scrollIntoView({behavior:'smooth',block:'center'});">Join the community</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="eyebrow">
+      <span class="eyebrow-rule"></span>
+      Join the Community
+      <span class="eyebrow-rule"></span>
+    </div>
+
+    <h1 class="hero-h1">The playbook for building a business <span style="font-family:'ITC Garamond Std',Georgia,serif;font-style:italic;color:var(--accent);">abroad</span></h1>
+
+    <p class="hero-sub">
+      Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.
+    </p>
+
+    <!-- Form -->
+    <div id="hero-form">
+      <div data-supascribe-embed-id="652297960824" data-supascribe-subscribe></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;">
+        <div style="display:flex;align-items:center;">
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=1" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=2" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=3" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=4" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=5" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+        </div>
+        <div style="text-align:left;">
+          <div style="color:#C9963A;font-size:0.7rem;margin-bottom:1px;">★★★★★</div>
+          <div style="font-size:0.72rem;color:#7A7774;">Joined by <strong style="color:#0C0B0A;font-weight:600;">1,500+ subscribers</strong></div>
+        </div>
+      </div>
+      <p class="opt-note">No spam. Unsubscribe any time.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div style="text-align:center;">
+        <div class="stat-num">100K+</div>
+        <div class="stat-lbl">Views</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="stat-num">1,500+</div>
+        <div class="stat-lbl">Subscribers</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="stat-num">Weekly</div>
+        <div class="stat-lbl">New blueprints</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Benefits -->
+<section class="benefits">
+  <div class="section-inner">
+    <div class="section-header anim">
+      <div class="section-tag">
+        <span class="section-tag-rule"></span>
+        What you get
+      </div>
+      <h2 class="section-h2">Not only inspiration.<br><em>Execution too.</em></h2>
+    </div>
+    <div class="cards-grid">
+      <div class="benefit-card anim">
+        <span class="benefit-num">01</span>
+        <div class="benefit-title">Episode playbooks</div>
+        <p class="benefit-desc">The key lessons and mistakes from each founder, turned into clear steps you can actually apply.</p>
+      </div>
+      <div class="benefit-card anim anim-d1">
+        <span class="benefit-num">02</span>
+        <div class="benefit-title">Foreign systems, decoded</div>
+        <p class="benefit-desc">Visas, banking, taxes, incorporation, explained through what actually happened, not what guides say.</p>
+      </div>
+      <div class="benefit-card anim anim-d2">
+        <span class="benefit-num">03</span>
+        <div class="benefit-title">Exclusive content &amp; resources</div>
+        <p class="benefit-desc">Exclusive interviews, frameworks, lessons and tools that never make it to the YouTube channel.
+</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Blueprints -->
+<section class="blueprints">
+  <div class="section-inner">
+    <div class="blueprints-header anim">
+      <div>
+        <div class="section-tag">
+          <span class="section-tag-rule"></span>
+          Recent Blueprints
+        </div>
+        <h2 class="section-h2">Stories from builders <em>around the world</em></h2>
+      </div>
+      <a href="#" class="blueprints-all">All episodes →</a>
+    </div>
+    <div class="cards-grid">
+
+      <!-- Card 1 -->
+      <div class="blueprint-card anim">
+        <div class="blueprint-thumb" style="background: #EDE5D8;">
+          <span class="blueprint-badge">Blueprint</span>
+          <img src="photo 1.jpg" alt="Sendai, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
+        </div>
+        <div class="blueprint-body">
+          <div class="blueprint-location">
+            <span class="blueprint-location-dot"></span>
+            Sendai, Japan
+          </div>
+          <div class="blueprint-title">How a Canadian Founder Built One of Japan's Biggest Supplement Brands</div>
+          <ul class="blueprint-bullets">
+            <li>Navigating Japanese incorporation &amp; distribution</li>
+            <li>Working with Japan top athletes and entertainers</li>
+            <li>Scaling a physical product brand from zero</li>
+          </ul>
+          <div class="blueprint-footer">
+            <span class="blueprint-footer-name">BodyPlus International</span>
+            <span class="blueprint-footer-cat">· Physical Product</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="blueprint-card anim anim-d1">
+        <div class="blueprint-thumb" style="background: #E8DDD0;">
+          <span class="blueprint-badge">Blueprint</span>
+          <img src="Photo 2.jpg" alt="Tokyo, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
+        </div>
+        <div class="blueprint-body">
+          <div class="blueprint-location">
+            <span class="blueprint-location-dot"></span>
+            Tokyo, Japan
+          </div>
+          <div class="blueprint-title">The Turkish Entrepreneur Who Built Japan's Leading Interpretation App</div>
+          <ul class="blueprint-bullets">
+            <li>Running a fully remote team from Tokyo</li>
+            <li>Acquire investment from Japanese investors</li>
+            <li>How to solve the new marketplace problem</li>
+          </ul>
+          <div class="blueprint-footer">
+            <span class="blueprint-footer-name">Oyraa</span>
+            <span class="blueprint-footer-cat">· Tech Business</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="blueprint-card anim anim-d2">
+        <div class="blueprint-thumb" style="background: #E4D8C8;">
+          <span class="blueprint-badge">Blueprint</span>
+          <img src="Photo 3.jpg" alt="Tokyo, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
+        </div>
+        <div class="blueprint-body">
+          <div class="blueprint-location">
+            <span class="blueprint-location-dot"></span>
+            Tokyo, Japan
+          </div>
+          <div class="blueprint-title">How This New Zealand Couple Built a Coffee Empire in Japan</div>
+          <ul class="blueprint-bullets">
+            <li>What to look for when choosing a cafe location</li>
+            <li>Hiring local staff without the language on day one</li>
+            <li>How to turn visitors into loyal repeat customers</li>
+          </ul>
+          <div class="blueprint-footer">
+            <span class="blueprint-footer-name">iki Roastery</span>
+            <span class="blueprint-footer-cat">· Hospitality / F&amp;B</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+  <div class="section-inner">
+    <div class="section-tag">
+      <span class="section-tag-rule"></span>
+      Community
+    </div>
+    <h2 class="section-h2 anim">From builders <em>just like you</em></h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card anim">
+        <p class="testimonial-quote">"Finally a show that treats expat entrepreneurship seriously. The blueprint newsletter alone gave me more useful information than 6 months of Googling."</p>
+        <div class="testimonial-divider"></div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="https://i.pravatar.cc/56?img=12" alt="Alex W." class="testimonial-avatar" style="object-fit:cover;" />
+          <div>
+            <div class="testimonial-name">Alex W.</div>
+            <div class="testimonial-loc">Bangkok, Thailand</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card anim anim-d1">
+        <p class="testimonial-quote">"I was on the fence about moving to Japan to start my agency. One episode basically made the decision for me. Put in my notice two weeks later."</p>
+        <div class="testimonial-divider"></div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="https://i.pravatar.cc/56?img=20" alt="Maria C." class="testimonial-avatar" style="object-fit:cover;" />
+          <div>
+            <div class="testimonial-name">Maria C.</div>
+            <div class="testimonial-loc">Lisbon, Portugal</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card anim anim-d2">
+        <p class="testimonial-quote">"The only newsletter I open every week. Dense, honest, and actionable. The visa and incorporation breakdowns alone are worth subscribing for."</p>
+        <div class="testimonial-divider"></div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="https://i.pravatar.cc/56?img=15" alt="James T." class="testimonial-avatar" style="object-fit:cover;" />
+          <div>
+            <div class="testimonial-name">James T.</div>
+            <div class="testimonial-loc">Toronto, Canada</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about">
+  <div class="about-inner">
+    <div class="anim">
+      <div class="about-label">
+        <span style="display:inline-block;width:16px;height:1px;background:var(--accent)"></span>
+        The Mission
+      </div>
+      <h2 class="about-h2">Built for people serious about <em>building abroad</em></h2>
+      <p class="about-body">Ambition Abroad started with a simple frustration.</p>
+      <p class="about-body">When I moved to Japan from Sydney at 21, I had no idea what I was doing, and I couldn't find anything about how to actually build a business abroad.<br><br>Everything was about travel, lifestyle, or surface-level advice. Nothing about real people doing real business.</p>
+      <p class="about-body">So I built what I wish existed.</p>
+      <p class="about-body">Each episode follows a founder who left their home country and built something that actually works. No lifestyle content. No vague inspiration. Just real decisions, real mistakes, and real playbooks.</p>
+      <p class="about-body" style="margin-bottom:0;">The newsletter is where it goes deeper. Full breakdowns, real numbers, and the lessons you can actually apply.<br><br>This is the resource I wish I had when I started.</p>
+    </div>
+    <div class="about-avatar-wrap anim anim-d1">
+      <img src="Photo 4.jpg" alt="Takumi Shyegun" class="about-photo-desktop" style="width:100%;height:100%;object-fit:cover;object-position:center;" />
+      <img src="Photo 5.jpg" alt="Takumi Shyegun" class="about-photo-mobile" style="width:100%;height:100%;object-fit:cover;object-position:center top;" />
+    </div>
+  </div>
+</section>
+
+<!-- Dark CTA -->
+<section class="dark-cta">
+  <div class="dark-cta-inner anim">
+    <div class="dark-eyebrow">
+      <span class="dark-eyebrow-rule"></span>
+      Join the Community
+      <span class="dark-eyebrow-rule"></span>
+    </div>
+    <h2 class="dark-h2">Stop overthinking.</h2>
+    <span class="dark-h2-serif">Start building.</span>
+    <p class="dark-sub" style="margin-bottom:32px;">
+      Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.
+    </p>
+    <div class="dark-form">
+      <div data-supascribe-embed-id="652297960824" data-supascribe-subscribe></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;">
+        <div style="display:flex;align-items:center;">
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=7" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=8" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=9" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=10" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=11" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+        </div>
+        <div style="text-align:left;">
+          <div style="color:#C9963A;font-size:0.7rem;margin-bottom:1px;">★★★★★</div>
+          <div style="font-size:0.72rem;color:rgba(255,255,255,0.55);">Joined by <strong style="color:#fff;font-weight:600;">1,500+ subscribers</strong></div>
+        </div>
+      </div>
+      <p class="dark-note">No spam. Unsubscribe any time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">
+    <span class="footer-logo-sans">Ambition</span>
+    <span class="footer-logo-serif">Abroad</span>
+  </div>
+  <div class="footer-links">
+    <a class="footer-link" href="https://www.youtube.com/@takumi.ambition-abroad?sub_confirmation=1" target="_blank" rel="noopener">YouTube</a>
+    <a class="footer-link" href="https://www.instagram.com/takumi.shyegun/" target="_blank" rel="noopener">Instagram</a>
+    <a class="footer-link" href="https://www.linkedin.com/in/takumi-shyegun-/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+  <div class="footer-copy">© 2026 Ambition Abroad</div>
+</footer>
+
+<script>
+  // ── Substack URL — update this to your actual Substack publication URL
+  const SUBSTACK_URL = 'https://ambitionabroad.substack.com';
+
+  function handleSubscribe(email, formEl, successEl) {
+    // Redirect to Substack subscribe with email pre-filled
+    const dest = `${SUBSTACK_URL}?email=${encodeURIComponent(email)}`;
+    window.open(dest, '_blank');
+    formEl.style.display = 'none';
+    successEl.style.display = 'block';
+  }
+
+  document.getElementById('heroForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('heroEmail').value;
+    handleSubscribe(email, this, document.getElementById('heroSuccess'));
+  });
+
+  document.getElementById('darkForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('darkEmail').value;
+    handleSubscribe(email, this, document.getElementById('darkSuccess'));
+  });
+
+  // Tweaks protocol
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "accentColor": "#C9963A",
+    "heroHeadline": "The playbook for building a business abroad",
+    "heroSubhead": "Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.",
+    "substackUrl": "https:\/\/ambitionabroad.substack.com",
+    "showAboutSection": true
+  }/*EDITMODE-END*/;
+
+  let tweaks = {...TWEAK_DEFAULTS};
+
+  function applyTweaks(t) {
+    document.documentElement.style.setProperty('--accent', t.accentColor);
+    document.documentElement.style.setProperty('--accent-deep', shadeColor(t.accentColor, -25));
+    document.documentElement.style.setProperty('--accent-pale', shadeColor(t.accentColor, 55));
+    const h1 = document.querySelector('.hero-h1');
+    if (t.heroHeadline.endsWith(' abroad')) {
+      const base = t.heroHeadline.slice(0, t.heroHeadline.lastIndexOf('building'));
+      const last = t.heroHeadline.slice(t.heroHeadline.lastIndexOf('building'), -7);
+      h1.innerHTML = base + '<span style="white-space:nowrap">' + last + ' <span style="font-family:\'ITC Garamond Std\',Georgia,serif;font-style:italic;color:var(--accent);">abroad</span></span>';
+    } else {
+      h1.textContent = t.heroHeadline;
+    }
+    document.querySelector('.hero-sub').textContent = t.heroSubhead;
+    document.querySelector('section.about').style.display = t.showAboutSection ? '' : 'none';
+    window.SUBSTACK_URL_LIVE = t.substackUrl;
+  }
+
+  function shadeColor(hex, pct) {
+    const num = parseInt(hex.replace('#',''), 16);
+    const r = Math.min(255, Math.max(0, (num >> 16) + pct));
+    const g = Math.min(255, Math.max(0, ((num >> 8) & 0xff) + pct));
+    const b = Math.min(255, Math.max(0, (num & 0xff) + pct));
+    return '#' + ((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1);
+  }
+
+  applyTweaks(tweaks);
+
+  window.addEventListener('message', e => {
+    if (e.data?.type === '__activate_edit_mode') showTweaks();
+    if (e.data?.type === '__deactivate_edit_mode') hideTweaks();
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+  function showTweaks() { document.getElementById('tweaksPanel').style.display = 'flex'; }
+  function hideTweaks() { document.getElementById('tweaksPanel').style.display = 'none'; }
+
+  function setTweak(key, val) {
+    tweaks[key] = val;
+    applyTweaks(tweaks);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+  }
+</script>
+
+<!-- Tweaks Panel -->
+<div id="tweaksPanel" style="display:none; position:fixed; bottom:24px; right:24px; z-index:9999;
+  background:#fff; border:1px solid #E0DDD8; border-radius:8px; box-shadow:0 8px 32px rgba(12,11,10,0.13);
+  width:268px; flex-direction:column; font-family:'Inter Tight',sans-serif; overflow:hidden;">
+  <div style="padding:14px 16px 12px; border-bottom:1px solid #EDEBE8; display:flex; align-items:center; justify-content:space-between;">
+    <span style="font-size:0.78rem; font-weight:600; color:#0C0B0A; letter-spacing:0.02em;">Tweaks</span>
+    <button onclick="hideTweaks(); window.parent.postMessage({type:'__edit_mode_dismissed'},'*')"
+      style="background:none;border:none;cursor:pointer;color:#A8A39C;font-size:1rem;line-height:1;padding:0;">✕</button>
+  </div>
+  <div style="padding:14px 16px; display:flex; flex-direction:column; gap:16px; overflow-y:auto; max-height:420px;">
+
+    <div>
+      <label style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#A8A39C;display:block;margin-bottom:6px;">Accent color</label>
+      <input type="color" value="#C9963A" oninput="setTweak('accentColor', this.value)"
+        style="width:100%;height:32px;border:1px solid #E0DDD8;border-radius:4px;cursor:pointer;padding:2px 4px;" />
+    </div>
+
+    <div>
+      <label style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#A8A39C;display:block;margin-bottom:6px;">Hero headline</label>
+      <input type="text" value="The playbook for building a business"
+        oninput="setTweak('heroHeadline', this.value)"
+        style="width:100%;padding:8px 10px;border:1px solid #E0DDD8;border-radius:4px;font-family:'Inter Tight',sans-serif;font-size:0.82rem;color:#0C0B0A;outline:none;" />
+    </div>
+
+    <div>
+      <label style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#A8A39C;display:block;margin-bottom:6px;">Substack URL</label>
+      <input type="text" value="https://ambitionabroad.substack.com"
+        oninput="setTweak('substackUrl', this.value)"
+        style="width:100%;padding:8px 10px;border:1px solid #E0DDD8;border-radius:4px;font-family:'Inter Tight',sans-serif;font-size:0.75rem;color:#0C0B0A;outline:none;" />
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <label style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#A8A39C;">Show About section</label>
+      <button id="aboutToggle" onclick="
+        const cur = tweaks.showAboutSection;
+        setTweak('showAboutSection', !cur);
+        this.textContent = !cur ? 'On' : 'Off';
+        this.style.background = !cur ? '#C9963A' : '#E0DDD8';
+        this.style.color = !cur ? '#fff' : '#68635C';
+      " style="font-family:'Inter Tight',sans-serif;font-size:0.72rem;font-weight:600;border:none;border-radius:4px;padding:5px 12px;cursor:pointer;background:#C9963A;color:#fff;">On</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+</script>
+
+<script src="https://js.supascribe.com/v1/loader/ycHsOPdWZpO1d3kPx52nio86bKr2.js" async></script>
+
+</body>
+</html>

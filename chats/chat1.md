@@ -1,38 +1,27 @@
-# Japanese Visa Matcher
+# Newsletter Signup Landing
 
-_Started 2026-05-02 08:04 UTC_
+_Started 2026-04-27 05:48 UTC_
 
 ---
 
 ## User
 
-I want to create a tool for people who are wanting to know the best japanese visa options for their situation. I want this to be a tool that people can answers some key questions, and then the tool analyzes the data, and all the visa options out there for them, and then based off a scoring ranking, it provides them the best visa option for them, with an action plan/checklist for them.
-
-This will be a lead magnet, so there needs to be at least 3 pages of design. 1 for the opt-in page to collect emails, 1 with the questionaire or data collection, and 1 page where the final output and checklist will be with information and scoring.
+Ambition Abroad Opt In Webpage. This will be a landing page that the main goal is to capture emails for my newsletter / community.
 
 ## Assistant
-
-_[tool: update_todos]_
-
-Let me explore the design system first while I ask you some questions!
-
-_[tool: list_files]_
 
 _[tool: questions_v2]_
 
 ## User
 
 Questions answered:
-- target_audience: All of the above
-- visa_types: All major visa types
-- questionnaire_length: 15
-- output_detail: Top 1 visa + detailed checklist, next steps, and resources
-- email_platform: They immediately proceed to the questionnaire
-- cta_goal: Decide for me
-- visual_style: Decide for me
-- existing_mocks: Use the design system as-is — no existing pages to match
-- language: Decide for me
-- scoring_logic: Decide for me
+- social_proof: Subscriber count, YouTube subscriber/view count, Testimonials / quotes
+- proof_numbers: 100K+ Views
+1,500+ Subscribers
+- sections: Decide for me
+- tone: Light & editorial (warm paper tones throughout)
+- esp: Substack
+- variations: 1 polished version
 
 ## Assistant
 
@@ -40,173 +29,375 @@ _[tool: read_file]_
 
 _[tool: read_file]_
 
-Let me read the remaining UI kit files to get a full picture, then I'll build.
-
 _[tool: read_file]_
 
 _[tool: read_file]_
-
-_[tool: read_file]_
-
-Now I have everything I need. Let me plan the system and build it.
-
-_[tool: update_todos]_
-
-Let me copy the fonts and build everything now.
 
 _[tool: copy_files]_
 
-Now let me build the full Visa Evaluator. Here's my design reasoning:
-
-**System design:**
-- **Page 1 (Opt-in):** Dark cinematic hero with amber accent — dramatic, premium feel to create urgency. Email collected, then user proceeds.
-- **Page 2 (Questionnaire):** Warm off-white, clean, 15 questions in grouped steps (3 sections × 5 questions). Progress bar. Card-based multiple choice.
-- **Page 3 (Results):** Scored output using weighted algorithm across 9 visa types. Top match shown prominently with score, eligibility summary, and a full action checklist. CTA to newsletter.
-
-**Scoring logic:** Weighted scoring — each answer contributes points to each visa type. The top scorer wins. Secondary matches shown as smaller callouts.
+Now I have everything I need. Building the opt-in page now — one polished, editorial version with Substack form integration, warm paper tones, and your real social proof numbers.
 
 _[tool: write_file]_
 
 _[tool: done]_
 
-Let me find and fix that syntax error on line 785.
+_[tool: fork_verifier_agent]_
 
-_[tool: read_file]_
+The page is live. Here's a quick summary of what's built:
 
-Found it — the issue is `employer's` (curly apostrophe / smart quote inside a single-quoted JS string). Let me scan for all similar issues and fix them all at once.
+**Sections:** Nav → Hero with email form → Benefits (3 cards) → Testimonials → About Takumi → Dark closing CTA with second form → Footer
 
-_[tool: grep]_
+**Substack integration:** Both forms redirect to your Substack subscribe URL with the email pre-filled. You'll need to update the `SUBSTACK_URL` constant on line ~185 to your actual Substack publication URL (e.g. `https://yourname.substack.com`).
 
-Just the one. Let me fix it:
+**Tweaks panel** (toolbar toggle): swap accent color, edit the hero headline, update the Substack URL, or hide the About section — all live without touching code.
+
+**Two things to hand off:**
+1. **Replace the About photo placeholder** — the "T" block in the About section is waiting for a real photo of Takumi.
+2. **Testimonials** — currently using placeholder names/quotes; swap in real ones when you have them.
+
+## User
+
+after the "what you get" section i want you to create a section that previews / showcase the 3 latest blueprints / case studies. I want it to be something similar to the screenshot attached but I want you to update it so it fits my design system and the rest of the page.
+
+## Assistant
+
+## Assistant
+
+_[tool: view_image]_
 
 _[tool: str_replace_edit]_
 
-Now let me also check for the `startup's` in the startup visa section and any other apostrophes in JS strings:
-
-_[tool: grep]_
-
-Good, no other issues. Let me also check for the `Japan's` in the digital nomad description which used a straight apostrophe inside a single-quoted string:
-
-_[tool: grep]_
-
-That one is fine — it's already escaped with `\'`. Now let me call done to verify:
+_[tool: str_replace_edit]_
 
 _[tool: done]_
-
-Clean! Let me run the verifier.
 
 _[tool: fork_verifier_agent]_
 
-The **Japan Visa Evaluator** is live and error-free. Here's what was built:
+The Recent Blueprints section is added — 3 cards sitting between "What you get" and the testimonials. Each card has:
 
-**3-page flow:**
-1. **Opt-in page** — Dark cinematic hero (on-brand with Ambition Abroad), collects first name + email, shows social proof stats (9 visa types, 15 questions, <3 min)
-2. **Questionnaire** — 15 questions across 3 grouped sections (Background → Intent → Practical), with progress bar, section intro cards, auto-advance on selection, and back/skip navigation
-3. **Results page** — Weighted scoring across 9 Japanese visa types, shows: best-fit visa with match score, your profile summary, key requirements checklist, a phased action plan (interactive — tick items off), 2 runner-up alternatives, and a newsletter CTA
+- **Warm thumbnail placeholder** with a "Blueprint" badge
+- **Location tag** with the accent dot
+- **Episode title**
+- **3 bullet takeaways** with → arrows in accent gold
+- **Business metric + category** in the footer
 
-**Scoring engine** covers all 9 visa types: Business Manager, Highly Skilled Professional, Engineer/Humanities, Specified Skilled Worker, Digital Nomad, Startup, Investor, Spouse/Dependent, and Student.
-
-**Next steps to consider:**
-- Connect a real email platform (ConvertKit, Beehiiv, etc.) to the opt-in form
-- Add your actual newsletter URL to the CTA button at the bottom of results
-- The "retake" button resets everything cleanly for sharing/testing
-
-_[tool: update_todos]_
-
-_[tool: snip]_
-
-It looks like your message came through empty! What would you like to change or add?
+The example content (Japan, Lisbon, Medellín) is placeholder — swap in your real episodes whenever you're ready. Just update the title, location, bullets, and footer text in the HTML for each card.
 
 ## User
 
-I want the opt in page to be a white background now black.
+Verifier agent check completed
+
+## Assistant
+
+All clean. The section is verified and ready to go.
+
+When you have real episode content, the three things to update per card are the **thumbnail background color** (each is slightly different warm tone already), the **location**, **title**, **bullets**, and **footer metric** — all straightforward finds in the HTML.
+
+## User
+
+Apply 19 direct edits:
+1. In index.html: change the text from "Each week, a real founder's story distilled into the exact steps they took. Visas, structure, customers, trade-offs — the parts nobody posts about." to "Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.". This text appears 2 times in the source; a <script> on this page regenerates the DOM on load, so update every occurrence (including inside script/template literals) or the edit reverts on reload.
+<mentioned-element>
+dom:      body › section#top.hero › div.hero-inner › p.hero-sub[4/6]
+text:     "Each week, a real founder's story distilled into the exact …"
+children: text
+selector: [data-om-id="8e9ff17b:19"]
+id:       cc-5
+</mentioned-element>
+2. In index.html: change the text from "START READING" to "JOIN THE COMMUNITY".
+<mentioned-element>
+dom:      body › section.dark-cta › div.dark-cta-inner › div.dark-eyebrow[1/5]
+text:     "START READING"
+children: span, text, span
+selector: [data-om-id="8e9ff17b:161"]
+id:       cc-7
+</mentioned-element>
+3. In index.html: change the text from "FREE WEEKLY BLUEPRINT" to "JOIN THE COMMUNITY".
+<mentioned-element>
+dom:      body › section#top.hero › div.hero-inner › div.eyebrow[1/6]
+text:     "FREE WEEKLY BLUEPRINT"
+children: span, text, span
+selector: [data-om-id="8e9ff17b:14"]
+id:       cc-8
+</mentioned-element>
+4. In index.html: change the text from "Visas, banking, taxes, incorporation, explained through real experiences.\nReal numbers. Real timelines. Real lessons." to "Visas, banking, taxes, incorporation, explained through real experiences.\n\n Real numbers. Real timelines. Real lessons.".
+<mentioned-element>
+dom:      body › … › div.section-inner › div.cards-grid › div.benefit-card › p.benefit-desc › p.p1
+text:     "Visas, banking, taxes, incorporation, explained through rea…"
+children: text, br, text
+selector: [data-src-loc="18441:18467:18772"] >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,sp…
+id:       cc-17
+</mentioned-element>
+5. In index.html: change the text from "The exact lessons, decisions, and mistakes from each founder, turned into clear steps you can apply to your own business." to "The key lessons, and mistakes from each founder, turned into clear steps you can apply to your own business.\n\n".
+<mentioned-element>
+dom:      body › … › div.section-inner › div.cards-grid › div.benefit-card › p.benefit-desc › p.p1
+text:     "The exact lessons, decisions, and mistakes from each founde…"
+children: text
+selector: [data-src-loc="18093:18119:18434"] >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,sp…
+id:       cc-18
+</mentioned-element>
+6. In index.html: change the text from "The key lessons, and mistakes from each founder, turned into clear steps you can apply to your own business.\n\n" to "The key lessons and mistakes from each founder, turned into clear steps you can actually apply.".
+<mentioned-element>
+dom:      body › … › div.section-inner › div.cards-grid › div.benefit-card › p.benefit-desc › p.p1
+text:     "The key lessons, and mistakes from each founder, turned int…"
+children: text, br, br
+selector: [data-src-loc="18093:18119:18434"] >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,sp…
+id:       cc-18
+</mentioned-element>
+7. In index.html: change the text from "Visas, banking, taxes, incorporation, explained through real experiences.\n\n Real numbers. Real timelines. Real lessons." to "Visas, banking, taxes, incorporation, explained through what actually happened, not what guides say.".
+<mentioned-element>
+dom:      body › … › div.section-inner › div.cards-grid › div.benefit-card › p.benefit-desc › p.p1
+text:     "Visas, banking, taxes, incorporation, explained through rea…"
+children: text, br, br, text
+selector: [data-src-loc="18441:18467:18772"] >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,sp…
+id:       cc-17
+</mentioned-element>
+8. In index.html: change the text from "LISBON, PORTUGAL" to "TOKYO, JAPAN".
+<mentioned-element>
+dom:      body › … › div.cards-grid › div.blueprint-card › div.blueprint-body › div.blueprint-location[1/4]
+text:     "LISBON, PORTUGAL"
+children: span, text
+selector: [data-om-id="8e9ff17b:90"]
+id:       cc-21
+</mentioned-element>
+9. In index.html: change the text from "MEDELLÍN, COLOMBIA" to "TOKYO, JAPAN".
+<mentioned-element>
+dom:      body › … › div.cards-grid › div.blueprint-card › div.blueprint-body › div.blueprint-location[1/4]
+text:     "MEDELLÍN, COLOMBIA"
+children: span, text
+selector: [data-om-id="8e9ff17b:106"]
+id:       cc-22
+</mentioned-element>
+10. In index.html: change the text from "Ambition Abroad is produced by Takumi Shyegun, based in Tokyo, Japan. The series was built on a simple premise: the most valuable information about building a business abroad isn't on the official websites — it's in the founder's head." to "Ambition Abroad started with a simple frustration.\n\n\n\n\nWhen I moved to Japan from Sydney at 21, I had no idea what I was doing, and I couldn’t find anything about how to actually build a business abroad.\nEverything was about travel, lifestyle, or surface-level advice.\nNothing about real people doing real business.\n\n\n\n\nSo I built what I wish existed.\n\n\n\n\nEach episode follows a founder who left their home country and built something that actually works.\nNo lifestyle content. No vague inspiration. Just real decisions, real mistakes, and real playbooks.\n\n\n\n\nThe newsletter is where it goes deeper.\nFull breakdowns, real numbers, and the lessons you can actually apply.\n\n\n\n\nThis is the resource I wish I had when I started.".
+<mentioned-element>
+dom:      body › section.about › div.about-inner › div › p.about-body[3/5]
+text:     "Ambition Abroad is produced by Takumi Shyegun, based in Tok…"
+children: text
+selector: [data-om-id="a0b5db90:154"]
+id:       cc-2
+</mentioned-element>
+11. In index.html: change the text from "Each episode follows a real entrepreneur who left their home country and built something that works. No lifestyle content. No vague inspiration. Just documented playbooks from people who have done it." to "\n".
+<mentioned-element>
+dom:      body › section.about › div.about-inner › div › p.about-body[4/5]
+text:     "Each episode follows a real entrepreneur who left their hom…"
+children: text
+selector: [data-om-id="a0b5db90:155"]
+id:       cc-3
+</mentioned-element>
+12. In index.html: change the text from "The newsletter is where those playbooks go deeper — with full breakdowns, raw numbers, and the things that didn't make the final cut." to "\n".
+<mentioned-element>
+dom:      body › section.about › div.about-inner › div › p.about-body[5/5]
+text:     "The newsletter is where those playbooks go deeper — with fu…"
+children: text
+selector: [data-om-id="a0b5db90:156"]
+id:       cc-5
+</mentioned-element>
+13. In index.html: change the text from "When I moved to Japan from Sydney at 21, I had no idea what I was doing, and I couldn’t find anything about how to actually build a business abroad.\nEverything was about travel, lifestyle, or surface-level advice.\nNothing about real people doing real business." to "When I moved to Japan from Sydney at 21, I had no idea what I was doing, and I couldn’t find anything about how to actually build a business abroad.\n\nEverything was about travel, lifestyle, or surface-level advice.\nNothing about real people doing real business.".
+<mentioned-element>
+dom:      body › section.about › div.about-inner › div › p.about-body › p.p1[3/11]
+text:     "When I moved to Japan from Sydney at 21, I had no idea what…"
+children: text, br, text, br, text
+selector: :is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) …
+id:       cc-7
+</mentioned-element>
+14. In index.html: change the text from "MEDELLÍN, COLOMBIA" to "TOKYO, JAPAN".
+<mentioned-element>
+dom:      body › … › div.cards-grid › div.blueprint-card › div.blueprint-body › div.blueprint-location[1/4]
+text:     "MEDELLÍN, COLOMBIA"
+children: span, text
+selector: [data-om-id="a0b5db90:106"]
+id:       cc-15
+</mentioned-element>
+15. In index.html: change the text from "LISBON, PORTUGAL" to "TOKYO, JAPAN".
+<mentioned-element>
+dom:      body › … › div.cards-grid › div.blueprint-card › div.blueprint-body › div.blueprint-location[1/4]
+text:     "LISBON, PORTUGAL"
+children: span, text
+selector: [data-om-id="a0b5db90:90"]
+id:       cc-17
+</mentioned-element>
+16. In index.html: change the text from "THE HOST" to "THE MISSION".
+<mentioned-element>
+dom:      body › section.about › div.about-inner › div › div.about-label[1/5]
+text:     "THE HOST"
+children: span, text
+selector: [data-om-id="a0b5db90:150"]
+id:       cc-20
+</mentioned-element>
+17. In index.html: change the text from "START READING" to "JOIN THE COMMUNITY".
+<mentioned-element>
+dom:      body › section.dark-cta › div.dark-cta-inner › div.dark-eyebrow[1/5]
+text:     "START READING"
+children: span, text, span
+selector: [data-om-id="a0b5db90:161"]
+id:       cc-21
+</mentioned-element>
+18. In index.html: change the text from "Each week, a real founder's story distilled into the exact steps they took. Visas, structure, customers, trade-offs — the parts nobody posts about." to "Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.". This text appears 2 times in the source; a <script> on this page regenerates the DOM on load, so update every occurrence (including inside script/template literals) or the edit reverts on reload.
+<mentioned-element>
+dom:      body › section#top.hero › div.hero-inner › p.hero-sub[4/6]
+text:     "Each week, a real founder's story distilled into the exact …"
+children: text
+selector: [data-om-id="a0b5db90:19"]
+id:       cc-24
+</mentioned-element>
+19. In index.html: change the text from "FREE WEEKLY BLUEPRINT" to "JOIN THE COMMUNITY".
+<mentioned-element>
+dom:      body › section#top.hero › div.hero-inner › div.eyebrow[1/6]
+text:     "FREE WEEKLY BLUEPRINT"
+children: span, text, span
+selector: [data-om-id="a0b5db90:14"]
+id:       cc-29
+</mentioned-element>
 
 ## Assistant
 
 _[tool: read_file]_
 
-I can see the opt-in page styles. Let me update them to a light/white treatment:
+_[tool: str_replace_edit]_
+
+_[tool: grep]_
+
+_[tool: grep]_
 
 _[tool: str_replace_edit]_
 
-Now update the nav to be light on the opt-in page too:
+_[tool: grep]_
+
+_[tool: read_file]_
 
 _[tool: str_replace_edit]_
 
-Also update the initial nav class on the nav element itself (it starts dark by default):
+_[tool: grep]_
 
 _[tool: str_replace_edit]_
-
-Also need to update the nav-step label color for the light nav on this page:
-
-_[tool: str_replace_edit]_
-
-Wait, that replaced the wrong line. Let me fix that:
-
-_[tool: str_replace_edit]_
-
-Good. Now let me verify:
 
 _[tool: done]_
 
-Done — the opt-in page is now white/light, matching the questionnaire style. The nav also switches to the light treatment on that page. Everything else stays the same.
+_[tool: str_replace_edit]_
+
+_[tool: grep]_
+
+Let me check the current form markup first:
+
+_[tool: str_replace_edit]_
+
+_[tool: done]_
+
+_[tool: fork_verifier_agent]_
+
+Done — the social proof avatars are now in both spots:
+
+- **Hero form** — 5 warm-toned overlapping avatar circles, gold stars, "Joined by 1,500+ subscribers" in light ink
+- **Dark CTA** — same layout adapted for the dark background with muted borders and white text
 
 ## User
 
-Apply a direct edit. In Visa Evaluator.html: change the text from "Answer 15 questions. Get your best-fit Japanese visa option, a full eligibility breakdown, and a step-by-step action plan — in under 3 minutes." to "Get your best-fit Japanese visa option, a full eligibility breakdown, and a step-by-step action plan — in under 3 minutes.".
+Verifier agent check completed
+
+## Assistant
+
+All good — verifier confirmed both social proof elements render correctly. The page is looking solid end to end.
+
+A few things still worth updating when you're ready:
+1. **Substack URL** — swap `https://ambitionabroad.substack.com` for your real URL (Tweaks panel or direct edit)
+2. **Blueprint card content** — replace the 3 placeholder episodes with your real ones
+3. **About photo** — replace the "T" placeholder with a real photo of Takumi
+4. **Testimonials** — swap in real quotes when you have them
+
+## User
+
+Apply 3 direct edits:
+1. In index.html: change the text from "The playbook for building a business" to "The playbook for building a business abroad". This text appears 3 times in the source; a <script> on this page regenerates the DOM on load, so update every occurrence (including inside script/template literals) or the edit reverts on reload.
 <mentioned-element>
-dom:      body › div#page-optin.page.active › div.optin-inner › p.optin-subheadline.fade-up[3/6]
-text:     "Answer 15 questions. Get your best-fit Japanese visa option…"
+dom:      body › section#top.hero › div.hero-inner › h1.hero-h1[2/5]
+text:     "The playbook for building a business"
 children: text
-selector: [data-om-id="a6a01607:22"]
-id:       cc-3
+selector: [data-om-id="b21e699d:17"]
+id:       cc-2
+</mentioned-element>
+2. In index.html: set the inline style to `font-family: "ITC Garamond Std"`.
+<mentioned-element>
+dom:      body › section#top.hero › div.hero-inner › h1.hero-h1[2/5]
+text:     "The playbook for building a business"
+children: text
+selector: [data-om-id="b21e699d:17"]
+id:       cc-2
+</mentioned-element>
+3. In index.html: set the inline style to `font-family: "Inter Tight"`.
+<mentioned-element>
+dom:      body › section#top.hero › div.hero-inner › h1.hero-h1[2/5]
+text:     "The playbook for building a business"
+children: text
+selector: [data-om-id="b21e699d:17"]
+id:       cc-2
 </mentioned-element>
 
 ## Assistant
 
 _[tool: str_replace_edit]_
 
-Done!
+_[tool: done]_
+
+Done — the headline now reads "The playbook for building a business abroad" as a single line in Inter Tight, with the serif span removed.
+
+_[tool: str_replace_edit]_
+
+_[tool: str_replace_edit]_
+
+_[tool: done]_
+
+Done — "abroad" is now in ITC Garamond italic at the accent gold color, matching the brand's editorial keyword treatment.
 
 ## User
 
-Apply 4 direct edits:
-1. In Visa Evaluator.html: set the inline style to `font-weight: 400`.
+Apply a direct edit. In index.html: change the text from "Not inspiration.\nInfrastructure." to "Not only inspiration.\nExecution too.".
 <mentioned-element>
-dom:      body › div#page-results.page.active › div.results-body › div.results-cta › h2.cta-headline › em
-text:     "Japan blueprint"
-children: text
-selector: [data-om-id="a6a01607:81"]
-id:       cc-7
-</mentioned-element>
-2. In Visa Evaluator.html: change the text from "Japan blueprint" to " Japan blueprint".
-<mentioned-element>
-dom:      body › div#page-results.page.active › div.results-body › div.results-cta › h2.cta-headline › em
-text:     "Japan blueprint"
-children: text
-selector: [data-om-id="a6a01607:81"]
-id:       cc-7
-</mentioned-element>
-3. In Visa Evaluator.html: change the text from "Real breakdowns from founders and professionals who made the move — visas, incorporation, banking, and what no official guide tells you." to "Every week, get the real strategies, lessons, and unfiltered decisions from foreigners actually building businesses in Japan.".
-<mentioned-element>
-dom:      body › div#page-results.page.active › div.results-body › div.results-cta › p.cta-sub[3/6]
-text:     "Real breakdowns from founders and professionals who made th…"
-children: text
-selector: [data-om-id="a6a01607:82"]
-id:       cc-9
-</mentioned-element>
-4. In Visa Evaluator.html: change the text from "Based on your answers, Travis —" to "Based on your answers, Travis:".
-<mentioned-element>
-dom:      body › … › div.results-hero-inner › p#results-name-display.results-name-display.fade-up[2/4]
-text:     "Based on your answers, Travis —"
-children: text
-selector: [data-om-id="a6a01607:56"]
-id:       cc-11
+dom:      body › section.benefits › div.section-inner › div.section-header › h2.section-h2[2/2]
+text:     "Not inspiration. Infrastructure."
+children: text, br, em
+selector: [data-om-id="b21e699d:58"]
+id:       cc-13
 </mentioned-element>
 
 ## Assistant
 
 _[tool: str_replace_edit]_
 
-Done — all 4 edits applied (the `em` font-weight, the space before "Japan blueprint", the CTA body copy, and the results name display format).
+_[tool: done]_
+
+Done — headline now reads "Not only inspiration. *Execution too.*"
+
+## User
+
+Apply 2 direct edits:
+1. In index.html: change the text from "Each week, a real founder's story distilled into the exact steps they took. Visas, structure, customers, trade-offs — the parts nobody posts about." to "Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.".
+<mentioned-element>
+dom:      body › section#top.hero › div.hero-inner › p.hero-sub[3/5]
+text:     "Each week, a real founder's story distilled into the exact …"
+children: text
+selector: [data-om-id="2171e18d:19"]
+id:       cc-2
+</mentioned-element>
+2. In index.html: change the text from "Every issue is a blueprint from someone who actually did it. Your first one lands this week." to "Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.".
+<mentioned-element>
+dom:      body › section.dark-cta › div.dark-cta-inner › p.dark-sub[4/5]
+text:     "Every issue is a blueprint from someone who actually did it…"
+children: text
+selector: [data-om-id="2171e18d:188"]
+id:       cc-4
+</mentioned-element>
+
+## Assistant
+
+_[tool: grep]_
+
+_[tool: grep]_
+
+The hero subhead is already correct. Just need to update the dark CTA and the tweaks default:
+
+_[tool: str_replace_edit]_
+
+_[tool: done]_
+
+Done — both the hero subhead and dark CTA body copy are now updated to match.
 
