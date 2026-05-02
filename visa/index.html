@@ -152,7 +152,7 @@
   }
   .optin-eyebrow-line { display: inline-block; width: 20px; height: 1px; background: var(--color-accent); }
   .optin-headline {
-    font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 600;
+    font-size: clamp(2rem, 7vw, 3.8rem); font-weight: 600;
     letter-spacing: -0.03em; line-height: 1.05;
     color: var(--color-ink); margin-bottom: 12px;
   }
@@ -550,10 +550,6 @@
     .winner-card { grid-template-columns: 1fr; }
     .cta-form { flex-direction: column; }
   }
-  @media (max-width: 480px) {
-    .optin-headline { font-size: 1.4rem; }
-  }
-
   .optin-email-error {
     font-size: 0.78rem; color: #C0392B;
     margin-top: -2px; text-align: center; display: none;
@@ -1216,6 +1212,51 @@ async function subscribeToBeehiiv(email, firstName = '') {
 }
 
 // ─────────────────────────────────────────────────────────────
+// EMAIL VALIDATION
+// ─────────────────────────────────────────────────────────────
+const ABSTRACT_API_KEY = ''; // Optional: free key at abstractapi.com/api/email-validation
+
+const BLOCKED_DOMAINS = new Set([
+  'fake.com','mailinator.com','guerrillamail.com','guerrillamail.net','guerrillamail.org',
+  'guerrillamail.biz','guerrillamail.de','guerrillamail.info','sharklasers.com','grr.la',
+  'yopmail.com','yopmail.fr','cool.fr.nf','jetable.fr.nf','nospam.ze.tc','nomail.xl.cx',
+  'trashmail.com','trashmail.me','trashmail.net','trashmail.at','trashmail.io','trashmail.org',
+  'dispostable.com','mailnull.com','spamgourmet.com','maildrop.cc','getairmail.com',
+  'filzmail.com','throwam.com','fakeinbox.com','mailnesia.com','spamex.com',
+  'tempr.email','getnada.com','tempinbox.com','spamoff.de','mintemail.com',
+  'spam4.me','mailtemp.info','tmailinator.com','throwaway.email','tempmail.com',
+  'temp-mail.org','temp-mail.io','discard.email','spamhere.com','spamhereplease.com',
+  'mailbucket.org','nobody.com','nowmymail.com','kurzepost.de','objectmail.com',
+]);
+
+async function validateEmail(email) {
+  if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
+    return { valid: false, reason: 'Please enter a valid email address (e.g. you@example.com).' };
+  }
+  const domain = email.split('@')[1].toLowerCase();
+  if (BLOCKED_DOMAINS.has(domain)) {
+    return { valid: false, reason: 'Please use a real email address.' };
+  }
+  if (ABSTRACT_API_KEY) {
+    try {
+      const res = await fetch(
+        `https://emailvalidation.abstractapi.com/v1/?api_key=${ABSTRACT_API_KEY}&email=${encodeURIComponent(email)}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        if (data.is_disposable_email?.value) {
+          return { valid: false, reason: 'Please use a real email address.' };
+        }
+        if (data.deliverability === 'UNDELIVERABLE') {
+          return { valid: false, reason: 'That email address doesn\'t appear to exist.' };
+        }
+      }
+    } catch { /* API unavailable — allow submission */ }
+  }
+  return { valid: true };
+}
+
+// ─────────────────────────────────────────────────────────────
 // STATE
 // ─────────────────────────────────────────────────────────────
 let userName = '';
@@ -1261,27 +1302,30 @@ async function handleOptIn(e) {
 
   const emailInput = document.getElementById('optin-email');
   const emailError = document.getElementById('optin-email-error');
+  const btn = e.target.querySelector('[type="submit"]');
   const emailVal = emailInput.value.trim();
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+  btn.textContent = 'Checking…';
+  btn.disabled = true;
+
+  const { valid, reason } = await validateEmail(emailVal);
+
+  if (!valid) {
+    emailError.textContent = reason;
     emailError.style.display = 'block';
     emailInput.style.borderColor = '#C0392B';
     emailInput.focus();
+    btn.textContent = 'Get my visa recommendation →';
+    btn.disabled = false;
     return;
   }
 
-  const btn = e.target.querySelector('[type="submit"]');
-  const originalText = btn.textContent;
   btn.textContent = 'One moment…';
-  btn.disabled = true;
-
   userName = document.getElementById('optin-name').value.trim().split(' ')[0];
   userEmail = emailVal;
 
   subscribeToBeehiiv(userEmail, userName); // fire-and-forget — don't block UX
 
-  btn.textContent = originalText;
-  btn.disabled = false;
   showPage('page-quiz');
   currentQ = 0;
   showingSection = -1;
