@@ -550,8 +550,8 @@
     .winner-card { grid-template-columns: 1fr; }
     .cta-form { flex-direction: column; }
   }
-  @media (max-width: 400px) {
-    .optin-headline { font-size: 1.55rem; }
+  @media (max-width: 480px) {
+    .optin-headline { font-size: 1.4rem; }
   }
 
   .optin-email-error {
@@ -583,7 +583,7 @@
     <p class="optin-subheadline fade-up fade-up-delay-2">
       Get your best-fit Japanese visa option, a full eligibility breakdown, and a step-by-step action plan — in under 3 minutes.
     </p>
-    <form class="optin-form fade-up fade-up-delay-3" id="optin-form" onsubmit="handleOptIn(event)">
+    <form class="optin-form fade-up fade-up-delay-3" id="optin-form" onsubmit="handleOptIn(event)" novalidate>
       <input type="text" class="input" id="optin-name" placeholder="Your first name" required autocomplete="given-name">
       <input type="email" class="input" id="optin-email" placeholder="your@email.com" required autocomplete="email" oninput="document.getElementById('optin-email-error').style.display='none';this.style.borderColor='';">
       <p class="optin-email-error" id="optin-email-error">Please enter a valid email address (e.g. you@example.com)</p>
