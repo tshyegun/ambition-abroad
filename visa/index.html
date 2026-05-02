@@ -550,6 +550,14 @@
     .winner-card { grid-template-columns: 1fr; }
     .cta-form { flex-direction: column; }
   }
+  @media (max-width: 400px) {
+    .optin-headline { font-size: 1.55rem; }
+  }
+
+  .optin-email-error {
+    font-size: 0.78rem; color: #C0392B;
+    margin-top: -2px; text-align: center; display: none;
+  }
 </style>
 </head>
 <body>
@@ -577,7 +585,8 @@
     </p>
     <form class="optin-form fade-up fade-up-delay-3" id="optin-form" onsubmit="handleOptIn(event)">
       <input type="text" class="input" id="optin-name" placeholder="Your first name" required autocomplete="given-name">
-      <input type="email" class="input" id="optin-email" placeholder="your@email.com" required autocomplete="email">
+      <input type="email" class="input" id="optin-email" placeholder="your@email.com" required autocomplete="email" oninput="document.getElementById('optin-email-error').style.display='none';this.style.borderColor='';">
+      <p class="optin-email-error" id="optin-email-error">Please enter a valid email address (e.g. you@example.com)</p>
       <button type="submit" class="btn-primary" style="width:100%; font-size: 0.95rem; padding: 15px 28px;">
         Get my visa recommendation →
       </button>
@@ -1249,13 +1258,25 @@ function updateNavStep() {
 // ─────────────────────────────────────────────────────────────
 async function handleOptIn(e) {
   e.preventDefault();
+
+  const emailInput = document.getElementById('optin-email');
+  const emailError = document.getElementById('optin-email-error');
+  const emailVal = emailInput.value.trim();
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+    emailError.style.display = 'block';
+    emailInput.style.borderColor = '#C0392B';
+    emailInput.focus();
+    return;
+  }
+
   const btn = e.target.querySelector('[type="submit"]');
   const originalText = btn.textContent;
   btn.textContent = 'One moment…';
   btn.disabled = true;
 
   userName = document.getElementById('optin-name').value.trim().split(' ')[0];
-  userEmail = document.getElementById('optin-email').value.trim();
+  userEmail = emailVal;
 
   subscribeToBeehiiv(userEmail, userName); // fire-and-forget — don't block UX
 
