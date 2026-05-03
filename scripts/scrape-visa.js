@@ -8,9 +8,10 @@ const path = require('path');
 const URLS = [
   'https://www.jetro.go.jp/en/invest/setting_up/',
   'https://www.japan-guide.com/e/e2221.html',
-  'https://www.japan-guide.com/e/e2207.html',
-  'https://www.japan-guide.com/e/e2208.html',
-  'https://www.japan-guide.com/e/e2209.html',
+  'https://www.japan-guide.com/e/e2273.html',
+  'https://www.japan-guide.com/e/e2267.html',
+  'https://www.japan-guide.com/e/e2271.html',
+  'https://www.japan-guide.com/e/e2270.html',
 ];
 
 // Elements to strip before extracting text
