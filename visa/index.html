@@ -1333,6 +1333,145 @@ const SECTION_LABELS = [
 ];
 
 // ─────────────────────────────────────────────────────────────
+// ANSWER LABELS — human-readable display values for all answer keys
+// ─────────────────────────────────────────────────────────────
+const ANSWER_LABELS = {
+  // Q1 — Current situation
+  job_offer:        'I have a job offer from a Japanese company',
+  business_owner:   'I run or want to run my own business',
+  remote_worker:    'I work remotely for a foreign employer',
+  student:          'I want to study in Japan',
+  family:           'I have a Japanese national / PR holder partner',
+  investor:         'I have significant capital to invest in Japan',
+  // Q2 — Education
+  phd:              'PhD / Doctorate',
+  masters:          "Master's degree",
+  bachelors:        "Bachelor's degree",
+  associate:        'Associate degree / diploma',
+  vocational:       'Vocational / trade qualification',
+  highschool:       'High school only',
+  // Q3 — Experience
+  exp_0:            'Less than 1 year',
+  exp_1_3:          '1–3 years',
+  exp_3_5:          '3–5 years',
+  exp_5_10:         '5–10 years',
+  exp_10:           '10+ years',
+  // Q4 — Income
+  income_low:       'Under $30,000 / ¥4.5M',
+  income_mid:       '$30,000–$50,000 / ¥4.5–7.5M',
+  income_upper:     '$50,000–$75,000 / ¥7.5–11M',
+  income_high:      '$75,000–$130,000 / ¥11–20M',
+  income_premium:   '$130,000+ / ¥20M+',
+  // Q5 — Japanese level
+  jp_none:          'None / Beginner',
+  jp_basic:         'Basic (~JLPT N5)',
+  jp_mid:           'Intermediate (~JLPT N3–N4)',
+  jp_advanced:      'Advanced (JLPT N2)',
+  jp_fluent:        'Fluent / Native (JLPT N1)',
+  // Q6 — Intended stay
+  stay_short:       'Up to 6 months',
+  stay_medium:      '1–2 years',
+  stay_long:        '3–5 years',
+  stay_permanent:   '5+ years / Permanent',
+  // Q7 — Primary goal
+  goal_business:    'Build and run a business',
+  goal_employment:  'Work for a Japanese company',
+  goal_remote:      'Continue working remotely',
+  goal_study:       'Study or learn Japanese',
+  goal_family:      'Join family or partner',
+  goal_invest:      'Invest and build wealth',
+  // Q8 — Capital
+  capital_none:     'No capital available',
+  capital_low:      'Up to ¥3M (~$20,000)',
+  capital_mid:      '¥3M–¥5M (~$20,000–$33,000)',
+  capital_high:     '¥5M–¥20M (~$33,000–$130,000)',
+  capital_premium:  '¥20M+ ($130,000+)',
+  // Q9 — Business status
+  biz_established:  'Established business (generating revenue)',
+  biz_early:        'Early-stage startup (pre-revenue)',
+  biz_idea:         'Clear business concept, not started yet',
+  biz_none:         'No specific business — exploring options',
+  biz_no:           'Not interested in running a business',
+  // Q10 — Industry
+  ind_tech:         'Technology / IT / Engineering',
+  ind_biz:          'Business / Finance / Marketing',
+  ind_creative:     'Creative / Media / Design',
+  ind_hospitality:  'Hospitality / Food & Beverage',
+  ind_trade:        'Construction / Agriculture / Manufacturing',
+  ind_education:    'Education / Research / Academia',
+  ind_healthcare:   'Healthcare / Social care',
+  ind_other:        'Other',
+  // Q11 — Family status
+  family_none:      'Single, no Japan ties',
+  family_jp_spouse: 'Married to a Japanese national',
+  family_pr_spouse: 'Married to a Japan PR holder',
+  family_partner:   'Partner or family member in Japan',
+  family_foreign:   'Married, partner is foreign national',
+  // Q12 — Region
+  region_tokyo:     'Tokyo / Greater Tokyo',
+  region_osaka:     'Osaka / Kansai',
+  region_fukuoka:   'Fukuoka / Kyushu',
+  region_nagoya:    'Nagoya / Chubu',
+  region_rural:     'Rural / anywhere',
+  region_undecided: 'Undecided',
+  // Q13 — Timeline
+  timeline_asap:       'As soon as possible (within 3 months)',
+  timeline_6mo:        'In 3–6 months',
+  timeline_1yr:        'In 6–12 months',
+  timeline_2yr:        'In 1–2 years',
+  timeline_exploring:  'Just exploring — no firm timeline',
+  // Q14 — Lived abroad
+  abroad_multi:   'Yes — lived in multiple countries',
+  abroad_one:     'Yes — lived in one other country',
+  abroad_travel:  'Extended travel, not lived abroad',
+  abroad_none:    'No — this would be my first time',
+  // Q15 — Biggest concern
+  concern_capital:    'Meeting the financial requirements',
+  concern_job:        'Finding a job or employer sponsor',
+  concern_language:   'Language barrier',
+  concern_paperwork:  'Complex paperwork and bureaucracy',
+  concern_clarity:    'Understanding which visa is right',
+  concern_timeline:   'Timeline — I need to move fast',
+  // Q16 — Nationality
+  nat_us_ca:  'USA / Canada',
+  nat_uk:     'UK',
+  nat_au_nz:  'Australia / New Zealand',
+  nat_eu:     'EU / European',
+  nat_kr_tw:  'South Korea / Taiwan',
+  nat_sea:    'Southeast Asia',
+  nat_sa:     'South Asia',
+  nat_latam:  'Latin America',
+  nat_afme:   'Africa / Middle East',
+  nat_other:  'Other',
+  // Q17 — Age
+  age_u25:    'Under 25',
+  age_25_30:  '25–30',
+  age_31_35:  '31–35',
+  age_36_45:  '36–45',
+  age_46_60:  '46–60',
+  age_60:     'Over 60',
+  // Q18 — Field of study
+  field_stem:       'Engineering / Computer Science / IT',
+  field_biz:        'Business / Economics / Law',
+  field_humanities: 'Humanities / Languages / International Studies',
+  field_science:    'Sciences / Medicine / Research',
+  field_arts:       'Arts / Design / Media',
+  field_none:       'Did not attend university',
+  field_other:      'Other',
+  // Q19 — Current status
+  status_home:    'In my home country',
+  status_tourist: 'In Japan on tourist / visa waiver',
+  status_work:    'In Japan on existing work visa',
+  status_student: 'In Japan on student visa',
+  status_wh:      'In Japan on Working Holiday visa',
+  status_other:   'Other',
+};
+
+function getLabel(key) {
+  return ANSWER_LABELS[key] || key;
+}
+
+// ─────────────────────────────────────────────────────────────
 // BEEHIIV PROXY
 // ─────────────────────────────────────────────────────────────
 const WORKER_URL = 'https://beehiiv-proxy.jshyegun.workers.dev';
@@ -1877,17 +2016,17 @@ function logToSheets(winnerId, scoreMap) {
         firstName:     userName    || '',
         topVisa:       VISAS[winnerId].name,
         score:         scoreMap[winnerId],
-        nationality:   answers.q16 || '',
-        age:           answers.q17 || '',
-        education:     answers.q2  || '',
-        experience:    answers.q3  || '',
-        income:        answers.q4  || '',
-        japanese:      answers.q5  || '',
-        intendedStay:  answers.q6  || '',
-        goal:          answers.q7  || '',
-        industry:      answers.q10 || '',
-        currentStatus: answers.q19 || '',
-        capital:       answers.q8  || '',
+        nationality:   getLabel(answers.q16),
+        age:           getLabel(answers.q17),
+        education:     getLabel(answers.q2),
+        experience:    getLabel(answers.q3),
+        income:        getLabel(answers.q4),
+        japanese:      getLabel(answers.q5),
+        intendedStay:  getLabel(answers.q6),
+        goal:          getLabel(answers.q7),
+        industry:      getLabel(answers.q10),
+        currentStatus: getLabel(answers.q19),
+        capital:       getLabel(answers.q8),
       }),
     }).catch(() => {});
   } catch (_) {}
@@ -1896,11 +2035,11 @@ function logToSheets(winnerId, scoreMap) {
 function renderResults(winnerId, altIds, scoreMap) {
   logToSheets(winnerId, scoreMap);
   subscribeToBeehiiv(userEmail, userName, [
-    { name: 'Visa Recommendation',    value: VISAS[winnerId].name          },
-    { name: 'Nationality',            value: answers.q16 || ''             },
-    { name: 'Age',                    value: answers.q17 || ''             },
-    { name: 'Intended Stay In Japan', value: answers.q6  || ''             },
-    { name: 'Primary Goal',           value: answers.q7  || ''             },
+    { name: 'Visa Recommendation',    value: VISAS[winnerId].name   },
+    { name: 'Nationality',            value: getLabel(answers.q16)  },
+    { name: 'Age',                    value: getLabel(answers.q17)  },
+    { name: 'Intended Stay In Japan', value: getLabel(answers.q6)   },
+    { name: 'Primary Goal',           value: getLabel(answers.q7)   },
   ]);
   const winner = VISAS[winnerId];
   const score = scoreMap[winnerId];
