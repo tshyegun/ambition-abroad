@@ -19,6 +19,29 @@ export default {
 
     const url = new URL(request.url);
 
+    if (url.pathname === '/sheets') {
+      let body;
+      try {
+        body = await request.json();
+      } catch {
+        return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
+          status: 400,
+          headers: { ...CORS, 'Content-Type': 'application/json' },
+        });
+      }
+
+      const res = await fetch('https://script.google.com/macros/s/AKfycbx2AmTiUHPZ_uXdANRT_aINFYuABLvoh8xxGXuR4qss0yPJSZHaqvkg8K2fbWVJTXVn9g/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+
+      return new Response(JSON.stringify({ ok: res.ok }), {
+        status: res.ok ? 200 : res.status,
+        headers: { ...CORS, 'Content-Type': 'application/json' },
+      });
+    }
+
     if (url.pathname === '/claude') {
       let body;
       try {

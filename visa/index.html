@@ -1867,7 +1867,7 @@ function calculateResults() {
 // RESULTS RENDERER
 // ─────────────────────────────────────────────────────────────
 function logToSheets(winnerId, scoreMap) {
-  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx2AmTiUHPZ_uXdANRT_aINFYuABLvoh8xxGXuR4qss0yPJSZHaqvkg8K2fbWVJTXVn9g/exec';
+  const SHEETS_URL = WORKER_URL + '/sheets';
   try {
     fetch(SHEETS_URL, {
       method: 'POST',
