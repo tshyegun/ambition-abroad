@@ -7,11 +7,12 @@ const path = require('path');
 
 const URLS = [
   'https://www.immi-moj.go.jp/english/',
-  'https://www.jetro.go.jp/en/invest/setting_up/',
-  'https://japanvisa.com',
-  'https://www.japan-guide.com/e/e2221.html',
-  'https://tokyocheapo.com/living/japan-visa-guide/',
   'https://www.immi-moj.go.jp/newimmiact_3/en/index.html',
+  'https://www.jetro.go.jp/en/invest/setting_up/',
+  'https://www.japan-guide.com/e/e2221.html',
+  'https://www.realestate.co.jp/en/blog/japan-work-visa-types/',
+  'https://resources.realestate.co.jp/living/types-of-japan-visa/',
+  'https://www.globalvisas.com/japan_visa/japan_visa_information.html',
 ];
 
 // Elements to strip before extracting text
