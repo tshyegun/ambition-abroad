@@ -616,7 +616,7 @@
       </div>
       <div class="proof-divider"></div>
       <div class="proof-item">
-        <span class="proof-num">15</span>
+        <span class="proof-num">19</span>
         <span class="proof-label">Questions</span>
       </div>
       <div class="proof-divider"></div>
@@ -635,7 +635,7 @@
     <div class="quiz-progress-bar-wrap">
       <div class="quiz-progress-meta">
         <span class="quiz-progress-section" id="section-label">Section 1 of 3 — Your Background</span>
-        <span class="quiz-progress-count" id="progress-count">Question 1 of 15</span>
+        <span class="quiz-progress-count" id="progress-count">Question 1 of 19</span>
       </div>
       <div class="progress-track">
         <div class="progress-fill" id="progress-fill" style="width: 6.67%"></div>
@@ -1235,6 +1235,63 @@ const QUESTIONS = [
       { label: 'Timeline — I need to move fast', value: 'concern_timeline' },
     ]
   },
+  {
+    id: 'q16', section: 2, text: 'What is your nationality / passport country?',
+    hint: 'Some visa types — including Working Holiday — are only available to specific nationalities.',
+    layout: 'cols-2',
+    options: [
+      { label: 'USA / Canada', value: 'nat_us_ca' },
+      { label: 'UK', value: 'nat_uk' },
+      { label: 'Australia / New Zealand', value: 'nat_au_nz' },
+      { label: 'EU / European', value: 'nat_eu' },
+      { label: 'South Korea / Taiwan', value: 'nat_kr_tw' },
+      { label: 'Southeast Asia', value: 'nat_sea' },
+      { label: 'South Asia', value: 'nat_sa' },
+      { label: 'Latin America', value: 'nat_latam' },
+      { label: 'Africa / Middle East', value: 'nat_afme' },
+      { label: 'Other', value: 'nat_other' },
+    ]
+  },
+  {
+    id: 'q17', section: 2, text: 'How old are you?',
+    hint: 'Age affects eligibility for Working Holiday and points-based visa programmes.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Under 25', value: 'age_u25' },
+      { label: '25–30', value: 'age_25_30' },
+      { label: '31–35', value: 'age_31_35' },
+      { label: '36–45', value: 'age_36_45' },
+      { label: '46–60', value: 'age_46_60' },
+      { label: 'Over 60', value: 'age_60' },
+    ]
+  },
+  {
+    id: 'q18', section: 2, text: 'What did you study at university (or closest field)?',
+    hint: 'For work visas, your role must typically align with your field of study.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Engineering / Computer Science / IT', value: 'field_stem' },
+      { label: 'Business / Economics / Law', value: 'field_biz' },
+      { label: 'Humanities / Languages / International Studies', value: 'field_humanities' },
+      { label: 'Sciences / Medicine / Research', value: 'field_science' },
+      { label: 'Arts / Design / Media', value: 'field_arts' },
+      { label: 'Did not attend university', value: 'field_none' },
+      { label: 'Other', value: 'field_other' },
+    ]
+  },
+  {
+    id: 'q19', section: 2, text: 'What is your current visa / immigration status?',
+    hint: 'Your current status determines which application pathway is available to you.',
+    layout: 'cols-2',
+    options: [
+      { label: 'In my home country', value: 'status_home' },
+      { label: 'In Japan on tourist / visa waiver', value: 'status_tourist' },
+      { label: 'In Japan on existing work visa', value: 'status_work' },
+      { label: 'In Japan on student visa', value: 'status_student' },
+      { label: 'In Japan on Working Holiday visa', value: 'status_wh' },
+      { label: 'Other', value: 'status_other' },
+    ]
+  },
 ];
 
 const SECTION_LABELS = [
@@ -1672,6 +1729,96 @@ function calculateResults() {
   if (a.q15 === 'concern_capital') { VISAS.startup.score += 5; VISAS.digitalNomad.score += 5; }
   if (a.q15 === 'concern_job') { VISAS.startup.score += 5; VISAS.businessManager.score += 5; }
   if (a.q15 === 'concern_language') { VISAS.digitalNomad.score += 5; VISAS.businessManager.score += 3; }
+
+  // ── Q16: Nationality ──
+  // Working Holiday: UK, AU/NZ, EU/European, South Korea all have agreements. Canada has one; USA does not.
+  // Digital Nomad requires a visa-exempt nationality (49 countries); SE Asia / South Asia / Africa/ME often excluded.
+  if (a.q16 === 'nat_uk') {
+    VISAS.workingHoliday.score += 30; VISAS.digitalNomad.score += 10;
+  }
+  if (a.q16 === 'nat_au_nz') {
+    VISAS.workingHoliday.score += 30; VISAS.digitalNomad.score += 10;
+  }
+  if (a.q16 === 'nat_eu') {
+    VISAS.workingHoliday.score += 22; VISAS.digitalNomad.score += 10;
+  }
+  if (a.q16 === 'nat_us_ca') {
+    // Canada has WH; USA does not — partial boost
+    VISAS.workingHoliday.score += 15; VISAS.digitalNomad.score += 10;
+  }
+  if (a.q16 === 'nat_kr_tw') {
+    VISAS.workingHoliday.score += 25; VISAS.digitalNomad.score += 8;
+  }
+  if (a.q16 === 'nat_latam') {
+    // Argentina and Chile have WH agreements
+    VISAS.workingHoliday.score += 12; VISAS.digitalNomad.score += 5;
+  }
+  if (a.q16 === 'nat_sea' || a.q16 === 'nat_sa' || a.q16 === 'nat_afme' || a.q16 === 'nat_other') {
+    // Generally not WH eligible and often not visa-exempt for Digital Nomad
+    VISAS.workingHoliday.score -= 20; VISAS.digitalNomad.score -= 10;
+    VISAS.specifiedSkilled.score += 5;
+  }
+
+  // ── Q17: Age ──
+  // WH is 18–30 for most countries; up to 35 for Canada, Ireland, Denmark, Norway.
+  // HSP points favour age under 35.
+  if (a.q17 === 'age_u25') {
+    VISAS.workingHoliday.score += 25; VISAS.student.score += 10; VISAS.highlySkilled.score += 8;
+  }
+  if (a.q17 === 'age_25_30') {
+    VISAS.workingHoliday.score += 25; VISAS.highlySkilled.score += 12;
+  }
+  if (a.q17 === 'age_31_35') {
+    // Eligible for WH only with a handful of nationalities
+    VISAS.workingHoliday.score += 5; VISAS.highlySkilled.score += 10;
+  }
+  if (a.q17 === 'age_36_45') {
+    VISAS.workingHoliday.score -= 30; VISAS.highlySkilled.score += 5;
+  }
+  if (a.q17 === 'age_46_60' || a.q17 === 'age_60') {
+    VISAS.workingHoliday.score -= 40;
+  }
+
+  // ── Q18: Field of study ──
+  if (a.q18 === 'field_stem') {
+    VISAS.engineerHumanities.score += 15; VISAS.highlySkilled.score += 12;
+  }
+  if (a.q18 === 'field_biz') {
+    VISAS.engineerHumanities.score += 10; VISAS.businessManager.score += 8; VISAS.highlySkilled.score += 8;
+  }
+  if (a.q18 === 'field_humanities') {
+    VISAS.engineerHumanities.score += 10;
+  }
+  if (a.q18 === 'field_science') {
+    VISAS.highlySkilled.score += 12; VISAS.engineerHumanities.score += 10;
+  }
+  if (a.q18 === 'field_arts') {
+    VISAS.engineerHumanities.score += 8;
+  }
+  if (a.q18 === 'field_none') {
+    // No degree: experience-substitution path for engineer; SSW doesn't require degree
+    VISAS.specifiedSkilled.score += 10; VISAS.workingHoliday.score += 5;
+    VISAS.engineerHumanities.score -= 8;
+  }
+
+  // ── Q19: Current status ──
+  if (a.q19 === 'status_tourist') {
+    // In Japan now — urgency; digital nomad or WH are quickest exits
+    VISAS.digitalNomad.score += 8; VISAS.workingHoliday.score += 8;
+  }
+  if (a.q19 === 'status_work') {
+    // Already sponsored — likely looking to upgrade or change
+    VISAS.highlySkilled.score += 10; VISAS.engineerHumanities.score += 5;
+  }
+  if (a.q19 === 'status_student') {
+    // Student changing to work visa post-graduation
+    VISAS.engineerHumanities.score += 10; VISAS.highlySkilled.score += 5;
+  }
+  if (a.q19 === 'status_wh') {
+    // On WH — looking to transition to a long-term visa
+    VISAS.engineerHumanities.score += 15; VISAS.businessManager.score += 8;
+    VISAS.workingHoliday.score -= 20;
+  }
 
   // Normalize scores to percentages (max possible ~200)
   const maxScore = Math.max(...Object.values(VISAS).map(v => v.score));
