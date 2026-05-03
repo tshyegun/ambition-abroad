@@ -1866,7 +1866,35 @@ function calculateResults() {
 // ─────────────────────────────────────────────────────────────
 // RESULTS RENDERER
 // ─────────────────────────────────────────────────────────────
+function logToSheets(winnerId, scoreMap) {
+  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx2AmTiUHPZ_uXdANRT_aINFYuABLvoh8xxGXuR4qss0yPJSZHaqvkg8K2fbWVJTXVn9g/exec';
+  try {
+    fetch(SHEETS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email:         userEmail   || '',
+        firstName:     userName    || '',
+        topVisa:       VISAS[winnerId].name,
+        score:         scoreMap[winnerId],
+        nationality:   answers.q16 || '',
+        age:           answers.q17 || '',
+        education:     answers.q2  || '',
+        experience:    answers.q3  || '',
+        income:        answers.q4  || '',
+        japanese:      answers.q5  || '',
+        intendedStay:  answers.q6  || '',
+        goal:          answers.q7  || '',
+        industry:      answers.q10 || '',
+        currentStatus: answers.q19 || '',
+        capital:       answers.q8  || '',
+      }),
+    }).catch(() => {});
+  } catch (_) {}
+}
+
 function renderResults(winnerId, altIds, scoreMap) {
+  logToSheets(winnerId, scoreMap);
   const winner = VISAS[winnerId];
   const score = scoreMap[winnerId];
 
