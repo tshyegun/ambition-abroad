@@ -1337,12 +1337,12 @@ const SECTION_LABELS = [
 // ─────────────────────────────────────────────────────────────
 const WORKER_URL = 'https://beehiiv-proxy.jshyegun.workers.dev';
 
-async function subscribeToBeehiiv(email, firstName = '') {
+async function subscribeToBeehiiv(email, firstName = '', customFields = []) {
   try {
     await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, firstName }),
+      body: JSON.stringify({ email, firstName, customFields }),
     });
   } catch {
     // silent — subscription failure never blocks the user flow
@@ -1895,6 +1895,13 @@ function logToSheets(winnerId, scoreMap) {
 
 function renderResults(winnerId, altIds, scoreMap) {
   logToSheets(winnerId, scoreMap);
+  subscribeToBeehiiv(userEmail, userName, [
+    { name: 'Visa Recommendation',    value: VISAS[winnerId].name          },
+    { name: 'Nationality',            value: answers.q16 || ''             },
+    { name: 'Age',                    value: answers.q17 || ''             },
+    { name: 'Intended Stay In Japan', value: answers.q6  || ''             },
+    { name: 'Primary Goal',           value: answers.q7  || ''             },
+  ]);
   const winner = VISAS[winnerId];
   const score = scoreMap[winnerId];
 

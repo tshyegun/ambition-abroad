@@ -47,9 +47,9 @@ export default {
       });
     }
 
-    let email, firstName;
+    let email, firstName, customFields;
     try {
-      ({ email, firstName } = await request.json());
+      ({ email, firstName, customFields } = await request.json());
     } catch {
       return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
         status: 400,
@@ -71,6 +71,7 @@ export default {
       utm_medium: 'tool',
     };
     if (firstName) body.first_name = firstName;
+    if (customFields && customFields.length) body.custom_fields = customFields;
 
     const res = await fetch(
       `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions`,
