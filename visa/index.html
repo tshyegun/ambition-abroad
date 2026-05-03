@@ -634,7 +634,7 @@
   <div class="quiz-header">
     <div class="quiz-progress-bar-wrap">
       <div class="quiz-progress-meta">
-        <span class="quiz-progress-section" id="section-label">Section 1 of 3 — Your Background</span>
+        <span class="quiz-progress-section" id="section-label">Section 1 of 4 — About You</span>
         <span class="quiz-progress-count" id="progress-count">Question 1 of 19</span>
       </div>
       <div class="progress-track">
@@ -1073,10 +1073,10 @@ const VISAS = {
 };
 
 // ─────────────────────────────────────────────────────────────
-// QUESTIONS (15 total, 3 sections)
+// QUESTIONS (19 total, 4 sections)
 // ─────────────────────────────────────────────────────────────
 const QUESTIONS = [
-  // SECTION 1 — Background (Q1–5)
+  // SECTION 1 — About You (Q1, Q2, Q3, Q18, Q16, Q17)
   {
     id: 'q1', section: 0, text: 'What best describes your current situation?',
     hint: 'This helps us understand your starting point.',
@@ -1116,7 +1116,53 @@ const QUESTIONS = [
     ]
   },
   {
-    id: 'q4', section: 0, text: 'What is your current annual income (or expected salary in Japan)?',
+    id: 'q18', section: 0, text: 'What did you study at university (or closest field)?',
+    hint: 'For work visas, your role must typically align with your field of study.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Engineering / Computer Science / IT', value: 'field_stem' },
+      { label: 'Business / Economics / Law', value: 'field_biz' },
+      { label: 'Humanities / Languages / International Studies', value: 'field_humanities' },
+      { label: 'Sciences / Medicine / Research', value: 'field_science' },
+      { label: 'Arts / Design / Media', value: 'field_arts' },
+      { label: 'Did not attend university', value: 'field_none' },
+      { label: 'Other', value: 'field_other' },
+    ]
+  },
+  {
+    id: 'q16', section: 0, text: 'What is your nationality / passport country?',
+    hint: 'Some visa types — including Working Holiday — are only available to specific nationalities.',
+    layout: 'cols-2',
+    options: [
+      { label: 'USA / Canada', value: 'nat_us_ca' },
+      { label: 'UK', value: 'nat_uk' },
+      { label: 'Australia / New Zealand', value: 'nat_au_nz' },
+      { label: 'EU / European', value: 'nat_eu' },
+      { label: 'South Korea / Taiwan', value: 'nat_kr_tw' },
+      { label: 'Southeast Asia', value: 'nat_sea' },
+      { label: 'South Asia', value: 'nat_sa' },
+      { label: 'Latin America', value: 'nat_latam' },
+      { label: 'Africa / Middle East', value: 'nat_afme' },
+      { label: 'Other', value: 'nat_other' },
+    ]
+  },
+  {
+    id: 'q17', section: 0, text: 'How old are you?',
+    hint: 'Age affects eligibility for Working Holiday and points-based visa programmes.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Under 25', value: 'age_u25' },
+      { label: '25–30', value: 'age_25_30' },
+      { label: '31–35', value: 'age_31_35' },
+      { label: '36–45', value: 'age_36_45' },
+      { label: '46–60', value: 'age_46_60' },
+      { label: 'Over 60', value: 'age_60' },
+    ]
+  },
+
+  // SECTION 2 — Your Finances (Q4, Q8)
+  {
+    id: 'q4', section: 1, text: 'What is your current annual income (or expected salary in Japan)?',
     hint: 'Salary thresholds unlock different visa tiers and point totals.',
     layout: 'cols-2',
     options: [
@@ -1125,44 +1171,6 @@ const QUESTIONS = [
       { label: '$50,000–$75,000 / ¥7.5–11M', value: 'income_upper' },
       { label: '$75,000–$130,000 / ¥11–20M', value: 'income_high' },
       { label: '$130,000+ / ¥20M+', value: 'income_premium' },
-    ]
-  },
-  {
-    id: 'q5', section: 0, text: 'What is your current Japanese language ability?',
-    hint: 'Required for some visas; bonus points for others.',
-    layout: 'cols-2',
-    options: [
-      { label: 'None / beginner', sub: 'Little to no Japanese', value: 'jp_none' },
-      { label: 'Basic', sub: 'Survival phrases, ~JLPT N5', value: 'jp_basic' },
-      { label: 'Intermediate', sub: 'Daily conversation, ~JLPT N3–N4', value: 'jp_mid' },
-      { label: 'Advanced', sub: 'Business-level, JLPT N2', value: 'jp_advanced' },
-      { label: 'Fluent / Native', sub: 'JLPT N1 or native speaker', value: 'jp_fluent' },
-    ]
-  },
-
-  // SECTION 2 — Intent (Q6–10)
-  {
-    id: 'q6', section: 1, text: 'How long do you plan to stay in Japan?',
-    hint: 'This dramatically affects which visa makes the most sense.',
-    layout: 'cols-2',
-    options: [
-      { label: 'Up to 6 months', sub: 'Short stay or trial', value: 'stay_short' },
-      { label: '1–2 years', sub: 'Medium-term', value: 'stay_medium' },
-      { label: '3–5 years', sub: 'Long-term', value: 'stay_long' },
-      { label: '5+ years / Permanent', sub: 'Aiming for PR', value: 'stay_permanent' },
-    ]
-  },
-  {
-    id: 'q7', section: 1, text: 'What is your primary goal for moving to Japan?',
-    hint: 'Be honest — there\'s no wrong answer.',
-    layout: 'cols-1',
-    options: [
-      { label: 'Build and run a business', sub: 'Launch or grow a company in Japan', value: 'goal_business' },
-      { label: 'Work for a Japanese company', sub: 'Employed in a Japanese organization', value: 'goal_employment' },
-      { label: 'Continue working remotely', sub: 'Keep current foreign employment while living in Japan', value: 'goal_remote' },
-      { label: 'Study or learn Japanese', sub: 'Language school or university', value: 'goal_study' },
-      { label: 'Join family or partner', sub: 'Spouse, children, or dependents', value: 'goal_family' },
-      { label: 'Invest and build wealth', sub: 'Business investment or real estate', value: 'goal_invest' },
     ]
   },
   {
@@ -1177,8 +1185,34 @@ const QUESTIONS = [
       { label: '¥20M+', sub: '$130,000+ USD', value: 'capital_premium' },
     ]
   },
+
+  // SECTION 3 — Your Japan Plans (Q6, Q7, Q9, Q10, Q11, Q12, Q13)
   {
-    id: 'q9', section: 1, text: 'Do you have an existing business or business idea for Japan?',
+    id: 'q6', section: 2, text: 'How long do you plan to stay in Japan?',
+    hint: 'This dramatically affects which visa makes the most sense.',
+    layout: 'cols-2',
+    options: [
+      { label: 'Up to 6 months', sub: 'Short stay or trial', value: 'stay_short' },
+      { label: '1–2 years', sub: 'Medium-term', value: 'stay_medium' },
+      { label: '3–5 years', sub: 'Long-term', value: 'stay_long' },
+      { label: '5+ years / Permanent', sub: 'Aiming for PR', value: 'stay_permanent' },
+    ]
+  },
+  {
+    id: 'q7', section: 2, text: 'What is your primary goal for moving to Japan?',
+    hint: 'Be honest — there\'s no wrong answer.',
+    layout: 'cols-1',
+    options: [
+      { label: 'Build and run a business', sub: 'Launch or grow a company in Japan', value: 'goal_business' },
+      { label: 'Work for a Japanese company', sub: 'Employed in a Japanese organization', value: 'goal_employment' },
+      { label: 'Continue working remotely', sub: 'Keep current foreign employment while living in Japan', value: 'goal_remote' },
+      { label: 'Study or learn Japanese', sub: 'Language school or university', value: 'goal_study' },
+      { label: 'Join family or partner', sub: 'Spouse, children, or dependents', value: 'goal_family' },
+      { label: 'Invest and build wealth', sub: 'Business investment or real estate', value: 'goal_invest' },
+    ]
+  },
+  {
+    id: 'q9', section: 2, text: 'Do you have an existing business or business idea for Japan?',
     hint: 'For business-related visas, the stage of your idea matters.',
     layout: 'cols-1',
     options: [
@@ -1190,7 +1224,7 @@ const QUESTIONS = [
     ]
   },
   {
-    id: 'q10', section: 1, text: 'What industry does your work or business fall into?',
+    id: 'q10', section: 2, text: 'What industry does your work or business fall into?',
     hint: 'Certain industries have dedicated visa pathways in Japan.',
     layout: 'cols-2',
     options: [
@@ -1204,8 +1238,6 @@ const QUESTIONS = [
       { label: 'Other', value: 'ind_other' },
     ]
   },
-
-  // SECTION 3 — Practical (Q11–15)
   {
     id: 'q11', section: 2, text: 'What is your marital or family status?',
     hint: 'Family ties to Japan can open important visa pathways.',
@@ -1243,8 +1275,22 @@ const QUESTIONS = [
       { label: 'Just exploring', sub: 'No firm timeline', value: 'timeline_exploring' },
     ]
   },
+
+  // SECTION 4 — Current Situation (Q5, Q14, Q15, Q19)
   {
-    id: 'q14', section: 2, text: 'Have you lived abroad before?',
+    id: 'q5', section: 3, text: 'What is your current Japanese language ability?',
+    hint: 'Required for some visas; bonus points for others.',
+    layout: 'cols-2',
+    options: [
+      { label: 'None / beginner', sub: 'Little to no Japanese', value: 'jp_none' },
+      { label: 'Basic', sub: 'Survival phrases, ~JLPT N5', value: 'jp_basic' },
+      { label: 'Intermediate', sub: 'Daily conversation, ~JLPT N3–N4', value: 'jp_mid' },
+      { label: 'Advanced', sub: 'Business-level, JLPT N2', value: 'jp_advanced' },
+      { label: 'Fluent / Native', sub: 'JLPT N1 or native speaker', value: 'jp_fluent' },
+    ]
+  },
+  {
+    id: 'q14', section: 3, text: 'Have you lived abroad before?',
     hint: 'Prior international experience affects readiness for certain visa processes.',
     layout: 'cols-2',
     options: [
@@ -1255,7 +1301,7 @@ const QUESTIONS = [
     ]
   },
   {
-    id: 'q15', section: 2, text: 'What would be your biggest concern about the visa process?',
+    id: 'q15', section: 3, text: 'What would be your biggest concern about the visa process?',
     hint: 'Knowing your concern helps us prioritize your action plan.',
     layout: 'cols-2',
     options: [
@@ -1268,51 +1314,7 @@ const QUESTIONS = [
     ]
   },
   {
-    id: 'q16', section: 2, text: 'What is your nationality / passport country?',
-    hint: 'Some visa types — including Working Holiday — are only available to specific nationalities.',
-    layout: 'cols-2',
-    options: [
-      { label: 'USA / Canada', value: 'nat_us_ca' },
-      { label: 'UK', value: 'nat_uk' },
-      { label: 'Australia / New Zealand', value: 'nat_au_nz' },
-      { label: 'EU / European', value: 'nat_eu' },
-      { label: 'South Korea / Taiwan', value: 'nat_kr_tw' },
-      { label: 'Southeast Asia', value: 'nat_sea' },
-      { label: 'South Asia', value: 'nat_sa' },
-      { label: 'Latin America', value: 'nat_latam' },
-      { label: 'Africa / Middle East', value: 'nat_afme' },
-      { label: 'Other', value: 'nat_other' },
-    ]
-  },
-  {
-    id: 'q17', section: 2, text: 'How old are you?',
-    hint: 'Age affects eligibility for Working Holiday and points-based visa programmes.',
-    layout: 'cols-2',
-    options: [
-      { label: 'Under 25', value: 'age_u25' },
-      { label: '25–30', value: 'age_25_30' },
-      { label: '31–35', value: 'age_31_35' },
-      { label: '36–45', value: 'age_36_45' },
-      { label: '46–60', value: 'age_46_60' },
-      { label: 'Over 60', value: 'age_60' },
-    ]
-  },
-  {
-    id: 'q18', section: 2, text: 'What did you study at university (or closest field)?',
-    hint: 'For work visas, your role must typically align with your field of study.',
-    layout: 'cols-2',
-    options: [
-      { label: 'Engineering / Computer Science / IT', value: 'field_stem' },
-      { label: 'Business / Economics / Law', value: 'field_biz' },
-      { label: 'Humanities / Languages / International Studies', value: 'field_humanities' },
-      { label: 'Sciences / Medicine / Research', value: 'field_science' },
-      { label: 'Arts / Design / Media', value: 'field_arts' },
-      { label: 'Did not attend university', value: 'field_none' },
-      { label: 'Other', value: 'field_other' },
-    ]
-  },
-  {
-    id: 'q19', section: 2, text: 'What is your current visa / immigration status?',
+    id: 'q19', section: 3, text: 'What is your current visa / immigration status?',
     hint: 'Your current status determines which application pathway is available to you.',
     layout: 'cols-2',
     options: [
@@ -1327,9 +1329,10 @@ const QUESTIONS = [
 ];
 
 const SECTION_LABELS = [
-  { label: 'Section 1 of 3', title: 'Your Background', desc: 'Education, experience, and where you\'re starting from.' },
-  { label: 'Section 2 of 3', title: 'Your Intent', desc: 'What you want to do and build in Japan.' },
-  { label: 'Section 3 of 3', title: 'Practical Details', desc: 'Timeline, location, and situation-specific factors.' },
+  { label: 'Section 1 of 4', title: 'About You', desc: 'Your background, education, nationality, and age.' },
+  { label: 'Section 2 of 4', title: 'Your Finances', desc: 'Income and capital available for your move.' },
+  { label: 'Section 3 of 4', title: 'Your Japan Plans', desc: 'What you want to do and where you want to be.' },
+  { label: 'Section 4 of 4', title: 'Current Situation', desc: 'Your language level, experience abroad, and current status.' },
 ];
 
 // ─────────────────────────────────────────────────────────────
