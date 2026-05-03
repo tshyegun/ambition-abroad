@@ -1038,6 +1038,38 @@ const VISAS = {
     ],
     alternatives: ['engineerHumanities', 'specifiedSkilled'],
   },
+  workingHoliday: {
+    name: 'Working Holiday Visa',
+    jp: 'Wākingu Horidē — ワーキングホリデー',
+    desc: 'A one-year cultural exchange visa for young adults from 30+ countries. Lets you work to fund travel in Japan. A popular low-commitment way to experience life in Japan before committing to a long-term visa.',
+    score: 0,
+    tags: ['Travel', 'Short-term work', 'Cultural exchange'],
+    requirements: [
+      { title: 'Citizen of a country with a Working Holiday agreement with Japan', status: 'gap', note: 'Eligible countries include: Australia, Canada, UK, Ireland, New Zealand, Germany, France, South Korea, and 20+ others' },
+      { title: 'Age 18–30 at time of application', status: 'gap', note: 'Upper limit is 35 for citizens of Canada, Ireland, Denmark, and Norway' },
+      { title: 'No dependants accompanying you to Japan', status: 'gap', note: 'Working Holiday is an individual visa; family members cannot be brought on this status' },
+      { title: 'Sufficient funds on arrival (typically ¥250,000 or equivalent)', status: 'gap', note: 'Evidence of return airfare or funds to purchase it may also be required' },
+      { title: 'One-time use only — cannot be repeated', status: 'gap', note: 'You are only eligible for a Working Holiday visa once per lifetime' },
+    ],
+    checklist: [
+      { phase: 'Phase 1', phaseTitle: 'Eligibility Check', phaseSub: 'Confirm you qualify before applying', items: [
+        { text: 'Verify your country has a Working Holiday agreement with Japan', note: 'Check the Ministry of Foreign Affairs Japan website for the current list of eligible countries', badge: 'critical' },
+        { text: 'Confirm you are within the eligible age range for your nationality', note: 'Most countries: 18–30. Canada, Ireland, Denmark, Norway: up to 35', badge: 'critical' },
+        { text: 'Confirm you have not previously held a Japan Working Holiday visa', note: 'This visa is a once-in-a-lifetime opportunity — it cannot be issued twice', badge: 'critical' },
+      ]},
+      { phase: 'Phase 2', phaseTitle: 'Application', phaseSub: 'Apply at the Japanese embassy or consulate in your home country', items: [
+        { text: 'Gather proof of sufficient funds (bank statements, ¥250,000 or equivalent)', note: 'Some consulates also accept a return flight ticket or funds sufficient to purchase one', badge: 'urgent' },
+        { text: 'Complete the Working Holiday visa application form', note: 'Available from your nearest Japanese embassy or consulate website', badge: 'critical' },
+        { text: 'Submit application at the Japanese embassy in your home country', note: 'Processing is typically 1–4 weeks; you may need an in-person appointment', badge: 'critical' },
+      ]},
+      { phase: 'Phase 3', phaseTitle: 'In Japan — Transition Planning', phaseSub: 'Use your year wisely to set up your next visa', items: [
+        { text: 'Find work to support yourself during your stay', note: 'Note: some agreements limit work for a single employer to 3 months — check your country\'s bilateral terms', badge: null },
+        { text: 'Begin Japanese language study if targeting a long-term visa', note: 'JLPT N2 opens doors for engineer/humanities and HSP work visas', badge: 'urgent' },
+        { text: 'Explore job opportunities with companies that sponsor work visas', note: 'Use GaijinPot, TokyoDev, or Daijob to find sponsors before your WH expires', badge: 'urgent' },
+        { text: 'Apply for a long-term visa (Engineer/Humanities, HSP, or Business Manager) before expiry', note: 'You cannot renew or extend a Working Holiday visa — plan your transition early', badge: 'critical' },
+      ]},
+    ],
+  },
 };
 
 // ─────────────────────────────────────────────────────────────
