@@ -1,5 +1,6 @@
 const BEEHIIV_API_KEY = '94lDk03aYfzwAEAWIfPN18ufaQv9CyIOMJTUpPxJv86e004BAvH01okwusvos3kR';
 const BEEHIIV_PUBLICATION_ID = 'pub_a54dfa97-ef39-420a-846e-d45ba67f54f4';
+const ANTHROPIC_API_KEY = 'REPLACE_WITH_YOUR_ANTHROPIC_API_KEY';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -14,6 +15,36 @@ export default {
     }
     if (request.method !== 'POST') {
       return new Response('Method Not Allowed', { status: 405, headers: CORS });
+    }
+
+    const url = new URL(request.url);
+
+    if (url.pathname === '/claude') {
+      let body;
+      try {
+        body = await request.json();
+      } catch {
+        return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
+          status: 400,
+          headers: { ...CORS, 'Content-Type': 'application/json' },
+        });
+      }
+
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+        },
+        body: JSON.stringify(body),
+      });
+
+      const data = await res.json();
+      return new Response(JSON.stringify(data), {
+        status: res.status,
+        headers: { ...CORS, 'Content-Type': 'application/json' },
+      });
     }
 
     let email, firstName;

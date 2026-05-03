@@ -383,6 +383,14 @@
   .score-label { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
   .legal-disclaimer { margin-top: 40px; padding: 20px 24px; background: rgba(196,151,58,0.06); border: 1px solid rgba(196,151,58,0.2); border-radius: 10px; }
   .legal-disclaimer p { font-size: 0.75rem; color: var(--color-muted); line-height: 1.6; margin: 0; }
+  .optin-legal-note { font-size: 0.72rem; color: var(--color-muted); text-align: center; max-width: 420px; margin: 20px auto 0; line-height: 1.5; }
+
+  /* AI insight section */
+  .ai-insight-section { margin: 0 0 40px; }
+  .ai-insight-loading { font-size: 0.85rem; color: var(--color-muted); padding: 20px; text-align: center; }
+  .ai-insight-text { font-size: 0.88rem; line-height: 1.7; color: var(--color-ink-faint); padding: 20px 24px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px; }
+  .ai-insight-text p { margin: 0 0 1em; }
+  .ai-insight-text p:last-child { margin-bottom: 0; }
 
   /* Results body */
   .results-body { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
@@ -617,6 +625,7 @@
         <span class="proof-label">To complete</span>
       </div>
     </div>
+    <p class="optin-legal-note">This tool is for educational purposes only and does not constitute legal or immigration advice. Visa eligibility and approval are determined by official immigration authorities. For personalized guidance, consult a licensed immigration professional or refer to official government resources such as the Immigration Services Agency of Japan.</p>
   </div>
 </div>
 
@@ -654,6 +663,11 @@
     </div>
   </div>
   <div class="results-body">
+    <div class="ai-insight-section" id="ai-insight-section" style="display:none;">
+      <div class="section-title">Why This May Be Worth Exploring</div>
+      <div id="ai-insight-loading" class="ai-insight-loading">Personalising your analysis…</div>
+      <div id="ai-insight-text" class="ai-insight-text" style="display:none;"></div>
+    </div>
     <div class="factors-section">
       <div class="section-title">Your Profile</div>
       <div class="factors-grid" id="factors-grid"></div>
@@ -1780,7 +1794,60 @@ function renderResults(winnerId, altIds, scoreMap) {
   }).join('');
 
   renderResources();
+  callClaudeForInsight(winnerId, scoreMap);
   showPage('page-results');
+}
+
+async function callClaudeForInsight(winnerId, scoreMap) {
+  const visa = VISAS[winnerId];
+  const kb = KNOWLEDGE_BASE.find(k => k.id === winnerId) || KNOWLEDGE_BASE[0];
+  const score = scoreMap[winnerId];
+  const a = answers;
+
+  const profileLines = [
+    `Employment situation: ${a.q1 || 'not specified'}`,
+    `Education: ${a.q2 || 'not specified'}`,
+    `Work experience: ${a.q3 || 'not specified'}`,
+    `Annual income target: ${a.q4 || 'not specified'}`,
+    `Japanese language level: ${a.q5 || 'not specified'}`,
+    `Intended stay duration: ${a.q6 || 'not specified'}`,
+    `Move timeline: ${a.q13 || 'not specified'}`,
+  ].join('\n');
+
+  const userMessage = `The user completed a Japan visa quiz. Their profile:\n${profileLines}\n\nTheir closest-matching visa category based on their answers was: ${visa.name} (relevance score: ${score}/100).\n\nCommon requirements for this visa type: ${kb ? kb.eligibility.slice(0, 3).join('; ') : visa.desc}\n\nIn 2–3 short paragraphs, explain why this visa category may be worth exploring for someone with this profile. Use general, educational language only — do not state they qualify, are eligible, or will be approved.`;
+
+  const section = document.getElementById('ai-insight-section');
+  const loading = document.getElementById('ai-insight-loading');
+  const textEl = document.getElementById('ai-insight-text');
+
+  section.style.display = '';
+
+  try {
+    const res = await fetch(WORKER_URL + '/claude', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-opus-4-7',
+        max_tokens: 400,
+        system: [{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
+        messages: [{ role: 'user', content: userMessage }],
+      }),
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      const aiText = data.content?.[0]?.text || '';
+      if (aiText) {
+        loading.style.display = 'none';
+        textEl.innerHTML = aiText.split(/\n\n+/).map(p => `<p>${p.trim()}</p>`).join('');
+        textEl.style.display = '';
+        return;
+      }
+    }
+    section.style.display = 'none';
+  } catch {
+    section.style.display = 'none';
+  }
 }
 
 function renderResources() {
