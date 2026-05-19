@@ -525,7 +525,6 @@
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
-    object-position: center 25%;
     display: block;
   }
   .blueprint-photo-placeholder {
@@ -1115,7 +1114,10 @@
       <a class="blueprint-card" href="#subscribe" onclick="event.preventDefault();document.getElementById('subscribe').scrollIntoView({behavior:'smooth',block:'start'});">
         <div class="blueprint-photo">
           <!-- TODO: Confirm photo is correct founder/business or swap for a better one -->
-          <img src="photo-1.jpg" alt="Michia Rohrssen" />
+          <picture>
+            <source media="(max-width: 880px)" srcset="michia-mobile.jpg">
+            <img src="photo-1.jpg" alt="Michia Rohrssen" />
+          </picture>
           <span class="blueprint-photo-stat"><span class="num">$110M</span> founder</span>
         </div>
         <div class="blueprint-content">
@@ -1135,7 +1137,10 @@
       <!-- Card 2 — Oya Koc -->
       <a class="blueprint-card" href="#subscribe" onclick="event.preventDefault();document.getElementById('subscribe').scrollIntoView({behavior:'smooth',block:'start'});">
         <div class="blueprint-photo">
-          <img src="photo-2.jpg" alt="Oya Koc" />
+          <picture>
+            <source media="(max-width: 880px)" srcset="oya-mobile.jpg">
+            <img src="photo-2.jpg" alt="Oya Koc" />
+          </picture>
           <span class="blueprint-photo-stat"><span class="num">$1M+</span> App</span>
         </div>
         <div class="blueprint-content">
