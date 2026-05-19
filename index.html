@@ -98,11 +98,19 @@
   /* Hero */
   .hero {
     background: var(--white);
-    padding: 130px 32px 80px;
-    text-align: center;
+    padding: 130px 32px 72px;
     border-bottom: 1px solid var(--gray-100);
   }
-  .hero-inner { max-width: 680px; margin: 0 auto; }
+  .hero-inner { max-width: 1060px; margin: 0 auto; }
+  .hero-inner .stats { margin-top: 0; }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 420px;
+    gap: 64px; align-items: center;
+    margin-bottom: 48px;
+  }
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+  }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 10px;
     font-size: 0.68rem; font-weight: 700;
@@ -126,7 +134,7 @@
   .hero-sub {
     font-size: clamp(1rem, 2.5vw, 1.1rem); font-weight: 400;
     line-height: 1.7; color: #68635C;
-    max-width: 480px; margin: 0 auto 36px;
+    max-width: 460px; margin: 0 0 28px;
   }
 
   /* Form */
@@ -191,6 +199,81 @@
     font-size: 0.72rem; font-weight: 500;
     color: var(--gray-400); letter-spacing: 0.06em;
     text-transform: uppercase; margin-top: 3px;
+  }
+
+  /* Phone mockup */
+  .phone-wrap {
+    transform: perspective(1200px) rotateY(-14deg) rotateZ(2deg);
+    filter: drop-shadow(0 32px 56px rgba(12,11,10,0.18));
+    transition: transform 500ms var(--ease-out), filter 500ms var(--ease-out);
+  }
+  .phone-wrap:hover {
+    transform: perspective(1200px) rotateY(-6deg) rotateZ(1deg);
+    filter: drop-shadow(0 40px 64px rgba(12,11,10,0.26));
+  }
+  .phone-frame {
+    width: 260px; height: 520px;
+    background: #111; border-radius: 48px;
+    padding: 12px; position: relative;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  .phone-island {
+    width: 88px; height: 28px;
+    background: #111; border-radius: 20px;
+    position: absolute; top: 12px; left: 50%;
+    transform: translateX(-50%); z-index: 10;
+  }
+  .phone-screen {
+    background: #F8F6F2; height: 100%;
+    border-radius: 38px; overflow: hidden;
+    padding-top: 38px; display: flex; flex-direction: column;
+  }
+  .phone-email-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px 8px;
+    background: var(--white); border-bottom: 1px solid #EDEBE8;
+    flex-shrink: 0;
+  }
+  .phone-email-avatar {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.5rem; font-weight: 700; color: #fff;
+  }
+  .phone-email-from { font-size: 0.52rem; font-weight: 700; color: #0C0B0A; }
+  .phone-email-subject {
+    font-size: 0.46rem; color: #7A7774;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .phone-body {
+    flex: 1; padding: 12px 14px 0;
+    position: relative; overflow: hidden;
+    background: var(--white);
+  }
+  .phone-nl-eyebrow {
+    font-family: 'ITC Garamond Std', Georgia, serif;
+    font-style: italic; font-size: 0.62rem; color: var(--accent);
+    margin-bottom: 7px;
+  }
+  .phone-nl-location {
+    font-size: 0.42rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  .phone-nl-headline {
+    font-size: 0.6rem; font-weight: 600; line-height: 1.4;
+    color: #0C0B0A; letter-spacing: -0.01em; margin-bottom: 8px;
+  }
+  .phone-nl-rule { height: 1px; background: #EDEBE8; margin-bottom: 8px; }
+  .phone-nl-intro {
+    font-size: 0.48rem; color: #3A3835; line-height: 1.65; margin-bottom: 8px;
+  }
+  .phone-nl-bullets { display: flex; flex-direction: column; gap: 5px; }
+  .phone-nl-bullets div { font-size: 0.47rem; color: #3A3835; line-height: 1.5; }
+  .phone-fade {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 90px;
+    background: linear-gradient(to bottom, transparent 0%, var(--white) 75%);
+    pointer-events: none;
   }
 
   /* Benefits section */
@@ -339,6 +422,39 @@
   .blueprint-footer-cat {
     font-size: 0.75rem; color: var(--gray-400);
   }
+  .blueprint-lock {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 0.58rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent-deep); background: var(--accent-pale);
+    border-radius: 3px; padding: 3px 8px; margin-bottom: 10px;
+  }
+  .blueprint-card-cta {
+    display: block; margin-top: 14px;
+    padding: 10px 16px; border-radius: 4px;
+    background: var(--ink); color: #fff;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 0.8rem; font-weight: 600;
+    text-decoration: none; text-align: center;
+    transition: background 200ms var(--ease-out), transform 120ms;
+  }
+  .blueprint-card-cta:hover { background: var(--gray-800); }
+  .blueprint-card-cta:active { transform: scale(0.98); }
+  .blueprints-join-cta {
+    text-align: center; margin-top: 40px;
+    padding-top: 36px; border-top: 1px solid var(--gray-100);
+  }
+  .blueprints-join-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #fff;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    padding: 15px 32px; border-radius: 4px;
+    text-decoration: none; cursor: pointer;
+    transition: background 200ms var(--ease-out), transform 120ms;
+  }
+  .blueprints-join-btn:hover { background: var(--accent-deep); }
+  .blueprints-join-btn:active { transform: scale(0.98); }
 
   /* Testimonials */
   .testimonials {
@@ -539,6 +655,10 @@
   }
 
   /* Responsive */
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { display: none; }
+  }
   @media (max-width: 860px) {
     .cards-grid, .testimonials-grid { grid-template-columns: 1fr; }
     .about-inner { grid-template-columns: 1fr; }
@@ -552,8 +672,8 @@
     .about-photo-mobile  { display: block; }
   }
   @media (max-width: 540px) {
-    .hero { padding: 110px 20px 64px; }
-    .benefits, .testimonials, .about, .dark-cta { padding: 64px 20px; }
+    .hero { padding: 100px 20px 56px; }
+    .blueprints, .testimonials, .about, .dark-cta { padding: 64px 20px; }
     .stats { gap: 24px; }
     footer { padding: 20px; flex-direction: column; align-items: flex-start; gap: 14px; }
     .footer-links { flex-wrap: wrap; }
@@ -567,49 +687,82 @@
   <a href="#top" class="nav-logo">
     <img src="newsletter-plane.png" alt="Ambition Abroad" />
   </a>
-  <div class="nav-links">
-    <a class="nav-link" href="https://www.youtube.com/@takumi.ambition-abroad?sub_confirmation=1" target="_blank" rel="noopener">YouTube</a>
-    <a class="nav-link" href="https://www.instagram.com/takumi.shyegun/" target="_blank" rel="noopener">Instagram</a>
-    <a class="nav-link" href="https://www.linkedin.com/in/takumi-shyegun-/" target="_blank" rel="noopener">LinkedIn</a>
-  </div>
   <a href="#hero-form" class="nav-cta" onclick="event.preventDefault();document.getElementById('hero-form').scrollIntoView({behavior:'smooth',block:'center'});">Join the community</a>
 </nav>
 
 <!-- Hero -->
 <section class="hero" id="top">
   <div class="hero-inner">
-    <div class="eyebrow">
-      <span class="eyebrow-rule"></span>
-      Join the Community
-      <span class="eyebrow-rule"></span>
-    </div>
+    <div class="hero-grid">
 
-    <h1 class="hero-h1">The playbook for building a business <span style="font-family:'ITC Garamond Std',Georgia,serif;font-style:italic;color:var(--accent);">abroad</span></h1>
-
-    <p class="hero-sub">
-      Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.
-    </p>
-
-    <!-- Form -->
-    <div id="hero-form">
-      <div data-supascribe-embed-id="652297960824" data-supascribe-subscribe></div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;">
-        <div style="display:flex;align-items:center;">
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=1" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=2" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=3" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=4" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=5" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+      <!-- Left: copy + form -->
+      <div class="hero-text">
+        <div class="eyebrow">
+          <span class="eyebrow-rule"></span>
+          Free weekly newsletter
+          <span class="eyebrow-rule"></span>
         </div>
-        <div style="text-align:left;">
-          <div style="color:#C9963A;font-size:0.7rem;margin-bottom:1px;">★★★★★</div>
-          <div style="font-size:0.72rem;color:#7A7774;">Joined by <strong style="color:#0C0B0A;font-weight:600;">1,500+ subscribers</strong></div>
+
+        <h1 class="hero-h1">The playbook for building a business <span style="font-family:'ITC Garamond Std',Georgia,serif;font-style:italic;color:var(--accent);">abroad</span></h1>
+
+        <p class="hero-sub">
+          Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.
+        </p>
+
+        <div id="hero-form">
+          <div data-supascribe-embed-id="652297960824" data-supascribe-subscribe></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:16px;">
+            <div style="display:flex;align-items:center;">
+              <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=1" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+              <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=2" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+              <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=3" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+              <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=4" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+              <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=5" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
+            </div>
+            <div>
+              <div style="color:#C9963A;font-size:0.7rem;margin-bottom:1px;">★★★★★</div>
+              <div style="font-size:0.72rem;color:#7A7774;">Joined by <strong style="color:#0C0B0A;font-weight:600;">1,500+ subscribers</strong></div>
+            </div>
+          </div>
+          <p class="opt-note">No spam. Unsubscribe any time.</p>
         </div>
       </div>
-      <p class="opt-note">No spam. Unsubscribe any time.</p>
-    </div>
 
-    <!-- Stats -->
+      <!-- Right: phone mockup -->
+      <div class="hero-visual">
+        <div class="phone-wrap">
+          <div class="phone-frame">
+            <div class="phone-island"></div>
+            <div class="phone-screen">
+              <div class="phone-email-bar">
+                <div class="phone-email-avatar">A</div>
+                <div>
+                  <div class="phone-email-from">Ambition Abroad</div>
+                  <div class="phone-email-subject">🗾 Blueprint #24 — Sendai, Japan</div>
+                </div>
+              </div>
+              <div class="phone-body">
+                <div class="phone-nl-eyebrow">✈ Ambition Abroad</div>
+                <div class="phone-nl-location">📍 Sendai, Japan</div>
+                <div class="phone-nl-headline">How a Canadian Built One of Japan's Biggest Supplement Brands</div>
+                <div class="phone-nl-rule"></div>
+                <div class="phone-nl-intro">The exact visa strategy, business structure, and distribution deals he used — and what nearly killed it in year one.</div>
+                <div class="phone-nl-bullets">
+                  <div>→ Navigating Japanese incorporation</div>
+                  <div>→ Landing elite athlete partnerships</div>
+                  <div>→ Scaling a physical brand from ¥0</div>
+                  <div>→ The mistake that almost ended it</div>
+                </div>
+                <div class="phone-fade"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- .hero-grid -->
+
+    <!-- Stats bar -->
     <div class="stats">
       <div style="text-align:center;">
         <div class="stat-num">100K+</div>
@@ -627,36 +780,6 @@
   </div>
 </section>
 
-<!-- Benefits -->
-<section class="benefits">
-  <div class="section-inner">
-    <div class="section-header anim">
-      <div class="section-tag">
-        <span class="section-tag-rule"></span>
-        What you get
-      </div>
-      <h2 class="section-h2">Not only inspiration.<br><em>Execution too.</em></h2>
-    </div>
-    <div class="cards-grid">
-      <div class="benefit-card anim">
-        <span class="benefit-num">01</span>
-        <div class="benefit-title">Episode playbooks</div>
-        <p class="benefit-desc">The key lessons and mistakes from each founder, turned into clear steps you can actually apply.</p>
-      </div>
-      <div class="benefit-card anim anim-d1">
-        <span class="benefit-num">02</span>
-        <div class="benefit-title">Foreign systems, decoded</div>
-        <p class="benefit-desc">Visas, banking, taxes, incorporation, explained through what actually happened, not what guides say.</p>
-      </div>
-      <div class="benefit-card anim anim-d2">
-        <span class="benefit-num">03</span>
-        <div class="benefit-title">Exclusive content &amp; resources</div>
-        <p class="benefit-desc">Exclusive interviews, frameworks, lessons and tools that never make it to the YouTube channel.
-</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- Recent Blueprints -->
 <section class="blueprints">
@@ -665,18 +788,17 @@
       <div>
         <div class="section-tag">
           <span class="section-tag-rule"></span>
-          Recent Blueprints
+          Inside the newsletter
         </div>
-        <h2 class="section-h2">Stories from builders <em>around the world</em></h2>
+        <h2 class="section-h2">Real playbooks. Real founders. <em>Real numbers.</em></h2>
       </div>
-      <a href="#" class="blueprints-all">All episodes →</a>
     </div>
     <div class="cards-grid">
 
       <!-- Card 1 -->
       <div class="blueprint-card anim">
         <div class="blueprint-thumb" style="background: #EDE5D8;">
-          <span class="blueprint-badge">Blueprint</span>
+          <span class="blueprint-badge">Blueprint #24</span>
           <img src="photo 1.jpg" alt="Sendai, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
         </div>
         <div class="blueprint-body">
@@ -684,23 +806,25 @@
             <span class="blueprint-location-dot"></span>
             Sendai, Japan
           </div>
+          <span class="blueprint-lock">🔒 Subscriber exclusive</span>
           <div class="blueprint-title">How a Canadian Founder Built One of Japan's Biggest Supplement Brands</div>
           <ul class="blueprint-bullets">
             <li>Navigating Japanese incorporation &amp; distribution</li>
-            <li>Working with Japan top athletes and entertainers</li>
+            <li>Working with Japan's top athletes and entertainers</li>
             <li>Scaling a physical product brand from zero</li>
           </ul>
           <div class="blueprint-footer">
             <span class="blueprint-footer-name">BodyPlus International</span>
             <span class="blueprint-footer-cat">· Physical Product</span>
           </div>
+          <a href="#hero-form" class="blueprint-card-cta" onclick="event.preventDefault();document.getElementById('hero-form').scrollIntoView({behavior:'smooth',block:'center'});">Read this blueprint free →</a>
         </div>
       </div>
 
       <!-- Card 2 -->
       <div class="blueprint-card anim anim-d1">
         <div class="blueprint-thumb" style="background: #E8DDD0;">
-          <span class="blueprint-badge">Blueprint</span>
+          <span class="blueprint-badge">Blueprint #23</span>
           <img src="Photo 2.jpg" alt="Tokyo, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
         </div>
         <div class="blueprint-body">
@@ -708,23 +832,25 @@
             <span class="blueprint-location-dot"></span>
             Tokyo, Japan
           </div>
+          <span class="blueprint-lock">🔒 Subscriber exclusive</span>
           <div class="blueprint-title">The Turkish Entrepreneur Who Built Japan's Leading Interpretation App</div>
           <ul class="blueprint-bullets">
             <li>Running a fully remote team from Tokyo</li>
-            <li>Acquire investment from Japanese investors</li>
-            <li>How to solve the new marketplace problem</li>
+            <li>Acquiring investment from Japanese investors</li>
+            <li>How to solve the two-sided marketplace problem</li>
           </ul>
           <div class="blueprint-footer">
             <span class="blueprint-footer-name">Oyraa</span>
             <span class="blueprint-footer-cat">· Tech Business</span>
           </div>
+          <a href="#hero-form" class="blueprint-card-cta" onclick="event.preventDefault();document.getElementById('hero-form').scrollIntoView({behavior:'smooth',block:'center'});">Read this blueprint free →</a>
         </div>
       </div>
 
       <!-- Card 3 -->
       <div class="blueprint-card anim anim-d2">
         <div class="blueprint-thumb" style="background: #E4D8C8;">
-          <span class="blueprint-badge">Blueprint</span>
+          <span class="blueprint-badge">Blueprint #22</span>
           <img src="Photo 3.jpg" alt="Tokyo, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
         </div>
         <div class="blueprint-body">
@@ -732,6 +858,7 @@
             <span class="blueprint-location-dot"></span>
             Tokyo, Japan
           </div>
+          <span class="blueprint-lock">🔒 Subscriber exclusive</span>
           <div class="blueprint-title">How This New Zealand Couple Built a Coffee Empire in Japan</div>
           <ul class="blueprint-bullets">
             <li>What to look for when choosing a cafe location</li>
@@ -742,9 +869,18 @@
             <span class="blueprint-footer-name">iki Roastery</span>
             <span class="blueprint-footer-cat">· Hospitality / F&amp;B</span>
           </div>
+          <a href="#hero-form" class="blueprint-card-cta" onclick="event.preventDefault();document.getElementById('hero-form').scrollIntoView({behavior:'smooth',block:'center'});">Read this blueprint free →</a>
         </div>
       </div>
 
+    </div>
+
+    <!-- Section CTA -->
+    <div class="blueprints-join-cta anim">
+      <a href="#hero-form" class="blueprints-join-btn" onclick="event.preventDefault();document.getElementById('hero-form').scrollIntoView({behavior:'smooth',block:'center'});">
+        Get every blueprint free — join 1,500+ subscribers
+      </a>
+      <p style="margin-top:10px;font-size:0.72rem;color:var(--gray-400);">No spam. Unsubscribe any time.</p>
     </div>
   </div>
 </section>
