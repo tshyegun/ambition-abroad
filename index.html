@@ -185,7 +185,7 @@
     background: var(--bg-card);
     border: 1px solid var(--line-strong);
     border-radius: 14px;
-    padding: 1.25rem;
+    padding: 1rem;
     box-shadow:
       0 12px 30px -16px rgba(26, 24, 20, 0.18),
       0 2px 6px -2px rgba(26, 24, 20, 0.06);
@@ -198,9 +198,6 @@
     color: var(--ink-faint);
     margin-bottom: 0.75rem;
   }
-  /* Reserve vertical space so layout doesn't jump while the Beehiiv embed
-     mounts after script load */
-  .subscribe-card-form { min-height: 56px; }
   /* iOS Safari zooms on focus when input font-size < 16px.
      Defensive override targeting the Beehiiv-injected form. */
   .subscribe-card-form input,
@@ -448,7 +445,7 @@
     /* Vertical clip only — slide animation is pure translateY, no horizontal motion.
        Negative horizontal inset preserves italic glyph overhang (e.g. "f" hook,
        "p" bowl extend up to ~6px left of the glyph origin). */
-    clip-path: inset(0 -0.5em);
+    clip-path: inset(0 -1em);
     margin-left: 0.16em;
     padding: 0.15em 0;
     vertical-align: baseline;
@@ -528,6 +525,7 @@
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
+    object-position: center 25%;
     display: block;
   }
   .blueprint-photo-placeholder {
