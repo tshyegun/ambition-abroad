@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The playbook for building a business abroad. Every week, get the real strategies, decisions, and mistakes behind founders who left their home country and built something that actually works.">
 <title>Ambition Abroad</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -22,44 +23,68 @@
 <meta name="twitter:description" content="The playbook for building a business abroad." />
 <meta name="twitter:image" content="https://ambition-abroad.com/Social_Sharing_Photo.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   @font-face {
     font-family: 'ITC Garamond Std';
     src: url('fonts/ITCGaramondStd-BookNarrowItalic.otf') format('opentype');
     font-weight: 400; font-style: italic;
+    font-display: swap;
   }
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
-    font-size: 1rem;
-    background: #F8F6F2;
-    color: #0C0B0A;
-    -webkit-font-smoothing: antialiased;
+
+  /* Tokens (editorial light theme + gold accent) */
+  :root {
+    --bg: #FAF7F2;
+    --bg-elevated: #F4EFE6;
+    --bg-card: #FFFFFF;
+    --ink: #1A1814;
+    --ink-muted: rgba(26, 24, 20, 0.68);
+    --ink-faint: rgba(26, 24, 20, 0.48);
+    --line: rgba(26, 24, 20, 0.10);
+    --line-strong: rgba(26, 24, 20, 0.18);
+    --accent: #C9963A;
+    --accent-deep: #A77B26;
+    --accent-soft: rgba(201, 150, 58, 0.12);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Fonts */
+    --font-display: 'ITC Garamond Std', 'Garamond', Georgia, serif;
+    --font-body: 'Inter Tight', system-ui, -apple-system, sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
   }
+
+  body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.55;
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3 { line-height: 1.05; }
   * { text-wrap: pretty; }
   ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: #F8F6F2; }
-  ::-webkit-scrollbar-thumb { background: #C8C4BE; border-radius: 3px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 3px; }
+  ::selection { background: var(--accent-soft); color: var(--ink); }
 
-  /* Tokens */
-  :root {
-    --ink: #0C0B0A;
-    --ink-soft: #3A3835;
-    --ink-faint: #7A7774;
-    --paper: #F8F6F2;
-    --white: #FFFFFF;
-    --accent: #C9963A;
-    --accent-deep: #8B6520;
-    --accent-pale: #F5E6CA;
-    --gray-100: #EDEBE8;
-    --gray-200: #E0DDD8;
-    --gray-300: #C8C4BE;
-    --gray-400: #A8A39C;
-    --gray-800: #2E2B27;
-    --gray-900: #1A1816;
-    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Editorial grain overlay — fixed, multiply blend, very subtle */
+  .grain-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.03;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.2 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 240px 240px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .grain-overlay { opacity: 0.02; }
   }
 
   /* Nav */
@@ -68,7 +93,7 @@
     background: rgba(248,246,242,0.88);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--gray-100);
+    border-bottom: 1px solid var(--line);
     padding: 0 32px;
     height: 60px;
     display: flex; align-items: center; justify-content: space-between;
@@ -86,511 +111,847 @@
   }
   .nav-cta {
     font-family: 'Inter Tight', sans-serif;
-    font-size: 0.78rem; font-weight: 600;
+    font-size: 0.82rem; font-weight: 600;
     background: var(--accent); color: #fff;
     border: none; border-radius: 4px;
-    padding: 8px 16px; cursor: pointer;
+    padding: 10px 18px; cursor: pointer;
+    min-height: 44px;
+    display: inline-flex; align-items: center;
     transition: background 200ms var(--ease-out);
     text-decoration: none;
   }
   .nav-cta:hover { background: var(--accent-deep); }
 
-  /* Hero */
+  /* ─── Hero ──────────────────────────────────────────────────────────── */
   .hero {
-    background: var(--white);
-    padding: 130px 32px 72px;
-    border-bottom: 1px solid var(--gray-100);
+    background: var(--bg);
+    padding: 130px 32px 88px;
+    position: relative;
+    overflow: hidden;
   }
-  .hero-inner { max-width: 1060px; margin: 0 auto; }
-  .hero-inner .stats { margin-top: 0; }
+  .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
   .hero-grid {
-    display: grid; grid-template-columns: 1fr 420px;
-    gap: 64px; align-items: center;
-    margin-bottom: 48px;
+    display: grid; grid-template-columns: 1.05fr 1fr;
+    gap: 72px; align-items: center;
   }
   .hero-visual {
     display: flex; justify-content: center; align-items: center;
+    position: relative; min-height: 460px;
   }
-  .eyebrow {
+
+  /* Eyebrow with pulsing dot */
+  .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 10px;
-    font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-faint);
     margin-bottom: 24px;
   }
-  .eyebrow-rule { display: inline-block; width: 18px; height: 1px; background: var(--accent); }
-  .hero-h1 {
-    font-size: clamp(2rem, 8vw, 4.2rem);
-    font-weight: 500; line-height: 1.06;
-    letter-spacing: -0.03em; color: var(--ink);
-    margin-bottom: 4px;
-  }
-  .hero-h1-serif {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic;
-    font-size: clamp(2.6rem, 6vw, 4.2rem);
-    line-height: 1.06; color: var(--accent);
-    margin-bottom: 28px; display: block;
-  }
-  .hero-sub {
-    font-size: clamp(1rem, 2.5vw, 1.1rem); font-weight: 400;
-    line-height: 1.7; color: #68635C;
-    max-width: 460px; margin: 0 0 28px;
-  }
-
-  /* Form */
-  .opt-form {
-    display: flex; flex-direction: column; gap: 10px;
-    max-width: 420px; margin: 0 auto;
-  }
-  .opt-input {
-    background: var(--paper);
-    border: 1px solid var(--gray-300);
-    border-radius: 4px;
-    padding: 14px 18px;
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 0.95rem; color: var(--ink);
-    outline: none;
-    transition: border-color 180ms var(--ease-out), background 180ms;
-    text-align: center;
-  }
-  .opt-input::placeholder { color: var(--gray-400); }
-  .opt-input:focus { border-color: var(--accent); background: var(--white); }
-  .opt-btn {
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 0.88rem; font-weight: 700;
-    background: var(--accent); color: #fff;
-    border: none; border-radius: 4px;
-    padding: 14px 24px; cursor: pointer;
-    transition: background 220ms var(--ease-out), transform 120ms;
-  }
-  .opt-btn:hover { background: var(--accent-deep); }
-  .opt-btn:active { transform: scale(0.98); }
-  .opt-note {
-    font-size: 0.72rem; color: var(--gray-400);
-    margin-top: 6px; letter-spacing: 0.02em;
-  }
-
-  /* Success state */
-  .success-box {
-    background: var(--accent-pale);
-    border: 1px solid #E8CFA0;
-    border-radius: 8px;
-    padding: 20px 24px;
-    max-width: 420px; margin: 0 auto;
-  }
-  .success-box p {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; font-size: 1.1rem; color: var(--accent-deep);
-  }
-
-  /* Stats */
-  .stats {
-    display: flex; justify-content: center;
-    gap: clamp(28px, 6vw, 72px);
-    margin-top: 56px;
-    padding-top: 32px;
-    border-top: 1px solid var(--gray-100);
-  }
-  .stat-num {
-    font-size: 1.6rem; font-weight: 600;
-    letter-spacing: -0.03em; color: var(--ink);
-  }
-  .stat-lbl {
-    font-size: 0.72rem; font-weight: 500;
-    color: var(--gray-400); letter-spacing: 0.06em;
-    text-transform: uppercase; margin-top: 3px;
-  }
-
-  /* Phone mockup */
-  .phone-wrap {
-    transform: perspective(1200px) rotateY(-14deg) rotateZ(2deg);
-    filter: drop-shadow(0 32px 56px rgba(12,11,10,0.18));
-    transition: transform 500ms var(--ease-out), filter 500ms var(--ease-out);
-  }
-  .phone-wrap:hover {
-    transform: perspective(1200px) rotateY(-6deg) rotateZ(1deg);
-    filter: drop-shadow(0 40px 64px rgba(12,11,10,0.26));
-  }
-  .phone-frame {
-    width: 260px; height: 520px;
-    background: #111; border-radius: 48px;
-    padding: 12px; position: relative;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
-  }
-  .phone-island {
-    width: 88px; height: 28px;
-    background: #111; border-radius: 20px;
-    position: absolute; top: 12px; left: 50%;
-    transform: translateX(-50%); z-index: 10;
-  }
-  .phone-screen {
-    background: #F8F6F2; height: 100%;
-    border-radius: 38px; overflow: hidden;
-    padding-top: 38px; display: flex; flex-direction: column;
-  }
-  .phone-email-bar {
-    display: flex; align-items: center; gap: 8px;
-    padding: 10px 14px 8px;
-    background: var(--white); border-bottom: 1px solid #EDEBE8;
+  .pulse-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(201, 150, 58, 0.5);
+    animation: pulseDot 2s ease-in-out infinite;
     flex-shrink: 0;
   }
-  .phone-email-avatar {
-    width: 24px; height: 24px; border-radius: 50%;
-    background: var(--accent); flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.5rem; font-weight: 700; color: #fff;
-  }
-  .phone-email-from { font-size: 0.52rem; font-weight: 700; color: #0C0B0A; }
-  .phone-email-subject {
-    font-size: 0.46rem; color: #7A7774;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .phone-body {
-    flex: 1; padding: 12px 14px 0;
-    position: relative; overflow: hidden;
-    background: var(--white);
-  }
-  .phone-nl-eyebrow {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; font-size: 0.62rem; color: var(--accent);
-    margin-bottom: 7px;
-  }
-  .phone-nl-location {
-    font-size: 0.42rem; font-weight: 700;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 6px;
-  }
-  .phone-nl-headline {
-    font-size: 0.6rem; font-weight: 600; line-height: 1.4;
-    color: #0C0B0A; letter-spacing: -0.01em; margin-bottom: 8px;
-  }
-  .phone-nl-rule { height: 1px; background: #EDEBE8; margin-bottom: 8px; }
-  .phone-nl-intro {
-    font-size: 0.48rem; color: #3A3835; line-height: 1.65; margin-bottom: 8px;
-  }
-  .phone-nl-bullets { display: flex; flex-direction: column; gap: 5px; }
-  .phone-nl-bullets div { font-size: 0.47rem; color: #3A3835; line-height: 1.5; }
-  .phone-fade {
-    position: absolute; bottom: 0; left: 0; right: 0; height: 90px;
-    background: linear-gradient(to bottom, transparent 0%, var(--white) 75%);
-    pointer-events: none;
+  @keyframes pulseDot {
+    0%   { box-shadow: 0 0 0 0 rgba(201, 150, 58, 0.55); }
+    65%  { box-shadow: 0 0 0 9px rgba(201, 150, 58, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(201, 150, 58, 0); }
   }
 
-  /* Benefits section */
-  .benefits {
-    background: var(--paper);
-    padding: 88px 32px;
-  }
-  .section-inner { max-width: 1060px; margin: 0 auto; }
-  .section-header { margin-bottom: 48px; }
-  .section-tag {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
-    margin-bottom: 14px;
-  }
-  .section-tag-rule { display: inline-block; width: 16px; height: 1px; background: var(--accent); }
-  .section-h2 {
-    font-size: clamp(1.75rem, 4vw, 2.4rem);
-    font-weight: 500; letter-spacing: -0.03em;
-    line-height: 1.12; color: var(--ink);
-  }
-  .section-h2 em {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; color: var(--accent);
-  }
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-  }
-  .benefit-card {
-    background: var(--white);
-    border: 1px solid var(--gray-100);
-    border-radius: 8px;
-    padding: 28px 24px;
-    transition: box-shadow 220ms var(--ease-out);
-  }
-  .benefit-card:hover { box-shadow: 0 4px 16px rgba(12,11,10,0.08); }
-  .benefit-num {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; font-size: 2rem;
-    color: var(--accent-pale); line-height: 1;
-    margin-bottom: 14px; display: block;
-  }
-  .benefit-title {
-    font-size: 0.95rem; font-weight: 600; color: var(--ink);
-    margin-bottom: 8px;
-  }
-  .benefit-desc {
-    font-size: 1rem; color: #68635C; line-height: 1.65;
-  }
-
-  /* Blueprints section */
-  .blueprints {
-    background: var(--white);
-    padding: 88px 32px;
-    border-top: 1px solid var(--gray-100);
-  }
-  .blueprints-header {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    margin-bottom: 40px; flex-wrap: wrap; gap: 16px;
-  }
-  .blueprints-all {
-    font-size: 0.75rem; font-weight: 600;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--accent); text-decoration: none;
-    display: flex; align-items: center; gap: 6px;
-    transition: color 180ms var(--ease-out);
-    white-space: nowrap; padding-bottom: 4px;
-  }
-  .blueprints-all:hover { color: var(--accent-deep); }
-  .blueprint-card {
-    background: var(--paper);
-    border: 1px solid var(--gray-100);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: box-shadow 220ms var(--ease-out), transform 220ms var(--ease-out);
-    display: flex; flex-direction: column;
-  }
-  .blueprint-card:hover {
-    box-shadow: 0 6px 24px rgba(12,11,10,0.10);
-    transform: translateY(-2px);
-  }
-  .blueprint-thumb {
-    position: relative;
-    height: 170px;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  .blueprint-thumb-text {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic;
-    font-size: 0.72rem;
-    color: rgba(12,11,10,0.18);
-    text-align: center;
-    line-height: 1.8;
-    user-select: none;
-    pointer-events: none;
-  }
-  .blueprint-badge {
-    position: absolute; top: 12px; left: 12px;
-    font-size: 0.58rem; font-weight: 700;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    background: var(--accent); color: #fff;
-    padding: 4px 8px; border-radius: 3px;
-  }
-  .blueprint-body {
-    padding: 20px 22px 22px;
-    display: flex; flex-direction: column; flex: 1;
-  }
-  .blueprint-location {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 0.65rem; font-weight: 700;
-    letter-spacing: 0.13em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 10px;
-  }
-  .blueprint-location-dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: var(--accent); flex-shrink: 0;
-  }
-  .blueprint-title {
-    font-size: 1rem; font-weight: 600;
-    letter-spacing: -0.02em; line-height: 1.3;
-    color: var(--ink); margin-bottom: 14px;
-  }
-  .blueprint-bullets {
-    list-style: none; display: flex; flex-direction: column; gap: 5px;
-    margin-bottom: 18px; flex: 1;
-  }
-  .blueprint-bullets li {
-    font-size: 0.9375rem; color: #68635C; line-height: 1.5;
-    display: flex; align-items: flex-start; gap: 8px;
-  }
-  .blueprint-bullets li::before {
-    content: '→'; color: var(--accent);
-    font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;
-  }
-  .blueprint-footer {
-    padding-top: 14px;
-    border-top: 1px solid var(--gray-100);
-    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  }
-  .blueprint-footer-name {
-    font-size: 0.78rem; font-weight: 600; color: var(--ink);
-  }
-  .blueprint-footer-cat {
-    font-size: 0.75rem; color: var(--gray-400);
-  }
-  .blueprint-lock {
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 0.58rem; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--accent-deep); background: var(--accent-pale);
-    border-radius: 3px; padding: 3px 8px; margin-bottom: 10px;
-  }
-  .blueprint-card-cta {
-    display: block; margin-top: 14px;
-    padding: 10px 16px; border-radius: 4px;
-    background: var(--ink); color: #fff;
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 0.8rem; font-weight: 600;
-    text-decoration: none; text-align: center;
-    transition: background 200ms var(--ease-out), transform 120ms;
-  }
-  .blueprint-card-cta:hover { background: var(--gray-800); }
-  .blueprint-card-cta:active { transform: scale(0.98); }
-  .blueprints-join-cta {
-    text-align: center; margin-top: 40px;
-    padding-top: 36px; border-top: 1px solid var(--gray-100);
-  }
-  .blueprints-join-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent); color: #fff;
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 0.9rem; font-weight: 700;
-    padding: 15px 32px; border-radius: 4px;
-    text-decoration: none; cursor: pointer;
-    transition: background 200ms var(--ease-out), transform 120ms;
-  }
-  .blueprints-join-btn:hover { background: var(--accent-deep); }
-  .blueprints-join-btn:active { transform: scale(0.98); }
-
-  /* Testimonials */
-  .testimonials {
-    background: var(--white);
-    padding: 88px 32px;
-    border-top: 1px solid var(--gray-100);
-    border-bottom: 1px solid var(--gray-100);
-  }
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-top: 48px;
-  }
-  .testimonial-card {
-    background: var(--paper);
-    border: 1px solid var(--gray-100);
-    border-radius: 8px;
-    padding: 24px;
-  }
-  .testimonial-quote {
-    font-size: 1rem; color: var(--ink-soft);
-    line-height: 1.7; font-style: italic;
-    margin-bottom: 20px;
-  }
-  .testimonial-divider {
-    height: 1px; background: var(--gray-100); margin-bottom: 14px;
-  }
-  .testimonial-avatar {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--gray-200); flex-shrink: 0;
-  }
-  .testimonial-name {
-    font-size: 0.82rem; font-weight: 600; color: var(--ink);
-  }
-  .testimonial-loc {
-    font-size: 0.72rem; color: var(--gray-400); margin-top: 2px;
-  }
-
-  /* About */
-  .about {
-    background: var(--paper);
-    padding: 88px 32px;
-  }
-  .about-inner {
-    max-width: 1060px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: center;
-  }
-  .about-avatar-wrap {
-    background: var(--gray-100);
-    border-radius: 8px; overflow: hidden;
-    height: 500px; display: flex; align-items: center; justify-content: center;
-  }
-  .about-avatar-placeholder {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; font-size: 5rem;
-    color: rgba(12,11,10,0.1); line-height: 1;
-    user-select: none;
-  }
-  .about-label {
-    font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
-    display: flex; align-items: center; gap: 8px; margin-bottom: 18px;
-  }
-  .about-h2 {
-    font-size: clamp(1.75rem, 3vw, 2.2rem);
-    font-weight: 500; letter-spacing: -0.03em;
-    line-height: 1.12; color: var(--ink); margin-bottom: 20px;
-  }
-  .about-h2 em {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic; color: var(--accent);
-  }
-  .about-body {
-    font-size: 1rem; color: #68635C; line-height: 1.75;
-    margin-bottom: 10px;
-  }
-
-  /* Dark CTA */
-  .dark-cta {
-    background: var(--ink);
-    padding: 100px 32px;
-    text-align: center;
-  }
-  .dark-cta-inner { max-width: 560px; margin: 0 auto; }
-  .dark-eyebrow {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+  /* Hero headline */
+  .hero-h1 {
+    font-family: var(--font-body);
+    font-size: clamp(2.5rem, 6.2vw, 4.75rem);
+    font-weight: 400; letter-spacing: -0.03em;
+    line-height: 1.05; color: var(--ink);
     margin-bottom: 24px;
   }
-  .dark-eyebrow-rule { display: inline-block; width: 16px; height: 1px; background: var(--accent); }
-  .dark-h2 {
-    font-size: clamp(2rem, 4.5vw, 3.2rem);
-    font-weight: 500; letter-spacing: -0.03em;
-    line-height: 1.06; color: #fff; margin-bottom: 4px;
+  .hero-h1 .accent-serif {
+    font-family: var(--font-display);
+    font-style: italic; color: var(--accent);
+    font-weight: 400;
   }
-  .dark-h2-serif {
-    font-family: 'ITC Garamond Std', Georgia, serif;
-    font-style: italic;
-    font-size: clamp(2rem, 4.5vw, 3.2rem);
-    color: var(--accent); line-height: 1.06;
-    margin-bottom: 24px; display: block;
+  .hero-sub {
+    font-size: 1.125rem; line-height: 1.55;
+    color: var(--ink-muted);
+    max-width: 32rem; margin: 0 0 32px;
   }
-  .dark-sub {
-    font-size: 0.88rem; color: rgba(255,255,255,0.42);
-    line-height: 1.7; margin-bottom: 36px;
-    max-width: 380px; margin-left: auto; margin-right: auto;
+
+  /* Subscribe card wrapper */
+  .subscribe-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 1.25rem;
+    box-shadow:
+      0 12px 30px -16px rgba(26, 24, 20, 0.18),
+      0 2px 6px -2px rgba(26, 24, 20, 0.06);
+    max-width: 460px;
   }
-  .dark-form { max-width: 400px; margin: 0 auto 36px; }
-  .dark-input {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 4px;
-    padding: 14px 18px;
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 0.95rem; color: #fff;
-    outline: none; width: 100%; margin-bottom: 10px;
-    transition: border-color 180ms var(--ease-out), background 180ms;
+  .subscribe-card-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.75rem;
+  }
+  /* Reserve vertical space so layout doesn't jump while the Beehiiv embed
+     mounts after script load */
+  .subscribe-card-form { min-height: 56px; }
+  /* iOS Safari zooms on focus when input font-size < 16px.
+     Defensive override targeting the Beehiiv-injected form. */
+  .subscribe-card-form input,
+  .subscribe-card-form textarea,
+  .subscribe-card-form select {
+    font-size: 16px !important;
+  }
+  .subscribe-card-form > * { max-width: 100%; }
+  .subscribe-card-fine {
+    font-size: 0.8rem; color: var(--ink-muted);
+    margin-top: 0.85rem;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .subscribe-card-fine svg { color: var(--accent); flex-shrink: 0; }
+
+  /* Stat tiles row */
+  .stat-tiles {
+    display: flex; align-items: stretch;
+    flex-wrap: wrap;
+    margin-top: 28px; max-width: 460px;
+  }
+  .stat-tile {
+    flex: 1 1 30%;
+    min-width: 0;
+    padding: 10px 8px;
     text-align: center;
   }
-  .dark-input::placeholder { color: rgba(255,255,255,0.28); }
-  .dark-input:focus { border-color: var(--accent); background: rgba(255,255,255,0.10); }
-  .dark-btn {
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 0.88rem; font-weight: 700;
-    background: var(--accent); color: #fff;
-    border: none; border-radius: 4px;
-    padding: 14px 24px; cursor: pointer; width: 100%;
-    transition: background 220ms var(--ease-out), transform 120ms;
+  .stat-tile + .stat-tile { border-left: 1px solid var(--line); }
+  .stat-tile-num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.55rem; line-height: 1; color: var(--ink);
+    letter-spacing: -0.01em;
   }
-  .dark-btn:hover { background: var(--accent-deep); }
-  .dark-btn:active { transform: scale(0.98); }
-  .dark-note {
-    font-size: 0.72rem; color: rgba(255,255,255,0.22);
-    letter-spacing: 0.02em; margin-top: 10px;
+  .stat-tile-num .sym { color: var(--accent); }
+  .stat-tile-lbl {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 8px;
+  }
+
+  /* ─── Issue card stack (newsletter cover preview) ─────────────────── */
+  .issue-stack {
+    position: relative;
+    width: 100%; max-width: 420px;
+  }
+  .issue-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    padding: 28px 28px 24px;
+    box-shadow:
+      0 28px 56px -28px rgba(26, 24, 20, 0.32),
+      0 6px 14px -6px rgba(26, 24, 20, 0.08);
+    position: relative; z-index: 3;
+    transform: rotate(-1.5deg);
+    transition: transform 480ms var(--ease-out);
+  }
+  .issue-card:hover { transform: rotate(0deg); }
+  .issue-card-back {
+    position: absolute; inset: 0;
+    border-radius: 12px;
+    border: 1px solid var(--line-strong);
+    box-shadow: 0 16px 32px -22px rgba(26, 24, 20, 0.22);
+  }
+  .issue-card-back-a {
+    background: var(--bg-elevated);
+    z-index: 2;
+    transform: rotate(3deg) translate(10px, 10px);
+  }
+  .issue-card-back-b {
+    background: var(--accent-soft);
+    z-index: 1;
+    transform: rotate(5deg) translate(20px, 20px);
+  }
+  .issue-masthead-row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 16px; margin-bottom: 12px;
+  }
+  .issue-masthead {
+    display: flex; align-items: center;
+  }
+  .issue-masthead img {
+    height: 30px; width: auto; display: block;
+  }
+  .issue-date {
+    font-family: var(--font-mono);
+    font-size: 0.66rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+  .issue-divider { height: 1px; background: var(--line); margin-bottom: 14px; }
+  .issue-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .issue-title {
+    font-family: var(--font-body);
+    font-size: 1.6rem; line-height: 1.18;
+    font-weight: 500; letter-spacing: -0.022em;
+    color: var(--ink); margin-bottom: 22px;
+  }
+  .issue-title em {
+    font-family: var(--font-display);
+    font-style: italic; font-weight: 400;
+    color: var(--ink);
+  }
+  .issue-deck {
+    font-size: 0.9rem; line-height: 1.5;
+    color: var(--ink-muted);
+    margin-bottom: 18px;
+  }
+  .issue-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 11px;
+    margin-bottom: 22px;
+  }
+  .issue-list li {
+    display: flex; align-items: baseline; gap: 10px;
+    font-size: 0.86rem; line-height: 1.4; color: var(--ink);
+  }
+  .issue-list .num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem; font-weight: 500;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .issue-divider-dashed {
+    border: 0; border-top: 1px dashed var(--line);
+    margin: 0 0 14px;
+  }
+  .issue-footer {
+    font-family: var(--font-mono);
+    font-size: 0.64rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* Floating badges */
+  .badge-floating {
+    position: absolute; z-index: 4;
+    font-family: var(--font-mono);
+    font-size: 0.66rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 6px 11px;
+    border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 7px;
+    white-space: nowrap;
+    animation: floatY 4s ease-in-out infinite;
+  }
+  .badge-tr {
+    top: -16px; right: -8px;
+    background: var(--bg-card);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    box-shadow: 0 8px 16px -10px rgba(26, 24, 20, 0.28);
+  }
+  .badge-tr::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(201, 150, 58, 0.55);
+    animation: pulseDot 2s ease-in-out infinite;
+  }
+  .badge-bl {
+    bottom: -16px; left: -8px;
+    background: var(--accent);
+    color: #fff;
+    animation-delay: -2s;
+    box-shadow: 0 10px 18px -10px rgba(167, 123, 38, 0.55);
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .badge-floating { animation: none; }
+    .pulse-dot, .badge-tr::before { animation: none; box-shadow: none; }
+    .issue-card { transition: none; }
+  }
+
+  /* Hero responsive — final pass in Section 9 */
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr !important; gap: 56px; }
+    .hero-visual { display: flex !important; order: 2; min-height: auto; }
+    .issue-stack { margin: 0 auto; }
+    .stat-tiles, .subscribe-card { margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 540px) {
+    .issue-card { padding: 22px; }
+    .issue-title { font-size: 1.35rem; }
+    .stat-tile-num { font-size: 1.3rem; }
+  }
+
+  /* ─── Recent Blueprints (Section 5) ─────────────────────────────────── */
+  .blueprints {
+    background: var(--bg);
+    padding: 96px 32px 88px;
+    position: relative; z-index: 2;
+  }
+  .blueprints-inner { max-width: 1100px; margin: 0 auto; }
+
+  /* Section header */
+  .blueprints-header {
+    margin-bottom: 56px;
+  }
+  .blueprints-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .blueprints-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 18px; height: 1px;
+    background: var(--accent);
+  }
+  .blueprints-heading {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(2rem, 4.4vw, 3rem);
+    font-weight: 400; line-height: 1.05;
+    letter-spacing: -0.015em; color: var(--ink);
+  }
+
+  /* Rotating word (Correction C)
+     Note: using clip-path instead of overflow:hidden because inline-block
+     with overflow!=visible falls under CSS 2.1 §10.8.1 — the box's baseline
+     becomes the bottom-margin-edge instead of its text baseline. That made
+     the visible word sit ~16px above "Real". clip-path clips visually
+     without touching baseline calculation. */
+  .rotator {
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+    /* Vertical clip only — slide animation is pure translateY, no horizontal motion.
+       Negative horizontal inset preserves italic glyph overhang (e.g. "f" hook,
+       "p" bowl extend up to ~6px left of the glyph origin). */
+    clip-path: inset(0 -0.5em);
+    margin-left: 0.16em;
+    padding: 0.15em 0;
+    vertical-align: baseline;
+  }
+  .rotator .word-sizer {
+    visibility: hidden;
+    display: inline-block;
+  }
+  .rotator .word {
+    position: absolute;
+    left: 0; top: 0.15em;
+    white-space: nowrap;
+    color: var(--accent);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: rotateWord 9s linear infinite;
+  }
+  .rotator .word:nth-of-type(1) { animation-delay: 0s; }
+  .rotator .word:nth-of-type(2) { animation-delay: 3s; }
+  .rotator .word:nth-of-type(3) { animation-delay: 6s; }
+  @keyframes rotateWord {
+    0%      { opacity: 0; transform: translateY(30px); }
+    5.55%   { opacity: 1; transform: translateY(0); }
+    27.78%  { opacity: 1; transform: translateY(0); }
+    33.33%  { opacity: 0; transform: translateY(-30px); }
+    100%    { opacity: 0; transform: translateY(-30px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rotator .word { animation: none; opacity: 0; transform: none; }
+    .rotator .word:nth-of-type(1) { opacity: 1; }
+  }
+
+  /* Card grid */
+  .blueprint-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  /* Card (entire surface is one link → #subscribe) */
+  .blueprint-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 1px 3px rgba(26, 24, 20, 0.04);
+    transition:
+      transform 280ms var(--ease-out),
+      border-color 280ms var(--ease-out),
+      box-shadow 280ms var(--ease-out);
+  }
+  .blueprint-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+    box-shadow:
+      0 18px 36px -20px rgba(26, 24, 20, 0.22),
+      0 4px 10px -4px rgba(26, 24, 20, 0.08);
+  }
+  .blueprint-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* Photo column — fixed aspect ratio controls crop, not source file */
+  .blueprint-photo {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background: var(--bg-elevated);
+    overflow: hidden;
+  }
+  .blueprint-photo img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .blueprint-photo-placeholder {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    display: flex; align-items: flex-end; justify-content: flex-start;
+    padding: 16px;
+    background: linear-gradient(135deg, #C0A678 0%, #8A6D40 55%, #5A4525 100%);
+  }
+  .blueprint-photo-placeholder-label {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.92);
+    letter-spacing: -0.005em;
+  }
+
+  /* Stat chip (bottom-left overlay on the photo) */
+  .blueprint-photo-stat {
+    position: absolute;
+    bottom: 12px; left: 12px;
+    background: rgba(26, 24, 20, 0.85);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 5px 9px;
+    border-radius: 4px;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .blueprint-photo-stat .num { color: var(--accent); font-weight: 500; }
+
+  /* Content column */
+  .blueprint-content {
+    padding: 22px 24px 20px;
+    display: flex; flex-direction: column;
+  }
+  .blueprint-title {
+    font-family: var(--font-body);
+    font-size: 1.18rem; line-height: 1.25;
+    font-weight: 600; letter-spacing: -0.018em;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .blueprint-founder {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    margin-bottom: 0.75rem;
+  }
+  .blueprint-founder strong {
+    color: var(--ink); font-weight: 500;
+  }
+  .blueprint-bullets {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 6px;
+    margin-bottom: 1rem;
+    flex: 1;
+  }
+  .blueprint-bullets li {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 0.9rem; line-height: 1.4;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .blueprint-bullets li::before {
+    content: '✓';
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Subscriber Exclusive badge — static signal, not a clickable element (Correction B) */
+  .blueprint-lock {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    display: flex; align-items: center; gap: 7px;
+    padding-bottom: 0.5rem;
+  }
+  .blueprint-lock svg { color: var(--accent); flex-shrink: 0; }
+  .blueprint-lock-text {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* "More blueprints" archive line below grid */
+  .blueprints-archive {
+    margin-top: 56px;
+    display: inline-flex; align-items: center; gap: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+  .blueprints-archive a {
+    font-family: var(--font-body);
+    font-size: 0.95rem; font-weight: 500;
+    color: var(--ink-muted); text-decoration: none;
+    transition: color 200ms var(--ease-out);
+  }
+  .blueprints-archive a:hover { color: var(--ink); }
+
+  /* Blueprints responsive */
+  @media (max-width: 880px) {
+    .blueprint-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 620px) {
+    .blueprint-card { grid-template-columns: 1fr; }
+    .blueprint-photo { aspect-ratio: 16 / 10; }
+  }
+
+  /* ─── Testimonials marquee (Section 6) ────────────────────────────── */
+  .testimonials {
+    background: var(--bg);
+    padding: 96px 32px;
+    position: relative; z-index: 2;
+    overflow: hidden;
+  }
+  .testimonials-inner { max-width: 1100px; margin: 0 auto; }
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .testimonials-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .testimonials-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 18px; height: 1px;
+    background: var(--accent);
+  }
+  .testimonials-heading {
+    font-family: var(--font-body);
+    font-size: clamp(2rem, 4.2vw, 2.85rem);
+    font-weight: 400; line-height: 1.1;
+    letter-spacing: -0.025em; color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .testimonials-heading em {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .testimonials-deck {
+    font-size: 1.025rem; line-height: 1.55;
+    color: var(--ink-muted);
+    max-width: 52ch;
+    margin: 0 auto;
+  }
+
+  /* Marquee grid */
+  .marquee-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    height: 620px;
+    overflow: hidden;
+    position: relative;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 12%,
+      #000 88%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 12%,
+      #000 88%,
+      transparent 100%
+    );
+  }
+  .marquee-col { overflow: hidden; position: relative; }
+  .marquee-track {
+    display: flex; flex-direction: column;
+    gap: 20px;
+    will-change: transform;
+  }
+  .marquee-col-1 .marquee-track { animation: marqueeUp 38s linear infinite; }
+  .marquee-col-2 .marquee-track { animation: marqueeUp 46s linear infinite reverse; }
+  .marquee-col-3 .marquee-track { animation: marqueeUp 42s linear infinite; }
+  @keyframes marqueeUp {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+  .marquee-grid:hover .marquee-track { animation-play-state: paused; }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none !important; }
+  }
+
+  /* Testimonial card */
+  .testimonial-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 200ms var(--ease-out);
+  }
+  .testimonial-card:hover { border-color: var(--line-strong); }
+  .testimonial-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    font-weight: 400; line-height: 1.45;
+    color: var(--ink);
+    margin: 0 0 1rem;
+  }
+  .testimonial-divider {
+    height: 1px; background: var(--line);
+    margin: 0 0 1rem;
+  }
+  .testimonial-attr {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .testimonial-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    user-select: none;
+  }
+  .testimonial-name {
+    font-family: var(--font-body);
+    font-size: 0.85rem; font-weight: 500;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .testimonial-loc {
+    font-family: var(--font-mono);
+    font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 3px;
+  }
+
+  /* Marquee responsive */
+  @media (max-width: 880px) {
+    .marquee-grid {
+      grid-template-columns: 1fr;
+      height: 560px;
+    }
+    .marquee-col-2,
+    .marquee-col-3 { display: none; }
+    /* Touch devices can't hover-to-pause; slow the scroll so users can read */
+    .marquee-col-1 .marquee-track { animation-duration: 60s; }
+  }
+
+  /* ─── About / Mission (Section 8) ──────────────────────────────────── */
+  .about {
+    background: var(--bg-elevated);
+    padding: 96px 32px;
+    position: relative; z-index: 2;
+  }
+  .about-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    gap: 72px;
+    align-items: start;
+  }
+
+  /* Photo column */
+  .about-photo {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+  }
+  .about-photo img {
+    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  /* Darkening gradient on bottom 40% so the founder tag stays readable */
+  .about-photo::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 40%;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+    pointer-events: none;
+  }
+  .about-photo-tag {
+    position: absolute;
+    bottom: 16px; left: 16px;
+    z-index: 2;
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #fff;
+  }
+  .about-photo-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--bg);
+  }
+
+  /* Copy column */
+  .about-copy {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .about-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 22px;
+  }
+  .about-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 18px; height: 1px;
+    background: var(--accent);
+  }
+  .about-lead {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1.35;
+    color: var(--ink);
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.005em;
+  }
+  .about-lead .accent { color: var(--accent); }
+  .about-body {
+    font-size: 1.025rem;
+    line-height: 1.65;
+    color: var(--ink-muted);
+    margin: 0 0 1rem;
+  }
+  .about-body:last-child { margin-bottom: 0; }
+
+  /* Mobile: stack with photo on top */
+  @media (max-width: 880px) {
+    .about-inner {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .about-photo {
+      max-width: 440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .about-lead { font-size: 1.25rem; }
+  }
+
+  /* ─── Final CTA (Section 7) ────────────────────────────────────────── */
+  .final-cta {
+    background:
+      radial-gradient(ellipse 62% 52% at 28% 26%, rgba(201, 150, 58, 0.11), transparent 70%),
+      radial-gradient(ellipse 56% 46% at 74% 78%, rgba(201, 150, 58, 0.08), transparent 72%),
+      var(--bg);
+    padding: clamp(5rem, 10vw, 8rem) 32px;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+  }
+  .final-cta-inner {
+    max-width: 760px; margin: 0 auto;
+    text-align: center;
+    position: relative; z-index: 2;
+  }
+  .final-cta-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  .final-cta-heading {
+    font-family: var(--font-body);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .final-cta-heading em {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .final-cta-deck {
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: var(--ink-muted);
+    max-width: 32rem;
+    margin: 0 auto 2.5rem;
+  }
+  /* Reuses .subscribe-card / .subscribe-card-label / .subscribe-card-form
+     / .subscribe-card-fine from the hero — same wrapped form pattern */
+  .final-cta .subscribe-card {
+    max-width: 28rem;
+    margin: 0 auto;
+    text-align: left;
   }
 
   /* Footer */
@@ -614,27 +975,15 @@
   .footer-link {
     font-size: 0.75rem; color: rgba(255,255,255,0.3);
     cursor: pointer; transition: color 160ms; text-decoration: none;
+    display: inline-block;
+    padding: 8px 0;
+    min-height: 44px;
+    line-height: 28px;
   }
   .footer-link:hover { color: rgba(255,255,255,0.7); }
   .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.18); }
 
-  /* Nav links */
-  .nav-links {
-    display: flex; align-items: center; gap: 20px;
-  }
-  .nav-link {
-    font-size: 0.8rem; font-weight: 500; color: var(--ink-soft);
-    text-decoration: none; transition: color 160ms;
-    letter-spacing: 0.01em;
-  }
-  .nav-link:hover { color: var(--accent); }
-  @media (max-width: 600px) { .nav-links { display: none; } }
-
-  /* Animations */
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(22px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  /* Hero entrance animation */
   @keyframes heroFadeIn {
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -642,39 +991,18 @@
   .hero-inner {
     animation: heroFadeIn 450ms var(--ease-out) both;
   }
-  .anim {
-    opacity: 0; transform: translateY(22px);
-    transition: opacity 360ms var(--ease-out), transform 360ms var(--ease-out);
-  }
-  .anim.visible { opacity: 1; transform: translateY(0); }
-  .anim-d1 { transition-delay: 80ms; }
-  .anim-d2 { transition-delay: 160ms; }
   @media (prefers-reduced-motion: reduce) {
     .hero-inner { animation: none; }
-    .anim { opacity: 1; transform: none; transition: none; }
   }
 
-  /* Responsive */
-  @media (max-width: 960px) {
-    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-    .hero-visual { display: none; }
-  }
+  /* Responsive — section-level rules live with each section above.
+     Page-level overrides for shared selectors only. */
   @media (max-width: 860px) {
-    .cards-grid, .testimonials-grid { grid-template-columns: 1fr; }
-    .about-inner { grid-template-columns: 1fr; }
-    .about-avatar-wrap { height: 340px; order: -1; }
-  }
-  /* Mobile photo swap */
-  .about-photo-desktop { display: block; }
-  .about-photo-mobile  { display: none; }
-  @media (max-width: 768px) {
-    .about-photo-desktop { display: none; }
-    .about-photo-mobile  { display: block; }
+    .cards-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 540px) {
     .hero { padding: 100px 20px 56px; }
-    .blueprints, .testimonials, .about, .dark-cta { padding: 64px 20px; }
-    .stats { gap: 24px; }
+    .blueprints, .testimonials, .about, .final-cta { padding: 64px 20px; }
     footer { padding: 20px; flex-direction: column; align-items: flex-start; gap: 14px; }
     .footer-links { flex-wrap: wrap; }
   }
@@ -682,306 +1010,473 @@
 </head>
 <body>
 
+<div class="grain-overlay" aria-hidden="true"></div>
+
 <!-- Nav -->
 <nav class="nav">
   <a href="#top" class="nav-logo">
     <img src="newsletter-plane.png" alt="Ambition Abroad" />
   </a>
-  <a href="#hero-form" class="nav-cta" onclick="event.preventDefault();document.getElementById('hero-form').scrollIntoView({behavior:'smooth',block:'center'});">Join the community</a>
+  <a href="#subscribe" class="nav-cta" onclick="event.preventDefault();document.getElementById('subscribe').scrollIntoView({behavior:'smooth',block:'start'});">Join the community</a>
 </nav>
 
 <!-- Hero -->
-<section class="hero" id="top">
+<section class="hero" id="subscribe">
   <div class="hero-inner">
     <div class="hero-grid">
 
-      <!-- Left: copy + form -->
+      <!-- Left: copy + form + stat tiles -->
       <div class="hero-text">
-        <div class="eyebrow">
-          <span class="eyebrow-rule"></span>
-          Free weekly newsletter
-          <span class="eyebrow-rule"></span>
+        <div class="hero-eyebrow">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          New letter every week
         </div>
 
-        <h1 class="hero-h1">The playbook for building a business <span style="font-family:'ITC Garamond Std',Georgia,serif;font-style:italic;color:var(--accent);">abroad</span></h1>
+        <h1 class="hero-h1">
+          The playbook for building a business <span class="accent-serif">abroad.</span>
+        </h1>
 
         <p class="hero-sub">
-          Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.
+          Every week, get the real strategies, decisions, and mistakes behind founders who left their home country and built something that actually works.
         </p>
 
-        <div id="hero-form">
-          <div data-supascribe-embed-id="652297960824" data-supascribe-subscribe></div>
-          <div style="display:flex;align-items:center;gap:10px;margin-top:16px;">
-            <div style="display:flex;align-items:center;">
-              <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=1" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-              <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=2" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-              <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=3" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-              <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=4" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-              <div style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;flex-shrink:0;box-shadow:0 1px 4px rgba(12,11,10,0.12);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=5" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-            </div>
-            <div>
-              <div style="color:#C9963A;font-size:0.7rem;margin-bottom:1px;">★★★★★</div>
-              <div style="font-size:0.72rem;color:#7A7774;">Joined by <strong style="color:#0C0B0A;font-weight:600;">1,500+ subscribers</strong></div>
-            </div>
+        <div class="subscribe-card">
+          <div class="subscribe-card-label">Subscribe — free, weekly</div>
+          <div class="subscribe-card-form">
+            <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="36434f16-f787-4876-9b3f-d5cf8a26131e"></script>
           </div>
-          <p class="opt-note">No spam. Unsubscribe any time.</p>
+          <p class="subscribe-card-fine">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            No spam. Unsubscribe anytime.
+          </p>
+        </div>
+
+        <div class="stat-tiles" role="list">
+          <div class="stat-tile" role="listitem">
+            <div class="stat-tile-num">100K<span class="sym">+</span></div>
+            <div class="stat-tile-lbl">Viewers</div>
+          </div>
+          <div class="stat-tile" role="listitem">
+            <div class="stat-tile-num">1,800<span class="sym">+</span></div>
+            <div class="stat-tile-lbl">Subscribers</div>
+          </div>
+          <div class="stat-tile" role="listitem">
+            <div class="stat-tile-num"><span class="sym">★</span> 4.9</div>
+            <div class="stat-tile-lbl">Reader rating</div>
+          </div>
         </div>
       </div>
 
-      <!-- Right: phone mockup -->
+      <!-- Right: issue card stack -->
       <div class="hero-visual">
-        <div class="phone-wrap">
-          <div class="phone-frame">
-            <div class="phone-island"></div>
-            <div class="phone-screen">
-              <div class="phone-email-bar">
-                <div class="phone-email-avatar">A</div>
-                <div>
-                  <div class="phone-email-from">Ambition Abroad</div>
-                  <div class="phone-email-subject">🗾 Blueprint #24 — Sendai, Japan</div>
-                </div>
-              </div>
-              <div class="phone-body">
-                <div class="phone-nl-eyebrow">✈ Ambition Abroad</div>
-                <div class="phone-nl-location">📍 Sendai, Japan</div>
-                <div class="phone-nl-headline">How a Canadian Built One of Japan's Biggest Supplement Brands</div>
-                <div class="phone-nl-rule"></div>
-                <div class="phone-nl-intro">The exact visa strategy, business structure, and distribution deals he used — and what nearly killed it in year one.</div>
-                <div class="phone-nl-bullets">
-                  <div>→ Navigating Japanese incorporation</div>
-                  <div>→ Landing elite athlete partnerships</div>
-                  <div>→ Scaling a physical brand from ¥0</div>
-                  <div>→ The mistake that almost ended it</div>
-                </div>
-                <div class="phone-fade"></div>
-              </div>
+        <div class="issue-stack">
+          <div class="issue-card-back issue-card-back-b" aria-hidden="true"></div>
+          <div class="issue-card-back issue-card-back-a" aria-hidden="true"></div>
+          <article class="issue-card" aria-label="Newsletter issue preview">
+            <div class="issue-masthead-row">
+              <div class="issue-masthead"><img src="newsletter-plane.png" alt="Ambition Abroad" /></div>
+              <div class="issue-date">Tue · May 19</div>
             </div>
-          </div>
+            <div class="issue-divider"></div>
+            <div class="issue-kicker">Blueprint №018 — Sendai, Japan</div>
+            <p class="issue-title">How a Canadian founder built one of Japan's biggest <em>supplement brands.</em></p>
+            <ol class="issue-list">
+              <li><span class="num">01</span> The first 90 days: choosing a city, not just a country.</li>
+              <li><span class="num">02</span> How he structured the company (and what he'd undo).</li>
+              <li><span class="num">03</span> The supplier conversation that 10x'd margins.</li>
+              <li><span class="num">04</span> What "fitting in" actually costs you as a founder.</li>
+            </ol>
+            <hr class="issue-divider-dashed">
+            <div class="issue-footer">7 min read · Reader: founders &amp; operators</div>
+          </article>
+          <div class="badge-floating badge-tr">Issue №018</div>
+          <div class="badge-floating badge-bl">Free · Weekly</div>
         </div>
       </div>
 
     </div><!-- .hero-grid -->
-
-    <!-- Stats bar -->
-    <div class="stats">
-      <div style="text-align:center;">
-        <div class="stat-num">100K+</div>
-        <div class="stat-lbl">Views</div>
-      </div>
-      <div style="text-align:center;">
-        <div class="stat-num">1,500+</div>
-        <div class="stat-lbl">Subscribers</div>
-      </div>
-      <div style="text-align:center;">
-        <div class="stat-num">Weekly</div>
-        <div class="stat-lbl">New blueprints</div>
-      </div>
-    </div>
   </div>
 </section>
 
-
 <!-- Recent Blueprints -->
-<section class="blueprints">
-  <div class="section-inner">
-    <div class="blueprints-header anim">
+<!-- TODO: When real blueprint articles exist on Beehiiv, swap card hrefs from
+  #subscribe to actual article URLs. Subscriber Exclusive badge can then
+  change to "Read full blueprint →" -->
+<section class="blueprints" id="blueprints">
+  <div class="blueprints-inner">
+    <header class="blueprints-header">
       <div>
-        <div class="section-tag">
-          <span class="section-tag-rule"></span>
-          Inside the newsletter
-        </div>
-        <h2 class="section-h2">Real playbooks. Real founders. <em>Real numbers.</em></h2>
+        <div class="blueprints-eyebrow">Recent blueprints</div>
+        <h2 class="blueprints-heading">Real<span class="rotator" aria-label="playbooks, founders, numbers"><span class="word-sizer" aria-hidden="true">playbooks</span><span class="word" aria-hidden="true">playbooks</span><span class="word" aria-hidden="true">founders</span><span class="word" aria-hidden="true">numbers</span></span></h2>
       </div>
-    </div>
-    <div class="cards-grid">
+    </header>
 
-      <!-- Card 1 -->
-      <div class="blueprint-card anim">
-        <div class="blueprint-thumb" style="background: #EDE5D8;">
-          <span class="blueprint-badge">Blueprint #24</span>
-          <img src="photo 1.jpg" alt="Sendai, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
+    <div class="blueprint-grid">
+
+      <!-- Card 1 — Michia Rohrssen -->
+      <a class="blueprint-card" href="#subscribe" onclick="event.preventDefault();document.getElementById('subscribe').scrollIntoView({behavior:'smooth',block:'start'});">
+        <div class="blueprint-photo">
+          <!-- TODO: Confirm photo is correct founder/business or swap for a better one -->
+          <img src="photo-1.jpg" alt="Michia Rohrssen" />
+          <span class="blueprint-photo-stat"><span class="num">$110M</span> founder</span>
         </div>
-        <div class="blueprint-body">
-          <div class="blueprint-location">
-            <span class="blueprint-location-dot"></span>
-            Sendai, Japan
-          </div>
-          <span class="blueprint-lock">🔒 Subscriber exclusive</span>
-          <div class="blueprint-title">How a Canadian Founder Built One of Japan's Biggest Supplement Brands</div>
+        <div class="blueprint-content">
+          <h3 class="blueprint-title">Why This $110M Founder Left Silicon Valley To Build In Japan</h3>
+          <p class="blueprint-founder"><strong>Michia Rohrssen</strong> breaks down:</p>
           <ul class="blueprint-bullets">
-            <li>Navigating Japanese incorporation &amp; distribution</li>
-            <li>Working with Japan's top athletes and entertainers</li>
-            <li>Scaling a physical product brand from zero</li>
+            <li>How to build a company worth selling</li>
+            <li>Raising $21M from investors</li>
           </ul>
-          <div class="blueprint-footer">
-            <span class="blueprint-footer-name">BodyPlus International</span>
-            <span class="blueprint-footer-cat">· Physical Product</span>
+          <div class="blueprint-lock">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span class="blueprint-lock-text">Subscriber Exclusive</span>
           </div>
-          <a href="#hero-form" class="blueprint-card-cta" onclick="event.preventDefault();document.getElementById('hero-form').scrollIntoView({behavior:'smooth',block:'center'});">Read this blueprint free →</a>
         </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="blueprint-card anim anim-d1">
-        <div class="blueprint-thumb" style="background: #E8DDD0;">
-          <span class="blueprint-badge">Blueprint #23</span>
-          <img src="Photo 2.jpg" alt="Tokyo, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
-        </div>
-        <div class="blueprint-body">
-          <div class="blueprint-location">
-            <span class="blueprint-location-dot"></span>
-            Tokyo, Japan
-          </div>
-          <span class="blueprint-lock">🔒 Subscriber exclusive</span>
-          <div class="blueprint-title">The Turkish Entrepreneur Who Built Japan's Leading Interpretation App</div>
-          <ul class="blueprint-bullets">
-            <li>Running a fully remote team from Tokyo</li>
-            <li>Acquiring investment from Japanese investors</li>
-            <li>How to solve the two-sided marketplace problem</li>
-          </ul>
-          <div class="blueprint-footer">
-            <span class="blueprint-footer-name">Oyraa</span>
-            <span class="blueprint-footer-cat">· Tech Business</span>
-          </div>
-          <a href="#hero-form" class="blueprint-card-cta" onclick="event.preventDefault();document.getElementById('hero-form').scrollIntoView({behavior:'smooth',block:'center'});">Read this blueprint free →</a>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="blueprint-card anim anim-d2">
-        <div class="blueprint-thumb" style="background: #E4D8C8;">
-          <span class="blueprint-badge">Blueprint #22</span>
-          <img src="Photo 3.jpg" alt="Tokyo, Japan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.92;" />
-        </div>
-        <div class="blueprint-body">
-          <div class="blueprint-location">
-            <span class="blueprint-location-dot"></span>
-            Tokyo, Japan
-          </div>
-          <span class="blueprint-lock">🔒 Subscriber exclusive</span>
-          <div class="blueprint-title">How This New Zealand Couple Built a Coffee Empire in Japan</div>
-          <ul class="blueprint-bullets">
-            <li>What to look for when choosing a cafe location</li>
-            <li>Hiring local staff without the language on day one</li>
-            <li>How to turn visitors into loyal repeat customers</li>
-          </ul>
-          <div class="blueprint-footer">
-            <span class="blueprint-footer-name">iki Roastery</span>
-            <span class="blueprint-footer-cat">· Hospitality / F&amp;B</span>
-          </div>
-          <a href="#hero-form" class="blueprint-card-cta" onclick="event.preventDefault();document.getElementById('hero-form').scrollIntoView({behavior:'smooth',block:'center'});">Read this blueprint free →</a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Section CTA -->
-    <div class="blueprints-join-cta anim">
-      <a href="#hero-form" class="blueprints-join-btn" onclick="event.preventDefault();document.getElementById('hero-form').scrollIntoView({behavior:'smooth',block:'center'});">
-        Get every blueprint free — join 1,500+ subscribers
       </a>
-      <p style="margin-top:10px;font-size:0.72rem;color:var(--gray-400);">No spam. Unsubscribe any time.</p>
+
+      <!-- Card 2 — Oya Koc -->
+      <a class="blueprint-card" href="#subscribe" onclick="event.preventDefault();document.getElementById('subscribe').scrollIntoView({behavior:'smooth',block:'start'});">
+        <div class="blueprint-photo">
+          <img src="photo-2.jpg" alt="Oya Koc" />
+          <span class="blueprint-photo-stat"><span class="num">$1M+</span> App</span>
+        </div>
+        <div class="blueprint-content">
+          <h3 class="blueprint-title">How A Turkish Entrepreneur Built Japan's Leading Interpretation App</h3>
+          <p class="blueprint-founder"><strong>Oya Koc</strong> breaks down:</p>
+          <ul class="blueprint-bullets">
+            <li>Raising from Japanese VCs as a foreigner</li>
+            <li>Solving the new-marketplace cold-start problem</li>
+          </ul>
+          <div class="blueprint-lock">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span class="blueprint-lock-text">Subscriber Exclusive</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 3 — Kim Harase -->
+      <a class="blueprint-card" href="#subscribe" onclick="event.preventDefault();document.getElementById('subscribe').scrollIntoView({behavior:'smooth',block:'start'});">
+        <div class="blueprint-photo">
+          <!-- TODO: Confirm photo is correct founder/business or swap for a better one -->
+          <img src="photo-3.jpg" alt="Kim Harase" />
+          <span class="blueprint-photo-stat"><span class="num">900</span> cups / day</span>
+        </div>
+        <div class="blueprint-content">
+          <h3 class="blueprint-title">How A New Zealand Couple Built A Coffee Empire In Japan</h3>
+          <p class="blueprint-founder"><strong>Kim Harase</strong> breaks down:</p>
+          <ul class="blueprint-bullets">
+            <li>Choosing a café location that prints money</li>
+            <li>Hiring local staff with zero language on day one</li>
+          </ul>
+          <div class="blueprint-lock">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span class="blueprint-lock-text">Subscriber Exclusive</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 4 — Mike Sunda -->
+      <a class="blueprint-card" href="#subscribe" onclick="event.preventDefault();document.getElementById('subscribe').scrollIntoView({behavior:'smooth',block:'start'});">
+        <div class="blueprint-photo">
+          <img src="mike-sunda.jpg" alt="Mike Sunda" />
+          <span class="blueprint-photo-stat"><span class="num">$10M</span> agency</span>
+        </div>
+        <div class="blueprint-content">
+          <h3 class="blueprint-title">How A Foreigner Built A $10M Creative Agency In Japan</h3>
+          <p class="blueprint-founder"><strong>Mike Sunda</strong> breaks down:</p>
+          <ul class="blueprint-bullets">
+            <li>Winning Japanese enterprise clients as an outsider</li>
+            <li>Building a creative team that bridges two cultures</li>
+          </ul>
+          <div class="blueprint-lock">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span class="blueprint-lock-text">Subscriber Exclusive</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="blueprints-archive">
+      <a href="#subscribe" onclick="event.preventDefault();document.getElementById('subscribe').scrollIntoView({behavior:'smooth',block:'start'});">Read the full archive →</a>
     </div>
   </div>
 </section>
 
 <!-- Testimonials -->
+<!-- TODO: Replace with real testimonials before launch. Pull from YouTube
+  comments, DM engaged viewers, or remove this section entirely until real
+  ones exist. The current quotes are placeholder examples only. -->
 <section class="testimonials">
-  <div class="section-inner">
-    <div class="section-tag">
-      <span class="section-tag-rule"></span>
-      Community
-    </div>
-    <h2 class="section-h2 anim">From builders <em>just like you</em></h2>
-    <div class="testimonials-grid">
-      <div class="testimonial-card anim">
-        <p class="testimonial-quote">"Finally a show that treats expat entrepreneurship seriously. The blueprint newsletter alone gave me more useful information than 6 months of Googling."</p>
-        <div class="testimonial-divider"></div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <img src="https://i.pravatar.cc/56?img=12" alt="Alex W." class="testimonial-avatar" style="object-fit:cover;" />
-          <div>
-            <div class="testimonial-name">Alex W.</div>
-            <div class="testimonial-loc">Bangkok, Thailand</div>
-          </div>
+  <div class="testimonials-inner">
+    <header class="testimonials-header">
+      <div class="testimonials-eyebrow">From the community</div>
+      <h2 class="testimonials-heading">Read by builders <em>just like you.</em></h2>
+      <p class="testimonials-deck">Founders, operators, and people still figuring out the move. From Lisbon to Bangkok to São Paulo.</p>
+    </header>
+
+    <div class="marquee-grid" aria-label="Reader testimonials">
+      <!-- Column 1 (scrolls up, 38s) — T1, T4, T7 × 2 -->
+      <div class="marquee-col marquee-col-1">
+        <div class="marquee-track">
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">Finally a show that treats expat entrepreneurship seriously. The newsletter gave me more useful information than six months of Googling.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar" aria-hidden="true">A</div>
+              <div>
+                <div class="testimonial-name">Alex W.</div>
+                <div class="testimonial-loc">Bangkok, Thailand</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">What I love most is the lack of fluff. Every issue answers a question I was actually paying for answers to.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar" aria-hidden="true">D</div>
+              <div>
+                <div class="testimonial-name">Devika S.</div>
+                <div class="testimonial-loc">Singapore</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">I came for the Japan stories. I stayed because the frameworks apply to where I'm building — São Paulo.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar" aria-hidden="true">L</div>
+              <div>
+                <div class="testimonial-name">Lucas P.</div>
+                <div class="testimonial-loc">São Paulo, Brazil</div>
+              </div>
+            </figcaption>
+          </figure>
+          <!-- Loop duplicates (hidden from screen readers) -->
+          <figure class="testimonial-card" aria-hidden="true">
+            <blockquote class="testimonial-quote">Finally a show that treats expat entrepreneurship seriously. The newsletter gave me more useful information than six months of Googling.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar">A</div>
+              <div>
+                <div class="testimonial-name">Alex W.</div>
+                <div class="testimonial-loc">Bangkok, Thailand</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card" aria-hidden="true">
+            <blockquote class="testimonial-quote">What I love most is the lack of fluff. Every issue answers a question I was actually paying for answers to.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar">D</div>
+              <div>
+                <div class="testimonial-name">Devika S.</div>
+                <div class="testimonial-loc">Singapore</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card" aria-hidden="true">
+            <blockquote class="testimonial-quote">I came for the Japan stories. I stayed because the frameworks apply to where I'm building — São Paulo.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar">L</div>
+              <div>
+                <div class="testimonial-name">Lucas P.</div>
+                <div class="testimonial-loc">São Paulo, Brazil</div>
+              </div>
+            </figcaption>
+          </figure>
         </div>
       </div>
-      <div class="testimonial-card anim anim-d1">
-        <p class="testimonial-quote">"I was on the fence about moving to Japan to start my agency. One episode basically made the decision for me. Put in my notice two weeks later."</p>
-        <div class="testimonial-divider"></div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <img src="https://i.pravatar.cc/56?img=20" alt="Maria C." class="testimonial-avatar" style="object-fit:cover;" />
-          <div>
-            <div class="testimonial-name">Maria C.</div>
-            <div class="testimonial-loc">Lisbon, Portugal</div>
-          </div>
+
+      <!-- Column 2 (scrolls down, 46s) — T2, T5, T8 × 2 -->
+      <div class="marquee-col marquee-col-2">
+        <div class="marquee-track">
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">The only newsletter I open every week. Dense, honest, and actionable. The visa and incorporation breakdowns alone are worth subscribing for.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar" aria-hidden="true">J</div>
+              <div>
+                <div class="testimonial-name">James T.</div>
+                <div class="testimonial-loc">Toronto, Canada</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">Watched the café episode twice. Took notes. We're four months into opening our own spot in Lisbon.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar" aria-hidden="true">R</div>
+              <div>
+                <div class="testimonial-name">Ronan O.</div>
+                <div class="testimonial-loc">Lisbon, Portugal</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">The kind of newsletter where you forward it to your spouse because it explains something you can't articulate yet.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar" aria-hidden="true">S</div>
+              <div>
+                <div class="testimonial-name">Sara K.</div>
+                <div class="testimonial-loc">Amsterdam, NL</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card" aria-hidden="true">
+            <blockquote class="testimonial-quote">The only newsletter I open every week. Dense, honest, and actionable. The visa and incorporation breakdowns alone are worth subscribing for.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar">J</div>
+              <div>
+                <div class="testimonial-name">James T.</div>
+                <div class="testimonial-loc">Toronto, Canada</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card" aria-hidden="true">
+            <blockquote class="testimonial-quote">Watched the café episode twice. Took notes. We're four months into opening our own spot in Lisbon.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar">R</div>
+              <div>
+                <div class="testimonial-name">Ronan O.</div>
+                <div class="testimonial-loc">Lisbon, Portugal</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card" aria-hidden="true">
+            <blockquote class="testimonial-quote">The kind of newsletter where you forward it to your spouse because it explains something you can't articulate yet.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar">S</div>
+              <div>
+                <div class="testimonial-name">Sara K.</div>
+                <div class="testimonial-loc">Amsterdam, NL</div>
+              </div>
+            </figcaption>
+          </figure>
         </div>
       </div>
-      <div class="testimonial-card anim anim-d2">
-        <p class="testimonial-quote">"The only newsletter I open every week. Dense, honest, and actionable. The visa and incorporation breakdowns alone are worth subscribing for."</p>
-        <div class="testimonial-divider"></div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <img src="https://i.pravatar.cc/56?img=15" alt="James T." class="testimonial-avatar" style="object-fit:cover;" />
-          <div>
-            <div class="testimonial-name">James T.</div>
-            <div class="testimonial-loc">Toronto, Canada</div>
-          </div>
+
+      <!-- Column 3 (scrolls up, 42s) — T3, T6, T9 × 2 -->
+      <div class="marquee-col marquee-col-3">
+        <div class="marquee-track">
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">I was on the fence about moving to Japan. One episode basically made the decision for me.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar" aria-hidden="true">M</div>
+              <div>
+                <div class="testimonial-name">Maria C.</div>
+                <div class="testimonial-loc">Lisbon, Portugal</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">The honesty is what hooked me. Most expat content is either Bali fantasy or visa spreadsheets. This is neither.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar" aria-hidden="true">N</div>
+              <div>
+                <div class="testimonial-name">Nikolai V.</div>
+                <div class="testimonial-loc">Berlin, Germany</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">Best decision I made this year was subscribing. Second best was reaching out to two of the founders featured.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar" aria-hidden="true">H</div>
+              <div>
+                <div class="testimonial-name">Hiroshi T.</div>
+                <div class="testimonial-loc">Osaka, Japan</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card" aria-hidden="true">
+            <blockquote class="testimonial-quote">I was on the fence about moving to Japan. One episode basically made the decision for me.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar">M</div>
+              <div>
+                <div class="testimonial-name">Maria C.</div>
+                <div class="testimonial-loc">Lisbon, Portugal</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card" aria-hidden="true">
+            <blockquote class="testimonial-quote">The honesty is what hooked me. Most expat content is either Bali fantasy or visa spreadsheets. This is neither.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar">N</div>
+              <div>
+                <div class="testimonial-name">Nikolai V.</div>
+                <div class="testimonial-loc">Berlin, Germany</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card" aria-hidden="true">
+            <blockquote class="testimonial-quote">Best decision I made this year was subscribing. Second best was reaching out to two of the founders featured.</blockquote>
+            <div class="testimonial-divider"></div>
+            <figcaption class="testimonial-attr">
+              <div class="testimonial-avatar">H</div>
+              <div>
+                <div class="testimonial-name">Hiroshi T.</div>
+                <div class="testimonial-loc">Osaka, Japan</div>
+              </div>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- About -->
-<section class="about">
+<!-- About / Mission -->
+<section class="about" id="about">
   <div class="about-inner">
-    <div class="anim">
-      <div class="about-label">
-        <span style="display:inline-block;width:16px;height:1px;background:var(--accent)"></span>
-        The Mission
-      </div>
-      <h2 class="about-h2">Built for people serious about <em>building abroad</em></h2>
-      <p class="about-body">Ambition Abroad started with a simple frustration.</p>
-      <p class="about-body">When I moved to Japan from Sydney at 21, I had no idea what I was doing, and I couldn't find anything about how to actually build a business abroad.<br><br>Everything was about travel, lifestyle, or surface-level advice. Nothing about real people doing real business.</p>
-      <p class="about-body">So I built what I wish existed.</p>
-      <p class="about-body">Each episode follows a founder who left their home country and built something that actually works. No lifestyle content. No vague inspiration. Just real decisions, real mistakes, and real playbooks.</p>
-      <p class="about-body" style="margin-bottom:0;">The newsletter is where it goes deeper. Full breakdowns, real numbers, and the lessons you can actually apply.<br><br>This is the resource I wish I had when I started.</p>
+
+    <!-- Photo column (left on desktop, top on mobile) -->
+    <div class="about-photo">
+      <picture>
+        <source media="(max-width: 880px)" srcset="photo-5.jpg">
+        <img src="photo-4.jpg" alt="Takumi Shyegun, host of Ambition Abroad" />
+      </picture>
+      <div class="about-photo-tag" aria-hidden="true">The host · Takumi Shyegun</div>
     </div>
-    <div class="about-avatar-wrap anim anim-d1">
-      <img src="Photo 4.jpg" alt="Takumi Shyegun" class="about-photo-desktop" style="width:100%;height:100%;object-fit:cover;object-position:center;" />
-      <img src="Photo 5.jpg" alt="Takumi Shyegun" class="about-photo-mobile" style="width:100%;height:100%;object-fit:cover;object-position:center top;" />
+
+    <!-- Copy column -->
+    <div class="about-copy">
+      <h2 class="about-eyebrow">The mission</h2>
+      <p class="about-lead">When I moved to Japan from Sydney at 21, I couldn't find <span class="accent">anything</span> about how to actually build a business abroad.</p>
+      <p class="about-body">Everything was travel, lifestyle, or surface-level advice. Nothing about real people running real businesses. So I built what I wish existed.</p>
+      <p class="about-body">Each episode follows a founder who left home and built something that actually works. No lifestyle content. No vague inspiration. Just real decisions, real mistakes, and real playbooks.</p>
+      <p class="about-body">The newsletter is where it goes deeper. Full breakdowns, real numbers, and the lessons you can apply. This is the resource I needed at 21.</p>
     </div>
+
   </div>
 </section>
 
-<!-- Dark CTA -->
-<section class="dark-cta">
-  <div class="dark-cta-inner anim">
-    <div class="dark-eyebrow">
-      <span class="dark-eyebrow-rule"></span>
-      Join the Community
-      <span class="dark-eyebrow-rule"></span>
-    </div>
-    <h2 class="dark-h2">Stop overthinking.</h2>
-    <span class="dark-h2-serif">Start building.</span>
-    <p class="dark-sub" style="margin-bottom:32px;">
-      Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.
-    </p>
-    <div class="dark-form">
-      <div data-supascribe-embed-id="652297960824" data-supascribe-subscribe></div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;">
-        <div style="display:flex;align-items:center;">
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=7" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=8" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=9" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-right:-9px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=10" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-          <div style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden;"><img src="https://i.pravatar.cc/60?img=11" alt="" width="30" height="30" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
-        </div>
-        <div style="text-align:left;">
-          <div style="color:#C9963A;font-size:0.7rem;margin-bottom:1px;">★★★★★</div>
-          <div style="font-size:0.72rem;color:rgba(255,255,255,0.55);">Joined by <strong style="color:#fff;font-weight:600;">1,500+ subscribers</strong></div>
-        </div>
+<!-- Final CTA -->
+<section class="final-cta" id="final-cta">
+  <div class="final-cta-inner">
+    <div class="final-cta-eyebrow">Stop overthinking</div>
+    <h2 class="final-cta-heading">Start <em>building</em>.</h2>
+    <p class="final-cta-deck">Every week, the real strategies, decisions, and mistakes behind founders building businesses outside their home country.</p>
+
+    <div class="subscribe-card">
+      <div class="subscribe-card-label">Subscribe — free, weekly</div>
+      <div class="subscribe-card-form">
+        <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="36434f16-f787-4876-9b3f-d5cf8a26131e"></script>
       </div>
-      <p class="dark-note">No spam. Unsubscribe any time.</p>
+      <p class="subscribe-card-fine">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        No spam. Unsubscribe anytime.
+      </p>
     </div>
   </div>
 </section>
@@ -999,143 +1494,6 @@
   </div>
   <div class="footer-copy">© 2026 Ambition Abroad</div>
 </footer>
-
-<script>
-  // ── Substack URL — update this to your actual Substack publication URL
-  const SUBSTACK_URL = 'https://ambitionabroad.substack.com';
-
-  function handleSubscribe(email, formEl, successEl) {
-    // Redirect to Substack subscribe with email pre-filled
-    const dest = `${SUBSTACK_URL}?email=${encodeURIComponent(email)}`;
-    window.open(dest, '_blank');
-    formEl.style.display = 'none';
-    successEl.style.display = 'block';
-  }
-
-  document.getElementById('heroForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('heroEmail').value;
-    handleSubscribe(email, this, document.getElementById('heroSuccess'));
-  });
-
-  document.getElementById('darkForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('darkEmail').value;
-    handleSubscribe(email, this, document.getElementById('darkSuccess'));
-  });
-
-  // Tweaks protocol
-  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-    "accentColor": "#C9963A",
-    "heroHeadline": "The playbook for building a business abroad",
-    "heroSubhead": "Every week, get the exact strategies, decisions, and mistakes behind real founders building businesses around the world.",
-    "substackUrl": "https:\/\/ambitionabroad.substack.com",
-    "showAboutSection": true
-  }/*EDITMODE-END*/;
-
-  let tweaks = {...TWEAK_DEFAULTS};
-
-  function applyTweaks(t) {
-    document.documentElement.style.setProperty('--accent', t.accentColor);
-    document.documentElement.style.setProperty('--accent-deep', shadeColor(t.accentColor, -25));
-    document.documentElement.style.setProperty('--accent-pale', shadeColor(t.accentColor, 55));
-    const h1 = document.querySelector('.hero-h1');
-    if (t.heroHeadline.endsWith(' abroad')) {
-      const base = t.heroHeadline.slice(0, t.heroHeadline.lastIndexOf('building'));
-      const last = t.heroHeadline.slice(t.heroHeadline.lastIndexOf('building'), -7);
-      h1.innerHTML = base + '<span style="white-space:nowrap">' + last + ' <span style="font-family:\'ITC Garamond Std\',Georgia,serif;font-style:italic;color:var(--accent);">abroad</span></span>';
-    } else {
-      h1.textContent = t.heroHeadline;
-    }
-    document.querySelector('.hero-sub').textContent = t.heroSubhead;
-    document.querySelector('section.about').style.display = t.showAboutSection ? '' : 'none';
-    window.SUBSTACK_URL_LIVE = t.substackUrl;
-  }
-
-  function shadeColor(hex, pct) {
-    const num = parseInt(hex.replace('#',''), 16);
-    const r = Math.min(255, Math.max(0, (num >> 16) + pct));
-    const g = Math.min(255, Math.max(0, ((num >> 8) & 0xff) + pct));
-    const b = Math.min(255, Math.max(0, (num & 0xff) + pct));
-    return '#' + ((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1);
-  }
-
-  applyTweaks(tweaks);
-
-  window.addEventListener('message', e => {
-    if (e.data?.type === '__activate_edit_mode') showTweaks();
-    if (e.data?.type === '__deactivate_edit_mode') hideTweaks();
-  });
-  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
-
-  function showTweaks() { document.getElementById('tweaksPanel').style.display = 'flex'; }
-  function hideTweaks() { document.getElementById('tweaksPanel').style.display = 'none'; }
-
-  function setTweak(key, val) {
-    tweaks[key] = val;
-    applyTweaks(tweaks);
-    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
-  }
-</script>
-
-<!-- Tweaks Panel -->
-<div id="tweaksPanel" style="display:none; position:fixed; bottom:24px; right:24px; z-index:9999;
-  background:#fff; border:1px solid #E0DDD8; border-radius:8px; box-shadow:0 8px 32px rgba(12,11,10,0.13);
-  width:268px; flex-direction:column; font-family:'Inter Tight',sans-serif; overflow:hidden;">
-  <div style="padding:14px 16px 12px; border-bottom:1px solid #EDEBE8; display:flex; align-items:center; justify-content:space-between;">
-    <span style="font-size:0.78rem; font-weight:600; color:#0C0B0A; letter-spacing:0.02em;">Tweaks</span>
-    <button onclick="hideTweaks(); window.parent.postMessage({type:'__edit_mode_dismissed'},'*')"
-      style="background:none;border:none;cursor:pointer;color:#A8A39C;font-size:1rem;line-height:1;padding:0;">✕</button>
-  </div>
-  <div style="padding:14px 16px; display:flex; flex-direction:column; gap:16px; overflow-y:auto; max-height:420px;">
-
-    <div>
-      <label style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#A8A39C;display:block;margin-bottom:6px;">Accent color</label>
-      <input type="color" value="#C9963A" oninput="setTweak('accentColor', this.value)"
-        style="width:100%;height:32px;border:1px solid #E0DDD8;border-radius:4px;cursor:pointer;padding:2px 4px;" />
-    </div>
-
-    <div>
-      <label style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#A8A39C;display:block;margin-bottom:6px;">Hero headline</label>
-      <input type="text" value="The playbook for building a business"
-        oninput="setTweak('heroHeadline', this.value)"
-        style="width:100%;padding:8px 10px;border:1px solid #E0DDD8;border-radius:4px;font-family:'Inter Tight',sans-serif;font-size:0.82rem;color:#0C0B0A;outline:none;" />
-    </div>
-
-    <div>
-      <label style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#A8A39C;display:block;margin-bottom:6px;">Substack URL</label>
-      <input type="text" value="https://ambitionabroad.substack.com"
-        oninput="setTweak('substackUrl', this.value)"
-        style="width:100%;padding:8px 10px;border:1px solid #E0DDD8;border-radius:4px;font-family:'Inter Tight',sans-serif;font-size:0.75rem;color:#0C0B0A;outline:none;" />
-    </div>
-
-    <div style="display:flex;align-items:center;justify-content:space-between;">
-      <label style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#A8A39C;">Show About section</label>
-      <button id="aboutToggle" onclick="
-        const cur = tweaks.showAboutSection;
-        setTweak('showAboutSection', !cur);
-        this.textContent = !cur ? 'On' : 'Off';
-        this.style.background = !cur ? '#C9963A' : '#E0DDD8';
-        this.style.color = !cur ? '#fff' : '#68635C';
-      " style="font-family:'Inter Tight',sans-serif;font-size:0.72rem;font-weight:600;border:none;border-radius:4px;padding:5px 12px;cursor:pointer;background:#C9963A;color:#fff;">On</button>
-    </div>
-
-  </div>
-</div>
-
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.anim').forEach(el => observer.observe(el));
-</script>
-
-<script src="https://js.supascribe.com/v1/loader/ycHsOPdWZpO1d3kPx52nio86bKr2.js" async></script>
 
 </body>
 </html>
