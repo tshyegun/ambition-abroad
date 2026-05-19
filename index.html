@@ -629,11 +629,10 @@
   }
   .blueprints-archive a:hover { color: var(--ink); }
 
-  /* Blueprints responsive */
+  /* Blueprints responsive — mobile layout and mobile <picture> source both
+     activate at <=880px so wide photos always pair with the 16:10 stacked card. */
   @media (max-width: 880px) {
     .blueprint-grid { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 620px) {
     .blueprint-card { grid-template-columns: 1fr; }
     .blueprint-photo { aspect-ratio: 16 / 10; }
   }
