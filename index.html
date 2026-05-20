@@ -164,7 +164,7 @@
   /* Hero headline */
   .hero-h1 {
     font-family: var(--font-body);
-    font-size: clamp(2.5rem, 6.2vw, 4.75rem);
+    font-size: clamp(2rem, 6.2vw, 4.75rem);
     font-weight: 400; letter-spacing: -0.03em;
     line-height: 1.05; color: var(--ink);
     margin-bottom: 24px;
@@ -434,23 +434,17 @@
   }
 
   /* Rotating word (Correction C)
-     Note: using clip-path instead of overflow:hidden because inline-block
-     with overflow!=visible falls under CSS 2.1 §10.8.1 — the box's baseline
-     becomes the bottom-margin-edge instead of its text baseline. That made
-     the visible word sit ~16px above "Real". clip-path clips visually
-     without touching baseline calculation. */
+     No clip-path / overflow clip: any rectangular clip (clip-path inset, overflow
+     hidden) clipped the italic glyph overhang ("f" hook, "p" bowl extend ~6px left
+     of the origin) on iOS Safari regardless of negative-inset or padding tricks —
+     WebKit clips the abs-positioned word against a different reference box than
+     Chromium. Vertical containment isn't needed because the slide keyframes set
+     opacity:0 at both displaced extremes, so displaced words are invisible. */
   .rotator {
     position: relative;
     display: inline-block;
     overflow: visible;
-    /* Vertical clip only — slide animation is pure translateY, no horizontal motion.
-       Horizontal room for italic glyph overhang ("f" hook, "p" bowl extend ~6px
-       left of the glyph origin) comes from positive padding-left + a compensating
-       negative margin-left, NOT a negative clip-path inset — WebKit/iOS Safari
-       clamps negative inset() values to 0, which would slice the overhang. */
-    clip-path: inset(0);
-    margin-left: -0.44em;
-    padding: 0.15em 0.6em;
+    margin-left: 0.16em;
     vertical-align: baseline;
   }
   .rotator .word-sizer {
@@ -459,7 +453,7 @@
   }
   .rotator .word {
     position: absolute;
-    left: 0.6em; top: 0.15em;
+    left: 0; top: 0;
     white-space: nowrap;
     color: var(--accent);
     opacity: 0;
